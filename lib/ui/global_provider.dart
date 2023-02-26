@@ -27,6 +27,8 @@ class GlobalProvider with ChangeNotifier {
   int currentPeriodIndex_ = 1;
   String get currentPeriodCode => "A00$currentPeriodIndex";
 
+  bool isDarkMode_ = false;
+
   // Updaters //
   bool get isUserLoggedIn => isUserLoggedIn_;
   set isUserLoggedIn(bool value) {
@@ -67,6 +69,12 @@ class GlobalProvider with ChangeNotifier {
   int get currentPeriodIndex => currentPeriodIndex_;
   set currentPeriodIndex(int value) {
     currentPeriodIndex_ = value;
+    notifyListeners();
+  }
+
+  bool get isDarkMode => isDarkMode_;
+  set isDarkMode(bool value) {
+    isDarkMode_ = value;
     notifyListeners();
   }
 }

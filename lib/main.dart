@@ -17,17 +17,14 @@ class MoyennesED extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.dark,
+        value: GlobalProvider.instance.isDarkMode ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark,
         child: Scaffold(
           backgroundColor: Styles.backgroundColor,
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: ChangeNotifierProvider(
-              create: (_) => GlobalProvider.instance,
-              builder: (context, child) => Container(
-                key: MainAppKey.globalKey,
-                child: const HomeScreen(),
-              ),
+          body: ChangeNotifierProvider(
+            create: (_) => GlobalProvider.instance,
+            builder: (context, child) => Container(
+              key: MainAppKey.globalKey,
+              child: const HomeScreen(),
             ),
           ),
         ),

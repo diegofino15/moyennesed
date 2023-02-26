@@ -1,11 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:moyennesed/ui/global_provider.dart';
+import 'package:provider/provider.dart';
 
 class Styles {
+  static const Map<String, List<Color>> colors = {
+    "background": [
+      Color(0xFFececec),
+      Color(0xFF0D1117),
+    ],
+    "widgetBackground": [
+      Color(0xFFf6f6f6),
+      Color(0xFF21262D),
+    ],
+    "mainText": [
+      Colors.black,
+      Colors.white
+    ],
+    "subtitleText": [
+      Colors.black54,
+      Colors.white60
+    ],
+  };
+  static Color getColor(String key) => Provider.of<GlobalProvider>(MainAppKey.globalKey.currentContext!, listen: false).isDarkMode ? colors[key]![1] : colors[key]![0];
+
   // Main background color of the app //
-  static const Color backgroundColor = Color(0xFFececec);
+  static Color get backgroundColor => getColor("background");
 
   // Main widget background color //
-  static const Color mainWidgetBackgroundColor = Color(0xFFf6f6f6);
+  static Color get mainWidgetBackgroundColor => getColor("widgetBackground");
 
   // Colors for each subject //
   static const List<List<Color>> subjectColors = [
@@ -31,35 +53,38 @@ class Styles {
   }
 
   // All the TextStyles used in the app //
-  static const TextStyle pageTitleTextStyle = TextStyle(
+  static TextStyle get pageTitleTextStyle => TextStyle(
     fontSize: 20.0,
     fontWeight: FontWeight.bold,
-    fontFamily: "Bitter"
+    fontFamily: "Bitter",
+    color: getColor("mainText")
   );
 
-  static const TextStyle sectionTitleTextStyle = TextStyle(
+  static TextStyle get sectionTitleTextStyle => TextStyle(
     fontSize: 18.0,
     fontWeight: FontWeight.w600,
-    fontFamily: "Montserrat"
+    fontFamily: "Montserrat",
+    color: getColor("mainText")
   );
 
-  static const TextStyle itemTitleTextStyle = TextStyle(
+  static TextStyle get itemTitleTextStyle => TextStyle(
     fontSize: 17.0,
     fontWeight: FontWeight.w600,
-    fontFamily: "Montserrat"
+    fontFamily: "Montserrat",
+    color: getColor("mainText")
   );
 
-  static const TextStyle itemTextStyle = TextStyle(
+  static TextStyle get itemTextStyle => TextStyle(
     fontSize: 15.0,
-    color: Colors.black54,
-    fontFamily: "Montserrat"
+    fontFamily: "Montserrat",
+    color: getColor("subtitleText")
   );
 
-  static const TextStyle numberTextStyle = TextStyle(
+  static TextStyle get numberTextStyle => TextStyle(
     fontSize: 32.0,
-    color: Colors.black87,
     fontFamily: "Bitter",
     fontWeight: FontWeight.bold,
+    color: getColor("mainText"),
   );
 }
 

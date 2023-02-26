@@ -27,9 +27,9 @@ class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
     return Container(
       height: 260.0,
       padding: const EdgeInsets.all(20.0),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Styles.backgroundColor,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,7 +38,7 @@ class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             // crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text("Choisir une période", style: Styles.sectionTitleTextStyle),
+              Text("Choisir une période", style: Styles.sectionTitleTextStyle),
               SizedBox(
                 height: 30.0,
                 child: OutlinedButton(
@@ -64,9 +64,9 @@ class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
                       width: MediaQuery.of(context).size.width,
                       height: 50.0,
                       padding: const EdgeInsets.only(left: 15.0, right: 10, top: 3.0),
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         color: Styles.mainWidgetBackgroundColor,
-                        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,7 +74,7 @@ class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
                           Text(period.name, style: Styles.itemTitleTextStyle),
                           GestureDetector(
                             onTap: () => setState(() => { selectedIndex = period.index }),
-                            child: Icon(selectedIndex == period.index ? FluentIcons.checkmark_circle_24_filled : FluentIcons.circle_24_regular, size: 30.0),
+                            child: Icon(selectedIndex == period.index ? FluentIcons.checkmark_circle_24_filled : FluentIcons.circle_24_regular, size: 30.0, color: Styles.getColor("mainText")),
                           ),
                         ],
                       ),

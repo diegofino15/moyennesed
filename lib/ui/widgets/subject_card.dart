@@ -53,8 +53,8 @@ class SubjectCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(subject.name, style: Styles.itemTitleTextStyle),
-                  Text(subject.grades.isNotEmpty ? formatDouble(subject.getAverage()) : "--", style: Styles.numberTextStyle.copyWith(fontSize: 22.0)),
+                  Text(subject.name, style: Styles.itemTitleTextStyle.copyWith(color: Colors.black)),
+                  Text(subject.grades.isNotEmpty ? formatDouble(subject.getAverage()) : "--", style: Styles.numberTextStyle.copyWith(fontSize: 22.0, color: Colors.black)),
                 ],
               ),
             ),
@@ -71,7 +71,7 @@ class SubjectCard extends StatelessWidget {
                 itemCount: subject.grades.length,
                 itemBuilder: (context, index) {
                   Grade grade = subject.grades[index];
-                  return GestureDetector(onTap: () => handleGradePopup(context, grade), child: Text(grade.showableValue, style: Styles.numberTextStyle.copyWith(fontSize: 20.0)));
+                  return GestureDetector(onTap: () => handleGradePopup(context, grade), child: Text(grade.showableValue, style: Styles.numberTextStyle.copyWith(fontSize: 20.0, color: Colors.black)));
                 },
                 separatorBuilder: (context, index) {
                   return Gap(index == subject.grades.length - 1 ? 0.0 : 15.0);

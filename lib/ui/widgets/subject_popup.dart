@@ -17,9 +17,9 @@ class SubjectPopup extends StatelessWidget {
     return Container(
       height: 140.0,
       padding: const EdgeInsets.all(20.0),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Styles.backgroundColor,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
       ),
       child: Row(
         children: [
@@ -30,7 +30,7 @@ class SubjectPopup extends StatelessWidget {
               color: Styles.getSubjectColor(subject.code, 0),
               borderRadius: const BorderRadius.all(Radius.circular(20.0)),
             ),
-            child: Center(child: Text(subject.grades.isNotEmpty ? formatDouble(subject.getAverage()) : "--", style: Styles.numberTextStyle)),
+            child: Center(child: Text(subject.grades.isNotEmpty ? formatDouble(subject.getAverage()) : "--", style: Styles.numberTextStyle.copyWith(color: Colors.black))),
           ),
           const Gap(20.0),
           SizedBox(
@@ -46,7 +46,7 @@ class SubjectPopup extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Classe : ${subject.grades.isNotEmpty ? formatDouble(subject.getClassAverage()) : "--"}", style: Styles.itemTextStyle),
-                      const Text("-", style: Styles.itemTextStyle),
+                      Text("-", style: Styles.itemTextStyle),
                       Text("Coef : ${subject.coefficient}", style: Styles.itemTextStyle),
                     ],
                   ),

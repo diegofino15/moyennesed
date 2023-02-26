@@ -10,18 +10,18 @@ class ExperimentalFeaturesPopup extends StatelessWidget {
     return Container(
       height: 210.0,
       padding: const EdgeInsets.all(20.0),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Styles.backgroundColor,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("Devine coefficient notes", style: Styles.sectionTitleTextStyle),
+          Text("Devine coefficient notes", style: Styles.sectionTitleTextStyle),
           const Gap(10.0),
-          const Text("Cette fonction permet de déduire le coefficient d'une note à partir de son titre.", style: Styles.itemTextStyle),
+          Text("Cette fonction permet de déduire le coefficient d'une note à partir de son titre.", style: Styles.itemTextStyle),
           const Gap(20.0),
-          const Center(child: Text("Paramètres", style: Styles.itemTitleTextStyle)),
+          Center(child: Text("Paramètres", style: Styles.itemTitleTextStyle)),
           const Gap(10.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -30,7 +30,7 @@ class ExperimentalFeaturesPopup extends StatelessWidget {
                 width: 50.0,
                 child: Column(
                   children: [
-                    const Text("DST", style: Styles.itemTextStyle),
+                    Text("DST", style: Styles.itemTextStyle),
                     Text("2.0", style: Styles.numberTextStyle.copyWith(fontSize: 15.0)),
                   ],
                 ),
@@ -39,7 +39,7 @@ class ExperimentalFeaturesPopup extends StatelessWidget {
                 width: 50.0,
                 child: Column(
                   children: [
-                    const Text("DM", style: Styles.itemTextStyle),
+                    Text("DM", style: Styles.itemTextStyle),
                     Text("0.5", style: Styles.numberTextStyle.copyWith(fontSize: 15.0)),
                   ],
                 ),
@@ -48,7 +48,7 @@ class ExperimentalFeaturesPopup extends StatelessWidget {
                 width: 50.0,
                 child: Column(
                   children: [
-                    const Text("Autre", style: Styles.itemTextStyle),
+                    Text("Autre", style: Styles.itemTextStyle),
                     Text("1.0", style: Styles.numberTextStyle.copyWith(fontSize: 15.0)),
                   ],
                 ),

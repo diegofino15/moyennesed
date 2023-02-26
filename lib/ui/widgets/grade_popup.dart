@@ -20,9 +20,9 @@ class GradePopup extends StatelessWidget {
     return Container(
       height: 150.0,
       padding: const EdgeInsets.all(20.0),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Styles.backgroundColor,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
       ),
       child: Row(
         children: [
@@ -39,7 +39,7 @@ class GradePopup extends StatelessWidget {
                     color: Styles.getSubjectColor(grade.subjectCode, 1),
                     borderRadius: const BorderRadius.all(Radius.circular(20.0)),
                   ),
-                  child: Center(child: Text(grade.valueStr, style: Styles.numberTextStyle.copyWith(fontSize: 40.0))),
+                  child: Center(child: Text(grade.valueStr, style: Styles.numberTextStyle.copyWith(fontSize: 40.0, color: Colors.black))),
                 ),
                 (grade.isEffective && (grade.valueOn ?? 20.0) != 20.0)
                   ? Positioned(
@@ -52,7 +52,7 @@ class GradePopup extends StatelessWidget {
                           color: Styles.getSubjectColor(grade.subjectCode, 0),
                           borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                         ),
-                        child: Center(child: Text("/${grade.valueOnStr}", style: Styles.numberTextStyle.copyWith(fontSize: 24.0))),
+                        child: Center(child: Text("/${grade.valueOnStr}", style: Styles.numberTextStyle.copyWith(fontSize: 24.0, color: Colors.black))),
                       ),
                     )
                   : Container(),
@@ -76,7 +76,7 @@ class GradePopup extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Classe : ${grade.showableClassValue}", style: Styles.itemTextStyle),
-                      const Text("-", style: Styles.itemTextStyle),
+                      Text("-", style: Styles.itemTextStyle),
                       Text("Coef : ${grade.coefficient}", style: Styles.itemTextStyle),
                     ],
                   ),

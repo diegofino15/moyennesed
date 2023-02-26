@@ -16,9 +16,9 @@ class GeneralAveragePopup extends StatelessWidget {
     return Container(
       height: 140.0,
       padding: const EdgeInsets.all(20.0),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: Styles.backgroundColor,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
       ),
       child: Row(
         children: [
@@ -29,7 +29,7 @@ class GeneralAveragePopup extends StatelessWidget {
               color: Colors.orange,
               borderRadius: BorderRadius.all(Radius.circular(20.0)),
             ),
-            child: Center(child: Text(formatDouble(GlobalInfos.periods[provider.currentPeriodCode]!.getAverage()), style: Styles.numberTextStyle)),
+            child: Center(child: Text(formatDouble(GlobalInfos.periods[provider.currentPeriodCode]!.getAverage()), style: Styles.numberTextStyle.copyWith(color: Colors.black))),
           ),
           const Gap(20.0),
           SizedBox(
@@ -45,7 +45,7 @@ class GeneralAveragePopup extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Classe : ${formatDouble(GlobalInfos.periods[provider.currentPeriodCode]!.getClassAverage())}", style: Styles.itemTextStyle),
-                      const Text("-", style: Styles.itemTextStyle),
+                      Text("-", style: Styles.itemTextStyle),
                       Text("Trimestre ${provider.currentPeriodIndex}", style: Styles.itemTextStyle),
                     ],
                   ),

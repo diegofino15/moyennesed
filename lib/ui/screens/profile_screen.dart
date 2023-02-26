@@ -8,6 +8,7 @@ import 'package:moyennesed/ui/styles.dart';
 import 'package:moyennesed/ui/widgets/box_widget.dart';
 import 'package:moyennesed/ui/widgets/load_animation.dart';
 import 'package:moyennesed/ui/widgets/input.dart';
+import 'package:moyennesed/ui/widgets/button.dart';
 import 'package:moyennesed/ui/widgets/experimental_features_popup.dart';
 import 'package:moyennesed/core/infos.dart';
 import 'package:moyennesed/core/handlers/network_handler.dart';
@@ -41,16 +42,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
       builder: (_) => Container(
         height: 150.0,
         padding: const EdgeInsets.all(20.0),
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: Styles.backgroundColor,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Se déconnecter ?", style: Styles.sectionTitleTextStyle),
+            Text("Se déconnecter ?", style: Styles.sectionTitleTextStyle),
             const Gap(10.0),
-            const Text("Vos identifiants de connexion seront oubliés.", style: Styles.itemTextStyle),
+            Text("Vos identifiants de connexion seront oubliés.", style: Styles.itemTextStyle),
             const Gap(10.0),
             OutlinedButton(
               onPressed: () {
@@ -89,12 +90,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     GestureDetector(
                       onTap: () => { Navigator.of(context).pop() },
-                      child: const Icon(FluentIcons.arrow_left_24_filled, size: 25.0),
+                      child: Icon(FluentIcons.arrow_left_24_filled, size: 25.0, color: Styles.getColor("mainText")),
                     ),
-                    const Text("Profil", style: Styles.pageTitleTextStyle),
-                    SizedBox(
-                      width: 25.0,
-                      child: provider.isConnecting ? const LoadingAnim() : provider.isConnected ? const Icon(FluentIcons.checkmark_24_filled, color: Colors.green, size: 25.0) : Container(),
+                    Text("Profil", style: Styles.pageTitleTextStyle),
+                    GestureDetector(
+                      onTap: () => {
+                        GlobalProvider.instance.isDarkMode = !GlobalProvider.instance.isDarkMode
+                      },
+                      child: Icon(GlobalProvider.instance.isDarkMode ? FluentIcons.weather_sunny_24_filled : FluentIcons.weather_moon_24_filled, size: 25.0, color: Styles.getColor("mainText")),
                     ),
                   ],
                 ),
@@ -146,19 +149,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text("Béta", style: Styles.sectionTitleTextStyle),
+                        Text("Béta", style: Styles.sectionTitleTextStyle),
                         const Gap(10.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text("Coefficients matières (2nde)", style: Styles.itemTextStyle),
+                            Text("Coefficients matières (2nde)", style: Styles.itemTextStyle),
       
                             GestureDetector(
                               onTap: () => setState(() {
                                 ModifiableInfos.useSubjectCoefficients = !ModifiableInfos.useSubjectCoefficients;
                                 ModifiableInfos.save();
                               }),
-                              child: Icon(ModifiableInfos.useSubjectCoefficients ? FluentIcons.checkbox_checked_24_filled : FluentIcons.checkbox_unchecked_24_regular)
+                              child: Icon(ModifiableInfos.useSubjectCoefficients ? FluentIcons.checkbox_checked_24_filled : FluentIcons.checkbox_unchecked_24_regular, color: Styles.getColor("mainText"))
                             ),
                           ],
                         ),
@@ -166,7 +169,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text("Devine coefficient notes", style: Styles.itemTextStyle),
+                            Text("Devine coefficient notes", style: Styles.itemTextStyle),
                             Row(
                               children: [
                                 GestureDetector(
@@ -179,7 +182,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ModifiableInfos.guessGradeCoefficient = !ModifiableInfos.guessGradeCoefficient;
                                     ModifiableInfos.save();
                                   }),
-                                  child: Icon(ModifiableInfos.guessGradeCoefficient ? FluentIcons.checkbox_checked_24_filled : FluentIcons.checkbox_unchecked_24_regular)
+                                  child: Icon(ModifiableInfos.guessGradeCoefficient ? FluentIcons.checkbox_checked_24_filled : FluentIcons.checkbox_unchecked_24_regular, color: Styles.getColor("mainText"))
                                 ),
                               ],
                             ),
@@ -199,7 +202,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           children: [
                             SizedBox(width: 30.0, height: 15.0, child: Image.asset("assets/images/logoEcoleDirecte.png", fit: BoxFit.fill)),
                             const Gap(10.0),
-                            const Text("Site officiel EcoleDirecte", style: Styles.itemTitleTextStyle),
+                            Text("Site officiel EcoleDirecte", style: Styles.itemTitleTextStyle),
                           ],
                         ),
                         GestureDetector(
@@ -210,7 +213,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               print("Unable to launch URL");
                             }
                           },
-                          child: const Icon(FluentIcons.arrow_right_24_filled, size: 25.0),
+                          child: Icon(FluentIcons.arrow_right_24_filled, size: 25.0, color: Styles.getColor("mainText")),
                         ),
                       ],
                     ),
@@ -223,9 +226,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text("Se connecter", style: Styles.sectionTitleTextStyle),
+                      Text("Se connecter", style: Styles.sectionTitleTextStyle),
                       const Gap(20.0),
-                      const Text("Entrez vos informations EcoleDirecte", style: Styles.itemTextStyle),
+                      Text("Entrez vos informations EcoleDirecte", style: Styles.itemTextStyle),
                       const Gap(10.0),
                       Input(
                         placeholder: "Identifiant",
@@ -243,17 +246,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         submitFunction: (value) => handleConnect(),
                       ),
                       const Gap(10.0),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
+                      Button(
                         height: 60.0,
-                        child: MaterialButton(
-                          onPressed: () => handleConnect(),
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                          ),
-                          color: Colors.green,
-                          child: Text("Se connecter", style: Styles.sectionTitleTextStyle.copyWith(color: Colors.white)),
-                        ),
+                        color: Colors.green,
+                        onPressed: handleConnect,
+                        child: Text("Se connecter", style: Styles.sectionTitleTextStyle.copyWith(color: Colors.white)),
                       ),
                     ],
                   ),
@@ -265,24 +262,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        children: const [
-                          Icon(FluentIcons.wifi_off_24_filled, size: 25.0),
-                          Gap(10.0),
+                        children: [
+                          const Icon(FluentIcons.wifi_off_24_filled, size: 25.0, color: Colors.red),
+                          const Gap(10.0),
                           Text("Pas de connexion internet", style: Styles.sectionTitleTextStyle)
                         ],
                       ),
                       const Gap(20.0),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
+                      Button(
                         height: 60.0,
-                        child: MaterialButton(
-                          onPressed: () => handleConnect(),
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                          ),
-                          color: Colors.blue,
-                          child: Text("Rééssayer", style: Styles.sectionTitleTextStyle.copyWith(color: Colors.white)),
-                        ),
+                        color: Colors.blue,
+                        onPressed: handleConnect,
+                        child: Text("Rééssayer", style: Styles.sectionTitleTextStyle.copyWith(color: Colors.white)),
                       ),
                     ],
                   ),

@@ -33,9 +33,9 @@ class GradeCard extends StatelessWidget {
         width: 250.0,
         height: 70.0,
         padding: const EdgeInsets.all(8.0),
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           color: Styles.backgroundColor,
-          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(10.0)),
         ),
         child: Row(
           children: [
@@ -53,7 +53,7 @@ class GradeCard extends StatelessWidget {
                       color: Styles.getSubjectColor(grade.subjectCode, 1),
                       borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                     ),
-                    child: Center(child: Text(grade.valueStr, style: Styles.numberTextStyle.copyWith(fontSize: 20.0))),
+                    child: Center(child: Text(grade.valueStr, style: Styles.numberTextStyle.copyWith(fontSize: 20.0, color: Colors.black))),
                   ),
                   (grade.isEffective && (grade.valueOn ?? 20.0) != 20.0)
                     ? Positioned(
