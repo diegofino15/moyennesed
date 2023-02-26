@@ -1,0 +1,50 @@
+name: moyennesed
+description: Une application qui calcule la moyenne d'un élève sur EcoleDirecte.
+publish_to: 'none'
+version: 1.0.0
+
+environment:
+  sdk: '>=2.19.0 <3.0.0'
+
+dependencies:
+  fluentui_system_icons: ^1.1.190
+  flutter:
+    sdk: flutter
+  flutter_feather_icons: ^2.0.0+1
+  gap: ^2.0.1
+  http: ^0.13.5
+  localstorage: ^4.0.0+1
+  modal_bottom_sheet: ^2.1.2
+  path_provider: ^2.0.12
+  provider: ^6.0.5
+  url_launcher: ^6.1.9
+
+dependency_overrides:
+  modal_bottom_sheet:
+    git:
+      url: https://github.com/danReynolds/modal_bottom_sheet.git
+      path: modal_bottom_sheet
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat-Regular.ttf
+
+    - family: Bitter
+      fonts:
+        - asset: assets/fonts/Bitter-Regular.ttf
+
+    - family: Sofia
+      fonts:
+        - asset: assets/fonts/SofiaSans-Regular.ttf
