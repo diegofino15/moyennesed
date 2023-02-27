@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:moyennesed/ui/global_provider.dart';
-import 'package:provider/provider.dart';
 
 class Styles {
   static const Map<String, List<Color>> colors = {
@@ -21,7 +20,7 @@ class Styles {
       Colors.white60
     ],
   };
-  static Color getColor(String key) => Provider.of<GlobalProvider>(MainAppKey.globalKey.currentContext!, listen: false).isDarkMode ? colors[key]![1] : colors[key]![0];
+  static Color getColor(String key) => GlobalProvider.instance.isDarkMode ? colors[key]![1] : colors[key]![0];
 
   // Main background color of the app //
   static Color get backgroundColor => getColor("background");

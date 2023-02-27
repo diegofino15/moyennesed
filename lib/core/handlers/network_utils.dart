@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:moyennesed/core/infos.dart';
 import 'package:moyennesed/core/handlers/network_handler.dart';
 import 'package:moyennesed/ui/global_provider.dart';
-import 'package:provider/provider.dart';
 
 // This class gives the app all the necessary paths to parse data from EcoleDirecte //
 class NetworkUtils {
@@ -16,8 +15,6 @@ class NetworkUtils {
 
   static String formatPayload(Map payload) => 'data=${jsonEncode(payload)}';
   static Future<dynamic> parse(String url, Map payload) async {
-    GlobalProvider provider = Provider.of<GlobalProvider>(MainAppKey.globalKey.currentContext!, listen: false);
-
     try {
       http.Response encodedResponse = await http.post(
         Uri.parse(url),
@@ -26,17 +23,17 @@ class NetworkUtils {
       );
       Map response = jsonDecode(utf8.decode(encodedResponse.bodyBytes));
 
-      provider.gotNetworkConnection = true;
+      GlobalProvider.instance.gotNetworkConnection = true;
       if (response["code"] == responseSuccess) { return response["data"]; }
       else if (response["code"] == responseOutdatedToken) {
         await NetworkHandler.connect();
-        if (provider.isConnected) {
+        if (GlobalProvider.instance.isConnected) {
           return parse(url, payload);
         }
       } else { return null; }
     } catch (e) {
-      provider.gotNetworkConnection = false;
-      provider.isConnected = false;
+      GlobalProvider.instance.gotNetworkConnection = false;
+      GlobalProvider.instance.isConnected = false;
       print("An error occured when connecting to : $url");
       return null;
     }

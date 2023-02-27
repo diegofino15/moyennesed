@@ -4,23 +4,20 @@ import 'package:moyennesed/core/handlers/network_handler.dart';
 import 'package:moyennesed/core/handlers/network_utils.dart';
 import 'package:moyennesed/core/handlers/cache_handler.dart';
 import 'package:moyennesed/ui/global_provider.dart';
-import 'package:provider/provider.dart';
 
 // This class handles the connection and parsing of all the student's grades //
 class GradesHandler {
   static Future<void> getGrades() async {
-    GlobalProvider provider = Provider.of<GlobalProvider>(MainAppKey.globalKey.currentContext!, listen: false);
-
-    if (!provider.isConnected) {
-      if (!provider.gotNetworkConnection) {
+    if (!GlobalProvider.instance.isConnected) {
+      if (!GlobalProvider.instance.gotNetworkConnection) {
         await NetworkHandler.connect();
-        if (!provider.isConnected) { return; }
+        if (!GlobalProvider.instance.isConnected) { return; }
       } else { return; }
     }
     
-    if (provider.isConnecting || provider.isGettingGrades) { return; }
+    if (GlobalProvider.instance.isConnecting || GlobalProvider.instance.isGettingGrades) { return; }
 
-    provider.isGettingGrades = true;
+    GlobalProvider.instance.isGettingGrades = true;
 
     print("Getting grades...");
 
@@ -31,27 +28,25 @@ class GradesHandler {
 
     if (gradesResponse != null) {
       sortGrades(gradesResponse);
-      provider.gotGrades = true;
+      GlobalProvider.instance.gotGrades = true;
       print("Got grades !");
     } else {
       print("An error occured while getting grades...");
     }
 
-    provider.isGettingGrades = false;
+    GlobalProvider.instance.isGettingGrades = false;
   }
 
-  static void sortGrades(Map gradesResponse) {
-    GlobalProvider provider = Provider.of<GlobalProvider>(MainAppKey.globalKey.currentContext!, listen: false);
-    
+  static void sortGrades(Map gradesResponse) {    
     // Reset all previously saved informations //
     GlobalInfos.periods.clear();
-    provider.currentPeriodIndex = -1;
+    GlobalProvider.instance.currentPeriodIndex = -1;
 
     // Detect current period of the year //
     for (int i = 1; i <= 3; i++) {
       Map periodMap = gradesResponse["periodes"][(i - 1) * 3];
       Period period = GlobalInfos.addPeriod(periodMap);
-      if (!period.isFinished && provider.currentPeriodIndex == -1) { provider.currentPeriodIndex = i; }
+      if (!period.isFinished && GlobalProvider.instance.currentPeriodIndex == -1) { GlobalProvider.instance.currentPeriodIndex = i; }
     }
 
     for (Map gradeMap in gradesResponse["notes"]) {
@@ -64,7 +59,7 @@ class GradesHandler {
       "firstName": StudentInfos.firstName,
       "lastName": StudentInfos.lastName,
       "level": StudentInfos.level,
-      "actualPeriod": provider.currentPeriodIndex,
+      "actualPeriod": GlobalProvider.instance.currentPeriodIndex,
       "periods": {}
     };
     for (Period period in GlobalInfos.periods.values) {
@@ -76,8 +71,6 @@ class GradesHandler {
   }
 
   static Future<void> loadCache() async {
-    GlobalProvider provider = Provider.of<GlobalProvider>(MainAppKey.globalKey.currentContext!, listen: false);
-
     Map allCache = await CacheHandler.getAllCache();
 
     if (allCache.isNotEmpty) {
@@ -99,8 +92,8 @@ class GradesHandler {
         
         GlobalInfos.periods.addAll({period.code: period});
       }
-      provider.currentPeriodIndex = allCache["actualPeriod"] ?? 1;
-      provider.gotGrades = true;
+      GlobalProvider.instance.currentPeriodIndex = allCache["actualPeriod"] ?? 1;
+      GlobalProvider.instance.gotGrades = true;
     }
   }
 }

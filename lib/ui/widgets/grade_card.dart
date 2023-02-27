@@ -5,7 +5,6 @@ import 'package:moyennesed/ui/styles.dart';
 import 'package:moyennesed/ui/widgets/grade_popup.dart';
 import 'package:moyennesed/core/infos.dart';
 import 'package:moyennesed/core/objects/grade.dart';
-import 'package:provider/provider.dart';
 
 class GradeCard extends StatelessWidget {
   final Grade grade;
@@ -16,12 +15,10 @@ class GradeCard extends StatelessWidget {
   });
 
   void handleGradePopup(BuildContext context) {
-    GlobalProvider provider = Provider.of<GlobalProvider>(MainAppKey.globalKey.currentContext!, listen: false);
-
     showModalBottomSheet(
       backgroundColor: Colors.transparent,
       context: context,
-      builder: (_) => GradePopup(grade: grade, subject: GlobalInfos.periods[provider.currentPeriodCode]!.subjects[grade.subjectCode]!),
+      builder: (_) => GradePopup(grade: grade, subject: GlobalInfos.periods[GlobalProvider.instance.currentPeriodCode]!.subjects[grade.subjectCode]!),
     );
   }
 
@@ -66,7 +63,7 @@ class GradeCard extends StatelessWidget {
                             color: Styles.getSubjectColor(grade.subjectCode, 0),
                             borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                           ),
-                          child: Center(child: Text("/${grade.valueOnStr}", style: Styles.numberTextStyle.copyWith(fontSize: 12.0))),
+                          child: Center(child: Text("/${grade.valueOnStr}", style: Styles.numberTextStyle.copyWith(fontSize: 12.0, color: Colors.black))),
                         ),
                       )
                     : Container(),

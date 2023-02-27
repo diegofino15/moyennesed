@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moyennesed/ui/styles.dart';
 
 class Input extends StatefulWidget {
   final String placeholder;
@@ -34,9 +35,11 @@ class _InputState extends State<Input> {
         initialValue: widget.initialValue ?? "",
         onChanged: (String value) => widget.changeValueFunction(value),
         onFieldSubmitted: (String value) => widget.submitFunction(value),
+        style:  Styles.itemTextStyle,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
           labelText: widget.placeholder,
+          labelStyle: Styles.itemTextStyle
         ),
       ),
     );

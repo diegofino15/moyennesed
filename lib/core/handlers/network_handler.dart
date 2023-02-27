@@ -5,7 +5,7 @@ import 'package:moyennesed/core/handlers/network_utils.dart';
 import 'package:moyennesed/core/handlers/file_handler.dart';
 import 'package:moyennesed/core/handlers/cache_handler.dart';
 import 'package:moyennesed/ui/global_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:moyennesed/ui/styles.dart';
 
 // This class is used to connect to EcoleDirecte and get the connection token //
 class NetworkHandler {
@@ -13,13 +13,11 @@ class NetworkHandler {
   static String loginPassword = "";
 
   static Future<void> connect() async {
-    GlobalProvider provider = Provider.of<GlobalProvider>(MainAppKey.globalKey.currentContext!, listen: false);
-    
-    if (provider.isConnecting) { return; }
+    if (GlobalProvider.instance.isConnecting) { return; }
     if (loginUsername.isEmpty || loginPassword.isEmpty) { return; }
 
-    provider.isConnected = false;
-    provider.isConnecting = true;
+    GlobalProvider.instance.isConnected = false;
+    GlobalProvider.instance.isConnecting = true;
 
     print("Connection...");
 
@@ -47,33 +45,31 @@ class NetworkHandler {
           "isUserLoggedIn": true
         });
 
-        provider.isConnected = true;
-        provider.isUserLoggedIn = true;
+        GlobalProvider.instance.isConnected = true;
+        GlobalProvider.instance.isUserLoggedIn = true;
         print("Connected !");
       } else {
         loginPassword = "";
-        provider.isUserLoggedIn = false;
+        GlobalProvider.instance.isUserLoggedIn = false;
       }
-      provider.gotNetworkConnection = true;
+      GlobalProvider.instance.gotNetworkConnection = true;
     } catch (e) {
-      provider.gotNetworkConnection = false;
+      GlobalProvider.instance.gotNetworkConnection = false;
       print("An error occured while connecting.");
       print("Error : $e");
     }
 
-    provider.isConnecting = false;
+    GlobalProvider.instance.isConnecting = false;
   }
 
   static void disconnect() {
-    GlobalProvider provider = Provider.of<GlobalProvider>(MainAppKey.globalKey.currentContext!, listen: false);
-    
     NetworkHandler.loginUsername = "";
     NetworkHandler.loginPassword = "";
-    provider.isUserLoggedIn = false;
-    provider.isConnected = false;
+    GlobalProvider.instance.isUserLoggedIn = false;
+    GlobalProvider.instance.isConnected = false;
 
-    provider.gotGrades = false;
-    provider.isGettingGrades = false;
+    GlobalProvider.instance.gotGrades = false;
+    GlobalProvider.instance.isGettingGrades = false;
     GlobalInfos.periods.clear();
 
     FileHandler.instance.writeInfos({});
@@ -85,7 +81,8 @@ class NetworkHandler {
 
     loginUsername = savedData["username"] ?? "";
     loginPassword = savedData["password"] ?? "";
-    Provider.of<GlobalProvider>(MainAppKey.globalKey.currentContext!, listen: false).isUserLoggedIn = savedData["isUserLoggedIn"] ?? false;
+    GlobalProvider.instance.isUserLoggedIn = savedData["isUserLoggedIn"] ?? false;
+    GlobalProvider.instance.isDarkMode = savedData["isDarkMode"] ?? false;
 
     ModifiableInfos.guessGradeCoefficient = savedData["guessgradecoef"] ?? true;
     ModifiableInfos.useSubjectCoefficients = savedData["usesubjectcoef"] ?? true;

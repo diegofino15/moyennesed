@@ -4,15 +4,12 @@ import 'package:moyennesed/core/infos.dart';
 import 'package:moyennesed/ui/global_provider.dart';
 import 'package:moyennesed/ui/styles.dart';
 import 'package:moyennesed/ui/utils.dart';
-import 'package:provider/provider.dart';
 
 class GeneralAveragePopup extends StatelessWidget {
   const GeneralAveragePopup({super.key});
 
   @override
   Widget build(BuildContext context) {
-    GlobalProvider provider = Provider.of<GlobalProvider>(MainAppKey.globalKey.currentContext!, listen: false);
-
     return Container(
       height: 140.0,
       padding: const EdgeInsets.all(20.0),
@@ -29,7 +26,7 @@ class GeneralAveragePopup extends StatelessWidget {
               color: Colors.orange,
               borderRadius: BorderRadius.all(Radius.circular(20.0)),
             ),
-            child: Center(child: Text(formatDouble(GlobalInfos.periods[provider.currentPeriodCode]!.getAverage()), style: Styles.numberTextStyle.copyWith(color: Colors.black))),
+            child: Center(child: Text(formatDouble(GlobalInfos.periods[GlobalProvider.instance.currentPeriodCode]!.getAverage()), style: Styles.numberTextStyle.copyWith(color: Colors.black))),
           ),
           const Gap(20.0),
           SizedBox(
@@ -44,9 +41,9 @@ class GeneralAveragePopup extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Classe : ${formatDouble(GlobalInfos.periods[provider.currentPeriodCode]!.getClassAverage())}", style: Styles.itemTextStyle),
+                      Text("Classe : ${formatDouble(GlobalInfos.periods[GlobalProvider.instance.currentPeriodCode]!.getClassAverage())}", style: Styles.itemTextStyle),
                       Text("-", style: Styles.itemTextStyle),
-                      Text("Trimestre ${provider.currentPeriodIndex}", style: Styles.itemTextStyle),
+                      Text("Trimestre ${GlobalProvider.instance.currentPeriodIndex}", style: Styles.itemTextStyle),
                     ],
                   ),
                 ),

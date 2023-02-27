@@ -18,10 +18,8 @@ class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
   int selectedIndex = -1;
   @override
   Widget build(BuildContext context) {
-    GlobalProvider provider = Provider.of<GlobalProvider>(MainAppKey.globalKey.currentContext!, listen: false);
-
     if (selectedIndex == -1) {
-      selectedIndex = provider.currentPeriodIndex;
+      selectedIndex = GlobalProvider.instance.currentPeriodIndex;
     }
 
     return Container(
@@ -43,7 +41,7 @@ class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
                 height: 30.0,
                 child: OutlinedButton(
                   onPressed: () => setState(() {
-                    provider.currentPeriodIndex = selectedIndex;
+                    GlobalProvider.instance.currentPeriodIndex = selectedIndex;
                     Navigator.of(context).pop();
                   }),
                   child: Center(child: Text("Valider", style: Styles.itemTextStyle.copyWith(color: Colors.green))),
