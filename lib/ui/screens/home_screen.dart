@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: RefreshIndicator(
-              onRefresh: () => GradesHandler.getGrades(),
+              onRefresh: () async { GradesHandler.getGrades(); },
               child: ListView(
                 children: [
                   const Gap(10.0),
