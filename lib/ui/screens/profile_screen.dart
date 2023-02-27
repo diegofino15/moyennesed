@@ -13,6 +13,7 @@ import 'package:moyennesed/ui/widgets/button.dart';
 import 'package:moyennesed/ui/widgets/experimental_features_popup.dart';
 import 'package:moyennesed/core/infos.dart';
 import 'package:moyennesed/core/handlers/network_handler.dart';
+import 'package:moyennesed/ui/widgets/load_animation.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:provider/provider.dart';
 
@@ -113,7 +114,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     color: provider.isConnected ? Colors.green : provider.isConnecting ? Colors.blue : Colors.red,
                     borderRadius: const BorderRadius.all(Radius.circular(20.0)),
                   ),
-                  child: Text(provider.isConnected ? "Vous êtes connecté${StudentInfos.gender == "M" ? "" : "e"} !" : provider.isConnecting ? "Connexion..." : "Vous n'êtes pas connecté", style: Styles.sectionTitleTextStyle.copyWith(color: Colors.white)),
+                  child: Text(provider.isConnected ? "Vous êtes connecté${StudentInfos.gender == "M" ? "" : "e"} !" : provider.isConnecting ? "Connexion..." : "Vous êtes déconnecté", style: Styles.sectionTitleTextStyle.copyWith(color: Colors.white)),
                 ),
                 Gap(provider.isConnected ? 20.0 : 0.0),
                 provider.isConnected
@@ -221,7 +222,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     )
                   : Container(),
-                const Gap(20.0),
+                Gap(provider.isUserLoggedIn || provider.isConnecting ? 0.0 : 20.0),
                 provider.isUserLoggedIn || provider.isConnecting
                   ? Container()
                   : BoxWidget(
@@ -257,6 +258,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                   ),
+                Gap(provider.gotNetworkConnection ? 0.0 : 20.0),
                 provider.gotNetworkConnection
                   ? Container()
                   : BoxWidget(
@@ -274,8 +276,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Button(
                           height: 60.0,
                           color: Colors.blue,
-                          onPressed: handleConnect,
-                          child: Text("Rééssayer", style: Styles.sectionTitleTextStyle.copyWith(color: Colors.white)),
+                          onPressed: GradesHandler.getGrades,
+                          child: Text(GlobalProvider.instance.isConnecting || GlobalProvider.instance.isGettingGrades ? "Chargement..." : "Rééssayer", style: Styles.sectionTitleTextStyle.copyWith(color: Colors.white)),
                         ),
                       ],
                     ),

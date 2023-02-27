@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   : const Icon(FluentIcons.wifi_off_24_filled, color: Colors.red),
                                 Gap(provider.gotNetworkConnection ? 0.0 : 10.0),
               
-                                Text(provider.isUserLoggedIn ? "Bonjour ${StudentInfos.firstName} !" : "Vous n'êtes pas connecté", style: Styles.pageTitleTextStyle),
+                                Text(provider.isUserLoggedIn ? "Bonjour ${StudentInfos.firstName} !" : "Vous êtes déconnecté", style: Styles.pageTitleTextStyle),
                               ],
                             ),
                             const Gap(5.0),

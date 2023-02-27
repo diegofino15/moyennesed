@@ -33,7 +33,6 @@ class NetworkUtils {
       } else { return null; }
     } catch (e) {
       GlobalProvider.instance.gotNetworkConnection = false;
-      GlobalProvider.instance.isConnected = false;
       print("An error occured when connecting to : $url");
       return null;
     }
