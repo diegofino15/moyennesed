@@ -99,7 +99,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           GlobalProvider.instance.isDarkMode = !GlobalProvider.instance.isDarkMode;
                           FileHandler.instance.changeInfos({"isDarkMode": GlobalProvider.instance.isDarkMode});
                         },
-                        child: Icon(GlobalProvider.instance.isDarkMode ? FluentIcons.weather_sunny_24_filled : FluentIcons.weather_moon_24_filled, size: 25.0, color: Styles.getColor("mainText")),
+                        child: Icon(GlobalProvider.instance.isDarkMode ? FluentIcons.weather_moon_24_filled : FluentIcons.weather_sunny_24_filled, size: 25.0, color: Styles.getColor("mainText")),
                       ),
                     ],
                   ),
