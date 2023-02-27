@@ -1,3 +1,5 @@
+import 'package:moyennesed/core/infos.dart';
+
 String formatDouble(double val) {
   return val.toStringAsFixed(2).replaceAll(".", ",");
 }
@@ -32,13 +34,14 @@ String formatDate(DateTime date) {
   return "${daysNames[date.weekday]} ${date.day} ${monthsNames[date.month]}";
 }
 
-const List<String> welcomeMessages = [
+List<String> welcomeMessages = [
   "Ça fait plaisir de vous revoir !",
   "Alors, ça travaille bien ?",
-  "Les notes c'est pas tout",
   "Continuez comme ça !",
   "Bon travail tout ça !",
-  "Bientôt les vacances !"
+  "Bientôt les vacances !",
+  "Plus que quelques contrôles !",
+  "C'est dûr la ${StudentInfos.level.toLowerCase()} !"
 ];
 
 

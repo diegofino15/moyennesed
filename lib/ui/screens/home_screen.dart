@@ -58,11 +58,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Current welcome message being shown //
-  int currentWelcomeMessage = Random().nextInt(welcomeMessages.length);
-
   @override
   Widget build(BuildContext widgetBuildContext) {
+    int currentWelcomeMessage = Random().nextInt(welcomeMessages.length);
+
     return Consumer<GlobalProvider>(
       builder: (context, provider, child) => AnnotatedRegion<SystemUiOverlayStyle>(
         value: provider.isDarkMode ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark,
