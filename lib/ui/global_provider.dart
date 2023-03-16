@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 
-class MainAppKey {
-  static GlobalKey globalKey_ = GlobalKey();
-  static GlobalKey get globalKey => globalKey_;
-}
-
 class GlobalProvider with ChangeNotifier {
   // Create an unique instance of the class //
   GlobalProvider._privateConstructor();

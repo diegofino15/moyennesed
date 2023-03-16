@@ -81,34 +81,39 @@ class _HomeScreenState extends State<HomeScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                provider.gotNetworkConnection
-                                  ? Container()
-                                  : const Icon(FluentIcons.wifi_off_24_filled, color: Colors.red),
-                                Gap(provider.gotNetworkConnection ? 0.0 : 10.0),
-              
-                                Text(provider.isUserLoggedIn ? "Bonjour ${StudentInfos.firstName} !" : "Vous êtes déconnecté", style: Styles.pageTitleTextStyle),
-                              ],
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width - 120,
+                              child: Row(
+                                children: [
+                                  provider.gotNetworkConnection
+                                    ? Container()
+                                    : const Icon(FluentIcons.wifi_off_24_filled, color: Colors.red),
+                                  Gap(provider.gotNetworkConnection ? 0.0 : 10.0),
+                                  Text(provider.isUserLoggedIn ? "Bonjour ${StudentInfos.firstName} !" : "Vous êtes déconnecté", style: Styles.pageTitleTextStyle, maxLines: 1, overflow: TextOverflow.ellipsis),
+                                ],
+                              ),
                             ),
                             const Gap(5.0),
                             Text(provider.isUserLoggedIn ? welcomeMessages[currentWelcomeMessage] : "Connectez vous sur votre profil", style: Styles.itemTextStyle),
                           ],
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (_) => ChangeNotifierProvider<GlobalProvider>(
-                                create: (_) => GlobalProvider.instance,
-                                child: const ProfileScreen(),
-                              ),
-                            ));
-                          },
-                          child: Column(
-                            children: [
-                              Icon(FluentIcons.person_24_filled, size: 35.0, color: Styles.getColor("mainText")),
-                              Text("Profil", style: Styles.itemTextStyle)
-                            ],
+                        SizedBox(
+                          width: 40.0,
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (_) => ChangeNotifierProvider<GlobalProvider>(
+                                  create: (_) => GlobalProvider.instance,
+                                  child: const ProfileScreen(),
+                                ),
+                              ));
+                            },
+                            child: Column(
+                              children: [
+                                Icon(FluentIcons.person_24_filled, size: 35.0, color: Styles.getColor("mainText")),
+                                Text("Profil", style: Styles.itemTextStyle)
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -125,7 +130,21 @@ class _HomeScreenState extends State<HomeScreen> {
                             Text("Trimestre ${provider.gotGrades ? provider.currentPeriodIndex : "--"}", style: Styles.itemTitleTextStyle),
                             SizedBox(
                               height: 25.0,
-                              child: provider.isGettingGrades ? const LoadingAnim() : provider.gotGrades ? GestureDetector(onTap: () => handleChangePeriodPopup(context), child: Icon(FluentIcons.arrow_bidirectional_up_down_24_filled, size: 25.0, color: Styles.getColor("mainText"))) : Container(),
+                              child: provider.isGettingGrades || provider.isConnecting
+                                ? const LoadingAnim()
+                                : (provider.gotGrades && provider.isConnected) || !provider.gotNetworkConnection
+                                  ? GestureDetector(onTap: () => handleChangePeriodPopup(context), child: Icon(FluentIcons.arrow_bidirectional_up_down_24_filled, size: 25.0, color: Styles.getColor("mainText")))
+                                  : GestureDetector(
+                                      onTap: () => {
+                                        Navigator.of(context).push(MaterialPageRoute(
+                                          builder: (_) => ChangeNotifierProvider<GlobalProvider>(
+                                            create: (_) => GlobalProvider.instance,
+                                            child: const ProfileScreen(),
+                                          ),
+                                        ))
+                                      },
+                                      child: const Icon(FluentIcons.warning_24_filled, size: 25.0, color: Colors.orange),
+                                    ),
                             ),
                           ],
                         ),

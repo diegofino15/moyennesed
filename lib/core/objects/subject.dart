@@ -17,10 +17,10 @@ class Subject {
 
   void init(Map jsonInfos) {
     code = jsonInfos["codeMatiere"];
-    name = jsonInfos["discipline"];
+    name = jsonInfos["discipline"].trim();
 
     if (jsonInfos["professeurs"].isNotEmpty) {
-      professorName = jsonInfos["professeurs"][0]["nom"];
+      professorName = jsonInfos["professeurs"][0]["nom"].trim();
     } else {
       professorName = "Pas de professeur";
     }

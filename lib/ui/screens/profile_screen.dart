@@ -13,7 +13,6 @@ import 'package:moyennesed/ui/widgets/button.dart';
 import 'package:moyennesed/ui/widgets/experimental_features_popup.dart';
 import 'package:moyennesed/core/infos.dart';
 import 'package:moyennesed/core/handlers/network_handler.dart';
-import 'package:moyennesed/ui/widgets/load_animation.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:provider/provider.dart';
 
@@ -30,7 +29,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       if (GlobalProvider.instance.isUserLoggedIn && GlobalProvider.instance.gotNetworkConnection) {
         GlobalProvider.instance.gotGrades = false;
         GradesHandler.getGrades();
-        if (mounted) { Navigator.of(context, rootNavigator: true).pop(); }
+        // Caused black screen problems //
+        // if (mounted) { Navigator.of(context, rootNavigator: true).maybePop(); }
       }
     });
   }
@@ -91,7 +91,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
-                        onTap: () => { Navigator.of(context).pop() },
+                        onTap: () => { if (mounted) { Navigator.of(context).maybePop() } },
                         child: Icon(FluentIcons.arrow_left_24_filled, size: 25.0, color: Styles.getColor("mainText")),
                       ),
                       Text("Profil", style: Styles.pageTitleTextStyle),

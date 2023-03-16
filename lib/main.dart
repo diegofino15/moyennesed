@@ -4,11 +4,14 @@ import 'package:moyennesed/ui/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MoyennesED());
+  runApp(MoyennesED());
 }
 
 class MoyennesED extends StatelessWidget {
-  const MoyennesED({super.key});
+  MoyennesED({super.key});
+
+  final GlobalKey globalKey_ = GlobalKey();
+  GlobalKey get globalKey => globalKey_;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +19,7 @@ class MoyennesED extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: ChangeNotifierProvider(
         create: (_) => GlobalProvider.instance,
-        builder: (context, child) => Container(key: MainAppKey.globalKey, child: const HomeScreen()),
+        builder: (context, child) => Container(key: globalKey, child: const HomeScreen()),
       ),
     );
   }
