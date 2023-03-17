@@ -25,10 +25,10 @@ class NetworkUtils {
 
       GlobalProvider.instance.gotNetworkConnection = true;
       if (response["code"] == responseSuccess) { return response["data"]; }
-      else if (response["code"] == responseOutdatedToken) {
+      else if (response["code"] == responseOutdatedToken || response["code"] == responseInvalidToken) {
         await NetworkHandler.connect();
         if (GlobalProvider.instance.isConnected) {
-          return parse(url, payload);
+          return await parse(url, payload);
         }
       } else { return null; }
     } catch (e) {

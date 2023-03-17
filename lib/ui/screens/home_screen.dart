@@ -133,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: provider.isGettingGrades || provider.isConnecting
                                 ? const LoadingAnim()
                                 : (provider.gotGrades && provider.isConnected) || !provider.gotNetworkConnection
-                                  ? GestureDetector(onTap: () => handleChangePeriodPopup(context), child: Icon(FluentIcons.arrow_bidirectional_up_down_24_filled, size: 25.0, color: Styles.getColor("mainText")))
+                                  ? GestureDetector(onTap: () => handleChangePeriodPopup(context), child: Icon(FluentIcons.settings_24_filled, size: 25.0, color: Styles.getColor("mainText")))
                                   : GestureDetector(
                                       onTap: () => {
                                         Navigator.of(context).push(MaterialPageRoute(
@@ -206,6 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
+                  const Gap(20.0),
                 ],
               ),
             ),

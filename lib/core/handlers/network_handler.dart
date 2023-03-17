@@ -5,7 +5,6 @@ import 'package:moyennesed/core/handlers/network_utils.dart';
 import 'package:moyennesed/core/handlers/file_handler.dart';
 import 'package:moyennesed/core/handlers/cache_handler.dart';
 import 'package:moyennesed/ui/global_provider.dart';
-import 'package:moyennesed/ui/styles.dart';
 
 // This class is used to connect to EcoleDirecte and get the connection token //
 class NetworkHandler {

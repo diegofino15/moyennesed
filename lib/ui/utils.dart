@@ -1,5 +1,3 @@
-import 'package:moyennesed/core/infos.dart';
-
 String formatDouble(double val) {
   return val.toStringAsFixed(2).replaceAll(".", ",");
 }
@@ -40,8 +38,7 @@ List<String> welcomeMessages = [
   "Continuez comme ça !",
   "Bon travail tout ça !",
   "Bientôt les vacances !",
-  "Plus que quelques contrôles !",
-  "C'est dûr la ${StudentInfos.level.toLowerCase()} !"
+  "Plus que quelques contrôles !"
 ];
 
 

@@ -19,7 +19,7 @@ class ExperimentalFeaturesPopup extends StatelessWidget {
         children: [
           Text("Devine coefficient notes", style: Styles.sectionTitleTextStyle),
           const Gap(10.0),
-          Text("Cette fonction permet de déduire le coefficient d'une note à partir de son titre.", style: Styles.itemTextStyle),
+          Text("Cette fonction permet de déterminer le coefficient d'une note à partir de son titre.", style: Styles.itemTextStyle),
           const Gap(20.0),
           Center(child: Text("Paramètres", style: Styles.itemTitleTextStyle)),
           const Gap(10.0),

@@ -152,7 +152,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Béta", style: Styles.sectionTitleTextStyle),
+                          Text("Paramètres", style: Styles.sectionTitleTextStyle),
                           const Gap(10.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
