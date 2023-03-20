@@ -15,6 +15,20 @@ class NetworkHandler {
     if (GlobalProvider.instance.isConnecting) { return; }
     if (loginUsername.isEmpty || loginPassword.isEmpty) { return; }
 
+    // Demo account //
+    if (loginUsername == DemoAccount.demoAccountInfos["username"] && loginPassword == DemoAccount.demoAccountInfos["password"]) {
+      GlobalProvider.instance.isConnected = true;
+      GlobalProvider.instance.isUserLoggedIn = true;
+      GlobalProvider.instance.gotNetworkConnection = true;
+      StudentInfos.saveLoginData(DemoAccount.demoAccountInfos);
+      await FileHandler.instance.changeInfos({
+        "username": loginUsername,
+        "password": loginPassword,
+        "isUserLoggedIn": true
+      });
+      return;
+    }
+
     GlobalProvider.instance.isConnected = false;
     GlobalProvider.instance.isConnecting = true;
 

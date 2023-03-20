@@ -8,6 +8,13 @@ import 'package:moyennesed/ui/global_provider.dart';
 // This class handles the connection and parsing of all the student's grades //
 class GradesHandler {
   static Future<void> getGrades() async {
+    // DEMO ACCOUNT //
+    if (NetworkHandler.loginUsername == DemoAccount.demoAccountInfos["username"] && NetworkHandler.loginPassword == DemoAccount.demoAccountInfos["password"]) {
+      GlobalProvider.instance.gotGrades = true;
+      sortGrades(DemoAccount.demoAccountGrades);
+      return;
+    }
+    
     if (!GlobalProvider.instance.isConnected) {
       if (!GlobalProvider.instance.gotNetworkConnection) {
         await NetworkHandler.connect();
@@ -37,7 +44,11 @@ class GradesHandler {
     GlobalProvider.instance.isGettingGrades = false;
   }
 
-  static void sortGrades(Map gradesResponse) {    
+  static void sortGrades(Map gradesResponse) {
+    if (gradesResponse.isEmpty) {
+      GlobalProvider.instance.gotGrades = false;
+      return;
+    }
     // Reset all previously saved informations //
     GlobalInfos.periods.clear();
     GlobalProvider.instance.currentPeriodIndex = -1;
