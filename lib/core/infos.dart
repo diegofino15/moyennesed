@@ -61,6 +61,7 @@ class ModifiableInfos {
 
   static bool guessGradeCoefficient = true;
   static const Map<String, double> gradeCoefficients = {
+    "ds": 2.0,
     "dst": 2.0,
     "dm": 0.5,
   };

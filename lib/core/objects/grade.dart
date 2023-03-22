@@ -45,9 +45,10 @@ class Grade {
     coefficient = jsonInfos["coef"].toDouble();
     if (coefficient == 0.0) {
       if (ModifiableInfos.guessGradeCoefficient) {
-        if (title.toLowerCase().contains("dst") || title.toLowerCase().contains("ds")) { coefficient = 2.0; }
-        else if (title.toLowerCase().contains("dm")) { coefficient = 0.5; }
-        else { coefficient = 1.0; }
+        coefficient = 1.0;
+        ModifiableInfos.gradeCoefficients.forEach((key, value) {
+          if (title.toLowerCase().contains(key)) { coefficient = value; }
+        });
       } else {
         coefficient = 1.0;
       }
