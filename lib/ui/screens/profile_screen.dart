@@ -195,33 +195,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     )
                   : Container(),
-                Gap(provider.isConnected ? 20.0 : 0.0),
-                provider.isConnected
-                  ? BoxWidget(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              SizedBox(width: 30.0, height: 15.0, child: Image.asset("assets/images/logoEcoleDirecte.png", fit: BoxFit.fill)),
-                              const Gap(10.0),
-                              Text("Site officiel EcoleDirecte", style: Styles.itemTitleTextStyle),
-                            ],
-                          ),
-                          GestureDetector(
-                            onTap: () async {
-                              if (await canLaunchUrl(Uri.parse("https://www.ecoledirecte.com/"))) {
-                                await launchUrl(Uri.parse("https://www.ecoledirecte.com/"));
-                              } else {
-                                print("Unable to launch URL");
-                              }
-                            },
-                            child: Icon(FluentIcons.arrow_right_24_filled, size: 25.0, color: Styles.getColor("mainText")),
-                          ),
-                        ],
-                      ),
-                    )
-                  : Container(),
                 Gap(provider.isUserLoggedIn || provider.isConnecting ? 0.0 : 20.0),
                 provider.isUserLoggedIn || provider.isConnecting
                   ? Container()
@@ -258,6 +231,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                   ),
+                Gap(20.0),
+                BoxWidget(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(width: 30.0, height: 15.0, child: Image.asset("assets/images/logoEcoleDirecte.png", fit: BoxFit.fill)),
+                          const Gap(10.0),
+                          Text("Site officiel EcoleDirecte", style: Styles.itemTitleTextStyle),
+                        ],
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          if (await canLaunchUrl(Uri.parse("https://www.ecoledirecte.com/"))) {
+                            await launchUrl(Uri.parse("https://www.ecoledirecte.com/"));
+                          } else {
+                            print("Unable to launch URL");
+                          }
+                        },
+                        child: Icon(FluentIcons.arrow_right_24_filled, size: 25.0, color: Styles.getColor("mainText")),
+                      ),
+                    ],
+                  ),
+                ),
                 Gap(provider.gotNetworkConnection ? 0.0 : 20.0),
                 provider.gotNetworkConnection
                   ? Container()

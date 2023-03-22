@@ -14,13 +14,8 @@ class ChangePeriodPopup extends StatefulWidget {
 }
 
 class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
-  int selectedIndex = -1;
   @override
   Widget build(BuildContext context) {
-    if (selectedIndex == -1) {
-      selectedIndex = GlobalProvider.instance.currentPeriodIndex;
-    }
-
     return Container(
       height: 260.0,
       padding: const EdgeInsets.all(20.0),
@@ -31,23 +26,7 @@ class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Choisir une période", style: Styles.sectionTitleTextStyle),
-              SizedBox(
-                height: 30.0,
-                child: OutlinedButton(
-                  onPressed: () => setState(() {
-                    GlobalProvider.instance.currentPeriodIndex = selectedIndex;
-                    Navigator.of(context).pop();
-                  }),
-                  child: Center(child: Text("Valider", style: Styles.itemTextStyle.copyWith(color: Colors.green))),
-                ),
-              ),
-            ],
-          ),
+          Text("Choisir une période", style: Styles.sectionTitleTextStyle),
           Column(
             children: List.generate(
               GlobalInfos.periods.length,
@@ -58,7 +37,7 @@ class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
                   children: [
                     const Gap(10.0),
                     GestureDetector(
-                      onTap: () => setState(() => { selectedIndex = period.index }),
+                      onTap: () => setState(() => { GlobalProvider.instance.currentPeriodIndex = period.index }),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         height: 50.0,
@@ -71,7 +50,7 @@ class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(period.name, style: Styles.itemTitleTextStyle),
-                            Icon(selectedIndex == period.index ? FluentIcons.checkmark_circle_24_filled : FluentIcons.circle_24_regular, size: 30.0, color: Styles.getColor("mainText"))
+                            Icon(GlobalProvider.instance.currentPeriodIndex == period.index ? FluentIcons.checkmark_circle_24_filled : FluentIcons.circle_24_regular, size: 30.0, color: Styles.getColor("mainText"))
                           ],
                         ),
                       ),

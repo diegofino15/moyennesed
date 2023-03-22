@@ -53,8 +53,11 @@ class SubjectCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(subject.name, style: Styles.itemTitleTextStyle.copyWith(color: Colors.black)),
-                  Text(subject.grades.isNotEmpty ? formatDouble(subject.getAverage()) : "--", style: Styles.numberTextStyle.copyWith(fontSize: 22.0, color: Colors.black)),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width - 80 - 24 - 60,
+                    child: Text(subject.name, style: Styles.itemTitleTextStyle.copyWith(color: Colors.black), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                  ),
+                  Text(subject.grades.isNotEmpty ? formatDouble(subject.getAverage()) : "--", style: Styles.numberTextStyle.copyWith(fontSize: 22.0, color: Colors.black))
                 ],
               ),
             ),

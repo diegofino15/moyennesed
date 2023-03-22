@@ -150,17 +150,17 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         const Gap(20.0),
                         Center(
-                          child: Column(
-                            children: [
-                              provider.gotGrades
-                                ? GestureDetector(
-                                    onTap: () => handleGeneralAveragePopup(context),
-                                    child: Text(GlobalInfos.periods[provider.currentPeriodCode]!.grades.isNotEmpty ? formatDouble(GlobalInfos.periods[provider.currentPeriodCode]!.getAverage()) : "--", style: Styles.numberTextStyle),
-                                  )
-                                : Text("--", style: Styles.numberTextStyle),
-                              const Gap(5.0),
-                              Text("MOYENNE GÉNÉRALE", style: Styles.itemTextStyle),
-                            ],
+                          child: GestureDetector(
+                            onTap: () => handleGeneralAveragePopup(context),
+                            child: Column(
+                              children: [
+                                provider.gotGrades
+                                  ? Text(GlobalInfos.periods[provider.currentPeriodCode]!.grades.isNotEmpty ? formatDouble(GlobalInfos.periods[provider.currentPeriodCode]!.getAverage()) : "--", style: Styles.numberTextStyle)
+                                  : Text("--", style: Styles.numberTextStyle),
+                                const Gap(5.0),
+                                Text("MOYENNE GÉNÉRALE", style: Styles.itemTextStyle),
+                              ],
+                            ),
                           ),
                         ),
                         const Gap(20.0),
