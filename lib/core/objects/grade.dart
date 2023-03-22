@@ -30,7 +30,7 @@ class Grade {
 
     valueStr = jsonInfos["valeur"].trim();
     valueOnStr = jsonInfos["noteSur"].trim();
-    classValueStr = jsonInfos["moyenneClasse"].trim();
+    classValueStr = jsonInfos["moyenneClasse"] ?? "";
     isEffective = !jsonInfos["enLettre"] || jsonInfos["nonSignificatif"];
 
     if (isEffective) {

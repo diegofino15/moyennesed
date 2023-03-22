@@ -1,4 +1,4 @@
-package com.example.moyennesed
+package me.diegof.moyennesed
 
 import io.flutter.embedding.android.FlutterActivity
 

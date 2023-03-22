@@ -54,10 +54,12 @@ class GradesHandler {
     GlobalProvider.instance.currentPeriodIndex = -1;
 
     // Detect current period of the year //
-    for (int i = 1; i <= 3; i++) {
-      Map periodMap = gradesResponse["periodes"][(i - 1) * 3];
-      Period period = GlobalInfos.addPeriod(periodMap);
-      if (!period.isFinished && GlobalProvider.instance.currentPeriodIndex == -1) { GlobalProvider.instance.currentPeriodIndex = i; }
+    const List<String> possiblePeriodCodes = ["A001", "A002", "A003"];
+    for (Map periodMap in gradesResponse["periodes"]) {
+      if (possiblePeriodCodes.contains(periodMap["idPeriode"])) {
+        Period period = GlobalInfos.addPeriod(periodMap);
+        if (!period.isFinished && GlobalProvider.instance.currentPeriodIndex == -1) { GlobalProvider.instance.currentPeriodIndex = period.index; }
+      }
     }
 
     for (Map gradeMap in gradesResponse["notes"]) {

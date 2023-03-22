@@ -231,7 +231,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                   ),
-                Gap(20.0),
+                const Gap(20.0),
                 BoxWidget(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
