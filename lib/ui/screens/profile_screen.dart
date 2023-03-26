@@ -40,25 +40,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
       backgroundColor: Colors.transparent,
       context: context,
       builder: (_) => Container(
-        height: 150.0,
-        padding: const EdgeInsets.all(20.0),
+        height: 155.0 * Styles.scale_,
+        padding: EdgeInsets.all(20.0 * Styles.scale_),
         decoration: BoxDecoration(
           color: Styles.backgroundColor,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20.0 * Styles.scale_)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Se déconnecter ?", style: Styles.sectionTitleTextStyle),
-            const Gap(10.0),
+            Gap(10.0 * Styles.scale_),
             Text("Vos identifiants de connexion seront oubliés.", style: Styles.itemTextStyle),
-            const Gap(10.0),
+            Gap(10.0 * Styles.scale_),
             OutlinedButton(
               onPressed: () {
                 NetworkHandler.disconnect();
                 Navigator.of(context).pop();
               },
-              child: SizedBox(width: MediaQuery.of(context).size.width, child: Center(child: Text("Confirmer", style: Styles.itemTextStyle.copyWith(color: Colors.red)))),
+              child: SizedBox(width: MediaQuery.of(context).size.width, height: 20 * Styles.scale_, child: Center(child: Text("Confirmer", style: Styles.itemTextStyle.copyWith(color: Colors.red)))),
             ),
           ],
         ),
@@ -82,17 +82,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: Scaffold(
           backgroundColor: Styles.backgroundColor,
           body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: EdgeInsets.symmetric(horizontal: 20.0 * Styles.scale_),
             child: ListView(
               children: [
-                const Gap(10.0),
+                Gap(10.0 * Styles.scale_),
                 BoxWidget(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
                         onTap: () => { if (mounted) { Navigator.of(context).maybePop() } },
-                        child: Icon(FluentIcons.arrow_left_24_filled, size: 25.0, color: Styles.getColor("mainText")),
+                        child: Icon(FluentIcons.arrow_left_24_filled, size: 25.0 * Styles.scale_, color: Styles.getColor("mainText")),
                       ),
                       Text("Profil", style: Styles.pageTitleTextStyle),
                       GestureDetector(
@@ -100,23 +100,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           GlobalProvider.instance.isDarkMode = !GlobalProvider.instance.isDarkMode;
                           FileHandler.instance.changeInfos({"isDarkMode": GlobalProvider.instance.isDarkMode});
                         },
-                        child: Icon(GlobalProvider.instance.isDarkMode ? FluentIcons.weather_moon_24_filled : FluentIcons.weather_sunny_24_filled, size: 25.0, color: Styles.getColor("mainText")),
+                        child: Icon(GlobalProvider.instance.isDarkMode ? FluentIcons.weather_moon_24_filled : FluentIcons.weather_sunny_24_filled, size: 25.0 * Styles.scale_, color: Styles.getColor("mainText")),
                       ),
                     ],
                   ),
                 ),
-                const Gap(20.0),
+                Gap(20.0 * Styles.scale_),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 60.0,
-                  padding: const EdgeInsets.all(20.0),
+                  height: 60.0 * Styles.scale_,
+                  padding: EdgeInsets.all(20.0 * Styles.scale_),
                   decoration: BoxDecoration(
                     color: provider.isConnected ? Colors.green : provider.isConnecting ? Colors.blue : Colors.red,
-                    borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+                    borderRadius: BorderRadius.all(Radius.circular(20.0 * Styles.scale_)),
                   ),
                   child: Text(provider.isConnected ? "Vous êtes connecté${StudentInfos.gender == "M" ? "" : "e"} !" : provider.isConnecting ? "Connexion..." : "Vous êtes déconnecté", style: Styles.sectionTitleTextStyle.copyWith(color: Colors.white)),
                 ),
-                Gap(provider.isConnected ? 20.0 : 0.0),
+                Gap(provider.isConnected ? 20.0 * Styles.scale_ : 0.0),
                 provider.isConnected
                   ? BoxWidget(
                       child: Row(
@@ -125,35 +125,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(width: MediaQuery.of(context).size.width - 150, child: Text(StudentInfos.fullName, style: Styles.itemTitleTextStyle, overflow: TextOverflow.ellipsis)),
-                              const Gap(5.0),
+                              SizedBox(width: MediaQuery.of(context).size.width - 150 * Styles.scale_, child: Text(StudentInfos.fullName, style: Styles.itemTitleTextStyle, overflow: TextOverflow.ellipsis)),
+                              Gap(5.0 * Styles.scale_),
                               Text(StudentInfos.level, style: Styles.itemTextStyle),
                             ],
                           ),
                           SizedBox(
-                            width: 50.0,
-                            height: 50.0,
+                            width: 50.0 * Styles.scale_,
+                            height: 50.0 * Styles.scale_,
                             child: MaterialButton(
                               onPressed: () => handleDisconnectPopup(context),
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(10.0 * Styles.scale_)),
                               ),
                               color: Colors.red,
-                              child: Column(mainAxisAlignment: MainAxisAlignment.center, children: const [Icon(FeatherIcons.logOut, size: 20.0, color: Colors.white)]),
+                              child: Center(child: Icon(FeatherIcons.logOut, size: 20.0 * Styles.scale_, color: Colors.white)),
                             ),
                           ),
                         ],
                       ),
                     )
                   : Container(),
-                Gap(provider.isConnected ? 20.0 : 0.0),
+                Gap(provider.isConnected ? 20.0 * Styles.scale_ : 0.0),
                 provider.isConnected
                   ? BoxWidget(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text("Paramètres", style: Styles.sectionTitleTextStyle),
-                          const Gap(10.0),
+                          Gap(10.0 * Styles.scale_),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -164,11 +164,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ModifiableInfos.useSubjectCoefficients = !ModifiableInfos.useSubjectCoefficients;
                                   ModifiableInfos.save();
                                 }),
-                                child: Icon(ModifiableInfos.useSubjectCoefficients ? FluentIcons.checkbox_checked_24_filled : FluentIcons.checkbox_unchecked_24_regular, color: Styles.getColor("mainText"))
+                                child: Icon(ModifiableInfos.useSubjectCoefficients ? FluentIcons.checkbox_checked_24_filled : FluentIcons.checkbox_unchecked_24_regular, size: 25.0 * Styles.scale_, color: Styles.getColor("mainText"))
                               ),
                             ],
                           ),
-                          const Gap(10.0),
+                          Gap(10.0 * Styles.scale_),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -177,15 +177,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 children: [
                                   GestureDetector(
                                     onTap: () => handleExperimentalFeaturesPopup(context),
-                                    child: const Icon(FluentIcons.info_24_regular, size: 20.0, color: Colors.grey),
+                                    child: Icon(FluentIcons.info_24_regular, size: 20.0 * Styles.scale_, color: Colors.grey),
                                   ),
-                                  const Gap(5.0),
+                                  Gap(5.0 * Styles.scale_),
                                   GestureDetector(
                                     onTap: () => setState(() {
                                       ModifiableInfos.guessGradeCoefficient = !ModifiableInfos.guessGradeCoefficient;
                                       ModifiableInfos.save();
                                     }),
-                                    child: Icon(ModifiableInfos.guessGradeCoefficient ? FluentIcons.checkbox_checked_24_filled : FluentIcons.checkbox_unchecked_24_regular, color: Styles.getColor("mainText"))
+                                    child: Icon(ModifiableInfos.guessGradeCoefficient ? FluentIcons.checkbox_checked_24_filled : FluentIcons.checkbox_unchecked_24_regular, size: 25.0 * Styles.scale_, color: Styles.getColor("mainText"))
                                   ),
                                 ],
                               ),
@@ -195,7 +195,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     )
                   : Container(),
-                Gap(provider.isUserLoggedIn || provider.isConnecting ? 0.0 : 20.0),
+                Gap(provider.isUserLoggedIn || provider.isConnecting ? 0.0 : 20.0 * Styles.scale_),
                 provider.isUserLoggedIn || provider.isConnecting
                   ? Container()
                   : BoxWidget(
@@ -203,9 +203,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text("Se connecter", style: Styles.sectionTitleTextStyle),
-                        const Gap(20.0),
+                        Gap(20.0 * Styles.scale_),
                         Text("Entrez vos informations EcoleDirecte", style: Styles.itemTextStyle),
-                        const Gap(10.0),
+                        Gap(10.0 * Styles.scale_),
                         Input(
                           placeholder: "Identifiant",
                           initialValue: NetworkHandler.loginUsername,
@@ -213,7 +213,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           changeValueFunction: (value) => { NetworkHandler.loginUsername = value },
                           submitFunction: (value) => { NetworkHandler.loginUsername = value },
                         ),
-                        const Gap(10.0),
+                        Gap(10.0 * Styles.scale_),
                         Input(
                           placeholder: "Mot de passe",
                           initialValue: "",
@@ -221,9 +221,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           changeValueFunction: (value) => { NetworkHandler.loginPassword = value },
                           submitFunction: (value) => handleConnect(),
                         ),
-                        const Gap(10.0),
+                        Gap(10.0 * Styles.scale_),
                         Button(
-                          height: 60.0,
+                          height: 60.0 * Styles.scale_,
                           color: Colors.green,
                           onPressed: handleConnect,
                           child: Text("Se connecter", style: Styles.sectionTitleTextStyle.copyWith(color: Colors.white)),
@@ -231,15 +231,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                   ),
-                const Gap(20.0),
+                Gap(20.0 * Styles.scale_),
                 BoxWidget(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children: [
-                          SizedBox(width: 30.0, height: 15.0, child: Image.asset("assets/images/logoEcoleDirecte.png", fit: BoxFit.fill)),
-                          const Gap(10.0),
+                          SizedBox(width: 30.0 * Styles.scale_, height: 15.0 * Styles.scale_, child: Image.asset("assets/images/logoEcoleDirecte.png", fit: BoxFit.fill)),
+                          Gap(10.0 * Styles.scale_),
                           Text("Site officiel EcoleDirecte", style: Styles.itemTitleTextStyle),
                         ],
                       ),
@@ -251,12 +251,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             print("Unable to launch URL");
                           }
                         },
-                        child: Icon(FluentIcons.arrow_right_24_filled, size: 25.0, color: Styles.getColor("mainText")),
+                        child: Icon(FluentIcons.arrow_right_24_filled, size: 25.0 * Styles.scale_, color: Styles.getColor("mainText")),
                       ),
                     ],
                   ),
                 ),
-                Gap(provider.gotNetworkConnection ? 0.0 : 20.0),
+                Gap(provider.gotNetworkConnection ? 0.0 : 20.0 * Styles.scale_),
                 provider.gotNetworkConnection
                   ? Container()
                   : BoxWidget(
@@ -265,14 +265,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: [
                         Row(
                           children: [
-                            const Icon(FluentIcons.wifi_off_24_filled, size: 25.0, color: Colors.red),
-                            const Gap(10.0),
+                            Icon(FluentIcons.wifi_off_24_filled, size: 25.0 * Styles.scale_, color: Colors.red),
+                            Gap(10.0 * Styles.scale_),
                             Text("Pas de connexion internet", style: Styles.sectionTitleTextStyle)
                           ],
                         ),
-                        const Gap(20.0),
+                        Gap(20.0 * Styles.scale_),
                         Button(
-                          height: 60.0,
+                          height: 60.0 * Styles.scale_,
                           color: Colors.blue,
                           onPressed: GradesHandler.getGrades,
                           child: Text(GlobalProvider.instance.isConnecting || GlobalProvider.instance.isGettingGrades ? "Chargement..." : "Rééssayer", style: Styles.sectionTitleTextStyle.copyWith(color: Colors.white)),

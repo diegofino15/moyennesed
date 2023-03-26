@@ -51,36 +51,40 @@ class Styles {
     return subjectColors[attribuatedSubjectColors[subjectCode]!][colorIndex];
   }
 
+  // Global scale used in the app //
+  static double scale_ = 1.0;
+  static double setScale(context) => scale_ = MediaQuery.of(context).size.width / 430.0 * 1.05;
+
   // All the TextStyles used in the app //
   static TextStyle get pageTitleTextStyle => TextStyle(
-    fontSize: 20.0,
+    fontSize: 20.0 * scale_,
     fontWeight: FontWeight.bold,
     fontFamily: "Bitter",
     color: getColor("mainText")
   );
 
   static TextStyle get sectionTitleTextStyle => TextStyle(
-    fontSize: 18.0,
+    fontSize: 18.0 * scale_,
     fontWeight: FontWeight.w600,
     fontFamily: "Montserrat",
     color: getColor("mainText")
   );
 
   static TextStyle get itemTitleTextStyle => TextStyle(
-    fontSize: 17.0,
+    fontSize: 17.0 * scale_,
     fontWeight: FontWeight.w600,
     fontFamily: "Montserrat",
     color: getColor("mainText")
   );
 
   static TextStyle get itemTextStyle => TextStyle(
-    fontSize: 15.0,
+    fontSize: 15.0 * scale_,
     fontFamily: "Montserrat",
     color: getColor("subtitleText")
   );
 
   static TextStyle get numberTextStyle => TextStyle(
-    fontSize: 32.0,
+    fontSize: 32.0 * scale_,
     fontFamily: "Bitter",
     fontWeight: FontWeight.bold,
     color: getColor("mainText"),

@@ -11,33 +11,33 @@ class GeneralAveragePopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 140.0,
-      padding: const EdgeInsets.all(20.0),
+      height: 140.0 * Styles.scale_,
+      padding: EdgeInsets.all(20.0 * Styles.scale_),
       decoration: BoxDecoration(
         color: Styles.backgroundColor,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0 * Styles.scale_)),
       ),
       child: Row(
         children: [
           Container(
-            width: 100.0,
-            height: 100.0,
-            decoration: const BoxDecoration(
+            width: 100.0 * Styles.scale_,
+            height: 100.0 * Styles.scale_,
+            decoration: BoxDecoration(
               color: Colors.orange,
-              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+              borderRadius: BorderRadius.all(Radius.circular(20.0 * Styles.scale_)),
             ),
             child: Center(child: Text(formatDouble(GlobalInfos.periods[GlobalProvider.instance.currentPeriodCode]!.getAverage()), style: Styles.numberTextStyle.copyWith(color: Colors.black))),
           ),
-          const Gap(20.0),
+          Gap(20.0 * Styles.scale_),
           SizedBox(
-            height: 100.0,
+            height: 100.0 * Styles.scale_,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Moyenne générale", style: Styles.itemTitleTextStyle.copyWith(fontWeight: FontWeight.bold)),
                 SizedBox(
-                  width: 200.0,
+                  width: 200.0 * Styles.scale_,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -47,7 +47,7 @@ class GeneralAveragePopup extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width - 160, child: Text(StudentInfos.fullName, style: Styles.itemTextStyle, overflow: TextOverflow.ellipsis)),
+                SizedBox(width: MediaQuery.of(context).size.width - 160 * Styles.scale_, child: Text(StudentInfos.fullName, style: Styles.itemTextStyle, overflow: TextOverflow.ellipsis)),
               ],
             ),
           ),

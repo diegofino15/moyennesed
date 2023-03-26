@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moyennesed/ui/styles.dart';
 
 class LoadingAnim extends StatefulWidget {
   const LoadingAnim({super.key});
@@ -26,13 +27,13 @@ class _LoadingAnimState extends State<LoadingAnim> with SingleTickerProviderStat
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [
+      children: [
         SizedBox(
-          height: 20.0,
-          width: 20.0,
+          height: 20.0 * Styles.scale_,
+          width: 20.0 * Styles.scale_,
           child: CircularProgressIndicator(
             valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-            strokeWidth: 4.0,
+            strokeWidth: 4.0 * Styles.scale_,
           ),
         ),
       ],

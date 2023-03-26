@@ -15,33 +15,33 @@ class SubjectPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 140.0,
-      padding: const EdgeInsets.all(20.0),
+      height: 140.0 * Styles.scale_,
+      padding: EdgeInsets.all(20.0 * Styles.scale_),
       decoration: BoxDecoration(
         color: Styles.backgroundColor,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0 * Styles.scale_)),
       ),
       child: Row(
         children: [
           Container(
-            width: 100.0,
-            height: 100.0,
+            width: 100.0 * Styles.scale_,
+            height: 100.0 * Styles.scale_,
             decoration: BoxDecoration(
               color: Styles.getSubjectColor(subject.code, 0),
-              borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+              borderRadius: BorderRadius.all(Radius.circular(20.0 * Styles.scale_)),
             ),
             child: Center(child: Text(subject.grades.isNotEmpty ? formatDouble(subject.getAverage()) : "--", style: Styles.numberTextStyle.copyWith(color: Colors.black))),
           ),
-          const Gap(20.0),
+          Gap(20.0 * Styles.scale_),
           SizedBox(
-            height: 100.0,
+            height: 100.0 * Styles.scale_,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(subject.name, style: Styles.itemTitleTextStyle.copyWith(fontWeight: FontWeight.bold)),
+                SizedBox(width: 190 * Styles.scale_, child: Text(subject.name, style: Styles.itemTitleTextStyle.copyWith(fontWeight: FontWeight.bold), overflow: TextOverflow.fade, maxLines: 1, softWrap: false)),
                 SizedBox(
-                  width: 200,
+                  width: 190 * Styles.scale_,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

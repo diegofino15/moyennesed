@@ -133,8 +133,8 @@ class DemoAccount {
     return demoAccountGrades;
   }
   static Map<String, dynamic> get demoAccountGrades => {
-    "periodes": {
-      0: {
+    "periodes": [
+      {
         "codePeriode": "A001",
         "periode": "1er Trimestre",
         "cloture": true,
@@ -265,7 +265,7 @@ class DemoAccount {
           ]
         }
       },
-      3: {
+      {
         "codePeriode": "A002",
         "periode": "2e Trimestre",
         "cloture": false,
@@ -396,7 +396,7 @@ class DemoAccount {
           ]
         }
       },
-      6: {
+      {
         "codePeriode": "A003",
         "periode": "3e Trimestre",
         "cloture": false,
@@ -527,7 +527,7 @@ class DemoAccount {
           ]
         }
       },
-    },
+    ],
     "notes": generateRandomGrades()  
   };
 }

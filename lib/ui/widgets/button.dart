@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moyennesed/ui/styles.dart';
 
 class Button extends StatelessWidget {
   final double height;
@@ -21,8 +22,8 @@ class Button extends StatelessWidget {
       height: height,
       child: MaterialButton(
         onPressed: () { onPressed(); },
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10.0 * Styles.scale_)),
         ),
         color: color,
         child: child,

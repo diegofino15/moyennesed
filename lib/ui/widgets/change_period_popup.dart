@@ -17,11 +17,11 @@ class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 260.0,
-      padding: const EdgeInsets.all(20.0),
+      height: 260.0 * Styles.scale_,
+      padding: EdgeInsets.all(20.0 * Styles.scale_),
       decoration: BoxDecoration(
         color: Styles.backgroundColor,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0 * Styles.scale_)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,22 +35,22 @@ class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
   
                 return Column(
                   children: [
-                    const Gap(10.0),
+                    Gap(10.0 * Styles.scale_),
                     GestureDetector(
                       onTap: () => setState(() => { GlobalProvider.instance.currentPeriodIndex = period.index }),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
-                        height: 50.0,
-                        padding: const EdgeInsets.only(left: 15.0, right: 10, top: 3.0),
+                        height: 50.0 * Styles.scale_,
+                        padding: EdgeInsets.only(left: 15.0 * Styles.scale_, right: 10 * Styles.scale_, top: 3.0 * Styles.scale_),
                         decoration: BoxDecoration(
                           color: Styles.mainWidgetBackgroundColor,
-                          borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                          borderRadius: BorderRadius.all(Radius.circular(10.0 * Styles.scale_)),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(period.name, style: Styles.itemTitleTextStyle),
-                            Icon(GlobalProvider.instance.currentPeriodIndex == period.index ? FluentIcons.checkmark_circle_24_filled : FluentIcons.circle_24_regular, size: 30.0, color: Styles.getColor("mainText"))
+                            Icon(GlobalProvider.instance.currentPeriodIndex == period.index ? FluentIcons.checkmark_circle_24_filled : FluentIcons.circle_24_regular, size: 30.0 * Styles.scale_, color: Styles.getColor("mainText"))
                           ],
                         ),
                       ),

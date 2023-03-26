@@ -13,10 +13,10 @@ class BoxWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.all(20.0),
+      padding: EdgeInsets.all(20.0 * Styles.scale_),
       decoration: BoxDecoration(
         color: Styles.mainWidgetBackgroundColor,
-        borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+        borderRadius: BorderRadius.all(Radius.circular(20.0 * Styles.scale_)),
       ),
       child: child,
     );

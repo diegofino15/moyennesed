@@ -27,7 +27,7 @@ class _InputState extends State<Input> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: 60.0,
+      height: 60.0 * Styles.scale_,
       child: TextFormField(
         autocorrect: false,
         obscureText: widget.hideText,

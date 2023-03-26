@@ -60,6 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext widgetBuildContext) {
+    Styles.setScale(context);
     int currentWelcomeMessage = Random().nextInt(welcomeMessages.length);
 
     return Consumer<GlobalProvider>(
@@ -68,12 +69,12 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Scaffold(
           backgroundColor: Styles.backgroundColor,
           body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            padding: EdgeInsets.symmetric(horizontal: 20.0 * Styles.scale_),
             child: RefreshIndicator(
               onRefresh: () async { GradesHandler.getGrades(); },
               child: ListView(
                 children: [
-                  const Gap(10.0),
+                  Gap(10.0 * Styles.scale_),
                   BoxWidget(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,23 +83,23 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              width: MediaQuery.of(context).size.width - 120,
+                              width: MediaQuery.of(context).size.width - 120 * Styles.scale_,
                               child: Row(
                                 children: [
                                   provider.gotNetworkConnection
                                     ? Container()
                                     : const Icon(FluentIcons.wifi_off_24_filled, color: Colors.red),
-                                  Gap(provider.gotNetworkConnection ? 0.0 : 10.0),
+                                  Gap(provider.gotNetworkConnection ? 0.0 : 10.0 * Styles.scale_),
                                   Text(provider.isUserLoggedIn ? "Bonjour ${StudentInfos.firstName} !" : "Vous êtes déconnecté", style: Styles.pageTitleTextStyle, maxLines: 1, overflow: TextOverflow.ellipsis),
                                 ],
                               ),
                             ),
-                            const Gap(5.0),
+                            Gap(5.0 * Styles.scale_),
                             Text(provider.isUserLoggedIn ? welcomeMessages[currentWelcomeMessage] : "Connectez vous sur votre profil", style: Styles.itemTextStyle),
                           ],
                         ),
                         SizedBox(
-                          width: 40.0,
+                          width: 40.0 * Styles.scale_,
                           child: GestureDetector(
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
@@ -110,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                             child: Column(
                               children: [
-                                Icon(FluentIcons.person_24_filled, size: 35.0, color: Styles.getColor("mainText")),
+                                Icon(FluentIcons.person_24_filled, size: 35.0 * Styles.scale_, color: Styles.getColor("mainText")),
                                 Text("Profil", style: Styles.itemTextStyle)
                               ],
                             ),
@@ -119,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                  const Gap(20.0),
+                  Gap(20.0 * Styles.scale_),
                   BoxWidget(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,11 +130,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             Text("Trimestre ${provider.gotGrades ? provider.currentPeriodIndex : "--"}", style: Styles.itemTitleTextStyle),
                             SizedBox(
-                              height: 25.0,
+                              height: 25.0 * Styles.scale_,
                               child: provider.isGettingGrades || provider.isConnecting
                                 ? const LoadingAnim()
                                 : (provider.gotGrades && provider.isConnected) || !provider.gotNetworkConnection
-                                  ? GestureDetector(onTap: () => handleChangePeriodPopup(context), child: Icon(FluentIcons.settings_24_filled, size: 25.0, color: Styles.getColor("mainText")))
+                                  ? GestureDetector(onTap: () => handleChangePeriodPopup(context), child: Icon(FluentIcons.settings_24_filled, size: 25.0 * Styles.scale_, color: Styles.getColor("mainText")))
                                   : GestureDetector(
                                       onTap: () => {
                                         Navigator.of(context).push(MaterialPageRoute(
@@ -143,12 +144,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         ))
                                       },
-                                      child: const Icon(FluentIcons.warning_24_filled, size: 25.0, color: Colors.orange),
+                                      child: Icon(FluentIcons.warning_24_filled, size: 25.0 * Styles.scale_, color: Colors.orange),
                                     ),
                             ),
                           ],
                         ),
-                        const Gap(20.0),
+                        Gap(20.0 * Styles.scale_),
                         Center(
                           child: GestureDetector(
                             onTap: () => handleGeneralAveragePopup(context),
@@ -157,32 +158,32 @@ class _HomeScreenState extends State<HomeScreen> {
                                 provider.gotGrades
                                   ? Text(GlobalInfos.periods[provider.currentPeriodCode]!.grades.isNotEmpty ? formatDouble(GlobalInfos.periods[provider.currentPeriodCode]!.getAverage()) : "--", style: Styles.numberTextStyle)
                                   : Text("--", style: Styles.numberTextStyle),
-                                const Gap(5.0),
+                                Gap(5.0 * Styles.scale_),
                                 Text("MOYENNE GÉNÉRALE", style: Styles.itemTextStyle),
                               ],
                             ),
                           ),
                         ),
-                        const Gap(20.0),
+                        Gap(20.0 * Styles.scale_),
                         Text("Dernières notes", style: Styles.itemTitleTextStyle),
-                        const Gap(10.0),
+                        Gap(10.0 * Styles.scale_),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width - 80.0,
-                          height: 70.0,
+                          width: MediaQuery.of(context).size.width - 80.0 * Styles.scale_,
+                          height: 70.0 * Styles.scale_,
                           child: ListView.separated(
                             key: const PageStorageKey<String>("grades"),
                             scrollDirection: Axis.horizontal,
                             itemCount: provider.gotGrades ? min(20, GlobalInfos.periods[provider.currentPeriodCode]!.grades.length) : 0,
                             itemBuilder: (context, index) => GradeCard(grade: GlobalInfos.periods[provider.currentPeriodCode]!.grades[GlobalInfos.periods[provider.currentPeriodCode]!.grades.length - index - 1]),
                             separatorBuilder: (context, index) {
-                              return Gap(index == min(20, GlobalInfos.periods[provider.currentPeriodCode]!.grades.length) - 1 ? 0.0 : 10.0);
+                              return Gap(index == min(20, GlobalInfos.periods[provider.currentPeriodCode]!.grades.length) - 1 ? 0.0 : 10.0 * Styles.scale_);
                             },
                           ),
                         ),
                       ],
                     ),
                   ),
-                  const Gap(20.0),
+                  Gap(20.0 * Styles.scale_),
                   BoxWidget(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -196,7 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
               
                               return Column(
                                 children: [
-                                  const Gap(20.0),
+                                  Gap(20.0 * Styles.scale_),
                                   SubjectCard(subject: subject),
                                 ],
                               );
@@ -206,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                  const Gap(20.0),
+                  Gap(20.0 * Styles.scale_),
                 ],
               ),
             ),

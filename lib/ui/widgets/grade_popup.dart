@@ -18,60 +18,60 @@ class GradePopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150.0,
-      padding: const EdgeInsets.all(20.0),
+      height: 150.0 * Styles.scale_,
+      padding: EdgeInsets.all(20.0 * Styles.scale_),
       decoration: BoxDecoration(
         color: Styles.backgroundColor,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0 * Styles.scale_)),
       ),
       child: Row(
         children: [
           SizedBox(
-            width: 110,
-            height: 110,
+            width: 110 * Styles.scale_,
+            height: 110 * Styles.scale_,
             child: Stack(
               alignment: Alignment.center,
               children: [
                 Container(
-                  width: 100.0,
-                  height: 100.0,
+                  width: 100.0 * Styles.scale_,
+                  height: 100.0 * Styles.scale_,
                   decoration: BoxDecoration(
                     color: Styles.getSubjectColor(grade.subjectCode, 1),
-                    borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+                    borderRadius: BorderRadius.all(Radius.circular(20.0 * Styles.scale_)),
                   ),
-                  child: Center(child: Text(grade.valueStr, style: Styles.numberTextStyle.copyWith(fontSize: 40.0, color: Colors.black))),
+                  child: Center(child: Text(grade.valueStr, style: Styles.numberTextStyle.copyWith(fontSize: 40.0 * Styles.scale_, color: Colors.black))),
                 ),
                 (grade.isEffective && (grade.valueOn ?? 20.0) != 20.0)
                   ? Positioned(
                       right: 0,
                       bottom: 0,
                       child: Container(
-                        width: 44.0,
-                        height: 32.0,
+                        width: 44.0 * Styles.scale_,
+                        height: 32.0 * Styles.scale_,
                         decoration: BoxDecoration(
                           color: Styles.getSubjectColor(grade.subjectCode, 0),
-                          borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                          borderRadius: BorderRadius.all(Radius.circular(10.0 * Styles.scale_)),
                         ),
-                        child: Center(child: Text("/${grade.valueOnStr}", style: Styles.numberTextStyle.copyWith(fontSize: 24.0, color: Colors.black))),
+                        child: Center(child: Text("/${grade.valueOnStr}", style: Styles.numberTextStyle.copyWith(fontSize: 24.0 * Styles.scale_, color: Colors.black))),
                       ),
                     )
                   : Container(),
               ],
             ),
           ),
-          const Gap(10.0),
+          Gap(10.0 * Styles.scale_),
           SizedBox(
-            height: 100,
+            height: 100 * Styles.scale_,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  width: 200.0,
+                  width: 190.0 * Styles.scale_,
                   child: Text(grade.title, style: Styles.itemTitleTextStyle.copyWith(fontWeight: FontWeight.bold), maxLines: 2),
                 ),
                 SizedBox(
-                  width: 200.0,
+                  width: 190.0 * Styles.scale_,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
