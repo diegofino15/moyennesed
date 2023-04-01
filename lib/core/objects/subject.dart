@@ -16,16 +16,16 @@ class Subject {
   double coefficient = 1.0;
 
   void init(Map jsonInfos) {
-    code = jsonInfos["codeMatiere"];
-    name = jsonInfos["discipline"].trim();
+    code = jsonInfos["codeMatiere"] ?? "";
+    name = (jsonInfos["discipline"] ?? "Pas de matière").trim();
 
-    if (jsonInfos["professeurs"].isNotEmpty) {
+    if ((jsonInfos["professeurs"] ?? []).isNotEmpty) {
       professorName = jsonInfos["professeurs"][0]["nom"].trim();
     } else {
       professorName = "Pas de professeur";
     }
 
-    coefficient = jsonInfos["coef"].toDouble();
+    coefficient = (jsonInfos["coef"] ?? "0").toDouble();
     if (coefficient == 0.0) {
       if (ModifiableInfos.useSubjectCoefficients) {
         coefficient = ModifiableInfos.subjectCoefficients[code] ?? 1.0;

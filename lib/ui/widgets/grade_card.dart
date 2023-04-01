@@ -52,7 +52,7 @@ class GradeCard extends StatelessWidget {
                     ),
                     child: Center(child: Text(grade.valueStr, style: Styles.numberTextStyle.copyWith(fontSize: 20.0 * Styles.scale_, color: Colors.black))),
                   ),
-                  (grade.isEffective && (grade.valueOn ?? 20.0) != 20.0)
+                  (grade.isEffective && grade.valueOn != 20.0)
                     ? Positioned(
                         right: 0,
                         bottom: 0,

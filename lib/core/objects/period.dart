@@ -7,7 +7,6 @@ class Period {
   late String code;
   late bool isFinished;
 
-  late String generalProfessorName;
   late String name;
 
   final List<Grade> grades = <Grade>[];
@@ -18,12 +17,11 @@ class Period {
   bool hasCalculatedGeneralAverage_ = false;
 
   void init(Map jsonInfos) {
-    code = jsonInfos["codePeriode"];
+    code = jsonInfos["codePeriode"] ?? "A001";
     index = int.parse(code.substring(3, 4));
-    isFinished = jsonInfos["cloture"];
+    isFinished = jsonInfos["cloture"] ?? false;
 
-    generalProfessorName = jsonInfos["ensembleMatieres"]["nomPP"];
-    name = jsonInfos["periode"];
+    name = jsonInfos["periode"] ?? "1er trimestre";
 
     for (Map subjectMap in jsonInfos["ensembleMatieres"]["disciplines"]) {
       addSubject(subjectMap);
@@ -34,7 +32,6 @@ class Period {
     index = jsonInfos["index"];
     code = jsonInfos["code"];
     isFinished = jsonInfos["isFinished"];
-    generalProfessorName = jsonInfos["generalProfessorName"];
     name = jsonInfos["name"];
     for (Map gradeObj in jsonInfos["grades"]) {
       Grade grade = Grade();
@@ -121,7 +118,6 @@ class Period {
       "index": index,
       "code": code,
       "isFinished": isFinished,
-      "generalProfessorName": generalProfessorName,
       "name": name,
       "grades": jsonGrades,
       "subjects": jsonSubjects,

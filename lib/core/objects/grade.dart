@@ -15,34 +15,34 @@ class Grade {
   late bool isEffective;
 
   double? value;
-  double? valueOn;
+  double valueOn = 20.0;
   double? classValue;
 
   late double coefficient;
 
   void init(Map jsonInfos) {
-    title = jsonInfos["devoir"];
-    subjectCode = jsonInfos["codeMatiere"];
-    subjectName = jsonInfos["libelleMatiere"];
+    title = jsonInfos["devoir"] ?? "";
+    subjectCode = jsonInfos["codeMatiere"] ?? "";
+    subjectName = jsonInfos["libelleMatiere"] ?? "Pas de matière";
 
-    date = DateTime.parse(jsonInfos["date"]);
-    dateEntered = DateTime.parse(jsonInfos["dateSaisie"]);
+    date = DateTime.tryParse(jsonInfos["date"]) ?? DateTime.now();
+    dateEntered = DateTime.tryParse(jsonInfos["dateSaisie"]) ?? DateTime.now();
 
-    valueStr = jsonInfos["valeur"].trim();
-    valueOnStr = jsonInfos["noteSur"].trim();
+    valueStr = (jsonInfos["valeur"] ?? "").trim();
+    valueOnStr = (jsonInfos["noteSur"] ?? "").trim();
     classValueStr = jsonInfos["moyenneClasse"] ?? "";
-    isEffective = !jsonInfos["enLettre"] || jsonInfos["nonSignificatif"];
+    isEffective = !(jsonInfos["enLettre"] ?? false) || (jsonInfos["nonSignificatif"] ?? false);
 
     if (isEffective) {
       double? valueDouble = double.tryParse(valueStr.replaceAll(",", "."));
       double? classValueDouble = double.tryParse(classValueStr.replaceAll(",", "."));
-      valueOn = double.tryParse(valueOnStr.replaceAll(",", "."));
+      valueOn = double.tryParse(valueOnStr.replaceAll(",", ".")) ?? 20.0;
 
-      value = (valueDouble ?? 0.0) / (valueOn ?? 1.0) * 20.0;
-      classValue = (classValueDouble ?? 0.0) / (valueOn ?? 1.0) * 20.0;
+      value = (valueDouble ?? 0.0) / valueOn * 20.0;
+      classValue = (classValueDouble ?? 0.0) / valueOn * 20.0;
     }
 
-    coefficient = jsonInfos["coef"].toDouble();
+    coefficient = (jsonInfos["coef"] ?? "0").toDouble();
     if (coefficient == 0.0) {
       if (ModifiableInfos.guessGradeCoefficient) {
         coefficient = 1.0;
@@ -72,8 +72,8 @@ class Grade {
   }
 
   // UI //
-  String get showableValue => isEffective ? (valueOn ?? 20.0) == 20.0 ? valueStr : "$valueStr/$valueOnStr" : valueStr;
-  String get showableClassValue => isEffective ? (valueOn ?? 20.0) == 20.0 ? classValueStr : "$classValueStr/$valueOnStr" : "--";
+  String get showableValue => isEffective ? valueOn == 20.0 ? valueStr : "$valueStr/$valueOnStr" : valueStr;
+  String get showableClassValue => isEffective ? valueOn == 20.0 ? classValueStr : "$classValueStr/$valueOnStr" : "--";
 
   // Cache //
   Map toJson() {
@@ -88,7 +88,7 @@ class Grade {
       "classValueStr": classValueStr,
       "isEffective": isEffective,
       "value": value ?? 0.0,
-      "valueOn": valueOn ?? 20.0,
+      "valueOn": valueOn,
       "classValue": classValue ?? 0.0,
       "coefficient": coefficient
     };

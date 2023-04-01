@@ -68,148 +68,144 @@ class _HomeScreenState extends State<HomeScreen> {
         value: provider.isDarkMode ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark,
         child: Scaffold(
           backgroundColor: Styles.backgroundColor,
-          body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0 * Styles.scale_),
-            child: RefreshIndicator(
-              onRefresh: () async { GradesHandler.getGrades(); },
-              child: ListView(
-                children: [
-                  Gap(10.0 * Styles.scale_),
-                  BoxWidget(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width - 120 * Styles.scale_,
-                              child: Row(
-                                children: [
-                                  provider.gotNetworkConnection
-                                    ? Container()
-                                    : const Icon(FluentIcons.wifi_off_24_filled, color: Colors.red),
-                                  Gap(provider.gotNetworkConnection ? 0.0 : 10.0 * Styles.scale_),
-                                  Text(provider.isUserLoggedIn ? "Bonjour ${StudentInfos.firstName} !" : "Vous êtes déconnecté", style: Styles.pageTitleTextStyle, maxLines: 1, overflow: TextOverflow.ellipsis),
-                                ],
+          body: RefreshIndicator(
+            onRefresh: () async { GradesHandler.getGrades(); },
+            child: ListView(
+              padding: EdgeInsets.only(left: 20.0, right: 20.0, top: MediaQuery.of(context).padding.top + 10.0, bottom: MediaQuery.of(context).padding.bottom + 10.0),
+              children: [
+                BoxWidget(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width - 140 * Styles.scale_,
+                            child: Row(
+                              children: [
+                                provider.gotNetworkConnection
+                                  ? Container()
+                                  : const Icon(FluentIcons.wifi_off_24_filled, color: Colors.red),
+                                Gap(provider.gotNetworkConnection ? 0.0 : 10.0 * Styles.scale_),
+                                Text(provider.isUserLoggedIn ? "Bonjour ${StudentInfos.firstName} !" : "Vous êtes déconnecté", style: Styles.pageTitleTextStyle, maxLines: 1, overflow: TextOverflow.ellipsis),
+                              ],
+                            ),
+                          ),
+                          Gap(5.0 * Styles.scale_),
+                          Text(provider.isUserLoggedIn ? welcomeMessages[currentWelcomeMessage] : "Connectez vous sur votre profil", style: Styles.itemTextStyle),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 40.0 * Styles.scale_,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (_) => ChangeNotifierProvider<GlobalProvider>(
+                                create: (_) => GlobalProvider.instance,
+                                child: const ProfileScreen(),
                               ),
-                            ),
-                            Gap(5.0 * Styles.scale_),
-                            Text(provider.isUserLoggedIn ? welcomeMessages[currentWelcomeMessage] : "Connectez vous sur votre profil", style: Styles.itemTextStyle),
-                          ],
+                            ));
+                          },
+                          child: Column(
+                            children: [
+                              Icon(FluentIcons.person_24_filled, size: 35.0 * Styles.scale_, color: Styles.getColor("mainText")),
+                              Text("Profil", style: Styles.itemTextStyle)
+                            ],
+                          ),
                         ),
-                        SizedBox(
-                          width: 40.0 * Styles.scale_,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (_) => ChangeNotifierProvider<GlobalProvider>(
-                                  create: (_) => GlobalProvider.instance,
-                                  child: const ProfileScreen(),
-                                ),
-                              ));
-                            },
-                            child: Column(
+                      ),
+                    ],
+                  ),
+                ),
+                Gap(20.0 * Styles.scale_),
+                BoxWidget(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Trimestre ${provider.gotGrades ? provider.currentPeriodIndex : "--"}", style: Styles.itemTitleTextStyle),
+                          SizedBox(
+                            height: 25.0 * Styles.scale_,
+                            child: provider.isGettingGrades || provider.isConnecting
+                              ? const LoadingAnim()
+                              : (provider.gotGrades && provider.isConnected) || !provider.gotNetworkConnection
+                                ? GestureDetector(onTap: () => handleChangePeriodPopup(context), child: Icon(FluentIcons.settings_24_filled, size: 25.0 * Styles.scale_, color: Styles.getColor("mainText")))
+                                : GestureDetector(
+                                    onTap: () => {
+                                      Navigator.of(context).push(MaterialPageRoute(
+                                        builder: (_) => ChangeNotifierProvider<GlobalProvider>(
+                                          create: (_) => GlobalProvider.instance,
+                                          child: const ProfileScreen(),
+                                        ),
+                                      ))
+                                    },
+                                    child: Icon(FluentIcons.warning_24_filled, size: 25.0 * Styles.scale_, color: Colors.orange),
+                                  ),
+                          ),
+                        ],
+                      ),
+                      Gap(20.0 * Styles.scale_),
+                      Center(
+                        child: GestureDetector(
+                          onTap: () => handleGeneralAveragePopup(context),
+                          child: Column(
+                            children: [
+                              provider.gotGrades
+                                ? Text(GlobalInfos.periods[provider.currentPeriodCode]!.grades.isNotEmpty ? formatDouble(GlobalInfos.periods[provider.currentPeriodCode]!.getAverage()) : "--", style: Styles.numberTextStyle)
+                                : Text("--", style: Styles.numberTextStyle),
+                              Gap(5.0 * Styles.scale_),
+                              Text("MOYENNE GÉNÉRALE", style: Styles.itemTextStyle),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Gap(20.0 * Styles.scale_),
+                      Text("Dernières notes", style: Styles.itemTitleTextStyle),
+                      Gap(10.0 * Styles.scale_),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width - 80.0 * Styles.scale_,
+                        height: 70.0 * Styles.scale_,
+                        child: ListView.separated(
+                          key: const PageStorageKey<String>("grades"),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: provider.gotGrades ? min(20, GlobalInfos.periods[provider.currentPeriodCode]!.grades.length) : 0,
+                          itemBuilder: (context, index) => GradeCard(grade: GlobalInfos.periods[provider.currentPeriodCode]!.grades[GlobalInfos.periods[provider.currentPeriodCode]!.grades.length - index - 1]),
+                          separatorBuilder: (context, index) {
+                            return Gap(index == min(20, GlobalInfos.periods[provider.currentPeriodCode]!.grades.length) - 1 ? 0.0 : 10.0 * Styles.scale_);
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Gap(20.0 * Styles.scale_),
+                BoxWidget(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Moyennes par matière", style: Styles.itemTitleTextStyle),
+                      Column(
+                        children: List.generate(
+                          provider.gotGrades ? GlobalInfos.periods[provider.currentPeriodCode]!.subjects.length : 0,
+                          (index) {
+                            Subject subject = GlobalInfos.periods[provider.currentPeriodCode]!.subjects.values.elementAt(index);
+            
+                            return Column(
                               children: [
-                                Icon(FluentIcons.person_24_filled, size: 35.0 * Styles.scale_, color: Styles.getColor("mainText")),
-                                Text("Profil", style: Styles.itemTextStyle)
+                                Gap(20.0 * Styles.scale_),
+                                SubjectCard(subject: subject),
                               ],
-                            ),
-                          ),
+                            );
+                          },
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  Gap(20.0 * Styles.scale_),
-                  BoxWidget(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text("Trimestre ${provider.gotGrades ? provider.currentPeriodIndex : "--"}", style: Styles.itemTitleTextStyle),
-                            SizedBox(
-                              height: 25.0 * Styles.scale_,
-                              child: provider.isGettingGrades || provider.isConnecting
-                                ? const LoadingAnim()
-                                : (provider.gotGrades && provider.isConnected) || !provider.gotNetworkConnection
-                                  ? GestureDetector(onTap: () => handleChangePeriodPopup(context), child: Icon(FluentIcons.settings_24_filled, size: 25.0 * Styles.scale_, color: Styles.getColor("mainText")))
-                                  : GestureDetector(
-                                      onTap: () => {
-                                        Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (_) => ChangeNotifierProvider<GlobalProvider>(
-                                            create: (_) => GlobalProvider.instance,
-                                            child: const ProfileScreen(),
-                                          ),
-                                        ))
-                                      },
-                                      child: Icon(FluentIcons.warning_24_filled, size: 25.0 * Styles.scale_, color: Colors.orange),
-                                    ),
-                            ),
-                          ],
-                        ),
-                        Gap(20.0 * Styles.scale_),
-                        Center(
-                          child: GestureDetector(
-                            onTap: () => handleGeneralAveragePopup(context),
-                            child: Column(
-                              children: [
-                                provider.gotGrades
-                                  ? Text(GlobalInfos.periods[provider.currentPeriodCode]!.grades.isNotEmpty ? formatDouble(GlobalInfos.periods[provider.currentPeriodCode]!.getAverage()) : "--", style: Styles.numberTextStyle)
-                                  : Text("--", style: Styles.numberTextStyle),
-                                Gap(5.0 * Styles.scale_),
-                                Text("MOYENNE GÉNÉRALE", style: Styles.itemTextStyle),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Gap(20.0 * Styles.scale_),
-                        Text("Dernières notes", style: Styles.itemTitleTextStyle),
-                        Gap(10.0 * Styles.scale_),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width - 80.0 * Styles.scale_,
-                          height: 70.0 * Styles.scale_,
-                          child: ListView.separated(
-                            key: const PageStorageKey<String>("grades"),
-                            scrollDirection: Axis.horizontal,
-                            itemCount: provider.gotGrades ? min(20, GlobalInfos.periods[provider.currentPeriodCode]!.grades.length) : 0,
-                            itemBuilder: (context, index) => GradeCard(grade: GlobalInfos.periods[provider.currentPeriodCode]!.grades[GlobalInfos.periods[provider.currentPeriodCode]!.grades.length - index - 1]),
-                            separatorBuilder: (context, index) {
-                              return Gap(index == min(20, GlobalInfos.periods[provider.currentPeriodCode]!.grades.length) - 1 ? 0.0 : 10.0 * Styles.scale_);
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Gap(20.0 * Styles.scale_),
-                  BoxWidget(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Moyennes par matière", style: Styles.itemTitleTextStyle),
-                        Column(
-                          children: List.generate(
-                            provider.gotGrades ? GlobalInfos.periods[provider.currentPeriodCode]!.subjects.length : 0,
-                            (index) {
-                              Subject subject = GlobalInfos.periods[provider.currentPeriodCode]!.subjects.values.elementAt(index);
-              
-                              return Column(
-                                children: [
-                                  Gap(20.0 * Styles.scale_),
-                                  SubjectCard(subject: subject),
-                                ],
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Gap(20.0 * Styles.scale_),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

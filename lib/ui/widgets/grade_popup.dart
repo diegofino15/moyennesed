@@ -41,7 +41,7 @@ class GradePopup extends StatelessWidget {
                   ),
                   child: Center(child: Text(grade.valueStr, style: Styles.numberTextStyle.copyWith(fontSize: 40.0 * Styles.scale_, color: Colors.black))),
                 ),
-                (grade.isEffective && (grade.valueOn ?? 20.0) != 20.0)
+                (grade.isEffective && grade.valueOn != 20.0)
                   ? Positioned(
                       right: 0,
                       bottom: 0,
@@ -67,11 +67,11 @@ class GradePopup extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  width: 190.0 * Styles.scale_,
+                  width: MediaQuery.of(context).size.width - 170 * Styles.scale_,
                   child: Text(grade.title, style: Styles.itemTitleTextStyle.copyWith(fontWeight: FontWeight.bold), maxLines: 2),
                 ),
                 SizedBox(
-                  width: 190.0 * Styles.scale_,
+                  width: MediaQuery.of(context).size.width - 170 * Styles.scale_,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

@@ -15,7 +15,7 @@ class SubjectPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 140.0 * Styles.scale_,
+      height: 150.0 * Styles.scale_,
       padding: EdgeInsets.all(20.0 * Styles.scale_),
       decoration: BoxDecoration(
         color: Styles.backgroundColor,
@@ -30,7 +30,7 @@ class SubjectPopup extends StatelessWidget {
               color: Styles.getSubjectColor(subject.code, 0),
               borderRadius: BorderRadius.all(Radius.circular(20.0 * Styles.scale_)),
             ),
-            child: Center(child: Text(subject.grades.isNotEmpty ? formatDouble(subject.getAverage()) : "--", style: Styles.numberTextStyle.copyWith(color: Colors.black))),
+            child: Center(child: Text(subject.grades.isNotEmpty ? formatDouble(subject.getAverage()) : "--", style: Styles.numberTextStyle.copyWith(fontSize: 35.0 * Styles.scale_, color: Colors.black))),
           ),
           Gap(20.0 * Styles.scale_),
           SizedBox(
@@ -39,9 +39,9 @@ class SubjectPopup extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(width: 190 * Styles.scale_, child: Text(subject.name, style: Styles.itemTitleTextStyle.copyWith(fontWeight: FontWeight.bold), overflow: TextOverflow.fade, maxLines: 1, softWrap: false)),
+                SizedBox(width: MediaQuery.of(context).size.width - 170 * Styles.scale_, child: Text(subject.name, style: Styles.itemTitleTextStyle.copyWith(fontWeight: FontWeight.bold), overflow: TextOverflow.fade, maxLines: 1, softWrap: false)),
                 SizedBox(
-                  width: 190 * Styles.scale_,
+                  width: MediaQuery.of(context).size.width - 170 * Styles.scale_,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
