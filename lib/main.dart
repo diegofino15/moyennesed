@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moyennesed/ui/global_provider.dart';
+import 'package:moyennesed/ui/providers/styles_provider.dart';
 import 'package:moyennesed/ui/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +16,7 @@ class MoyennesED extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: ChangeNotifierProvider(
-        create: (_) => GlobalProvider.instance,
+        create: (_) => StylesProvider.instance,
         builder: (context, child) => const HomeScreen(),
       ),
     );

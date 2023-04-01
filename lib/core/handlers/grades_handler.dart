@@ -3,28 +3,29 @@ import 'package:moyennesed/core/objects/period.dart';
 import 'package:moyennesed/core/handlers/network_handler.dart';
 import 'package:moyennesed/core/handlers/network_utils.dart';
 import 'package:moyennesed/core/handlers/cache_handler.dart';
-import 'package:moyennesed/ui/global_provider.dart';
+import 'package:moyennesed/ui/providers/grades_provider.dart';
+import 'package:moyennesed/ui/providers/login_provider.dart';
 
 // This class handles the connection and parsing of all the student's grades //
 class GradesHandler {
   static Future<void> getGrades() async {
     // DEMO ACCOUNT //
     if (NetworkHandler.loginUsername == DemoAccount.demoAccountInfos["username"] && NetworkHandler.loginPassword == DemoAccount.demoAccountInfos["password"]) {
-      GlobalProvider.instance.gotGrades = true;
+      GradesProvider.instance.gotGrades = true;
       sortGrades(DemoAccount.demoAccountGrades);
       return;
     }
     
-    if (!GlobalProvider.instance.isConnected) {
-      if (!GlobalProvider.instance.gotNetworkConnection) {
+    if (!LoginProvider.instance.isConnected) {
+      if (!LoginProvider.instance.gotNetworkConnection) {
         await NetworkHandler.connect();
-        if (!GlobalProvider.instance.isConnected) { return; }
+        if (!LoginProvider.instance.isConnected) { return; }
       } else { return; }
     }
     
-    if (GlobalProvider.instance.isConnecting || GlobalProvider.instance.isGettingGrades) { return; }
+    if (LoginProvider.instance.isConnecting || GradesProvider.instance.isGettingGrades) { return; }
 
-    GlobalProvider.instance.isGettingGrades = true;
+    GradesProvider.instance.isGettingGrades = true;
 
     print("Getting grades...");
 
@@ -35,30 +36,30 @@ class GradesHandler {
 
     if (gradesResponse != null) {
       sortGrades(gradesResponse);
-      GlobalProvider.instance.gotGrades = true;
+      GradesProvider.instance.gotGrades = true;
       print("Got grades !");
     } else {
       print("An error occured while getting grades...");
     }
 
-    GlobalProvider.instance.isGettingGrades = false;
+    GradesProvider.instance.isGettingGrades = false;
   }
 
   static void sortGrades(Map gradesResponse) {
     if (gradesResponse.isEmpty) {
-      GlobalProvider.instance.gotGrades = false;
+      GradesProvider.instance.gotGrades = false;
       return;
     }
     // Reset all previously saved informations //
     GlobalInfos.periods.clear();
-    GlobalProvider.instance.currentPeriodIndex = -1;
+    GradesProvider.instance.currentPeriodIndex = -1;
 
     // Detect current period of the year //
     const List<String> possiblePeriodCodes = ["A001", "A002", "A003"];
     gradesResponse["periodes"].forEach((periodMap) {
       if (possiblePeriodCodes.contains(periodMap["codePeriode"])) {
         Period period = GlobalInfos.addPeriod(periodMap);
-        if (!period.isFinished && GlobalProvider.instance.currentPeriodIndex == -1) { GlobalProvider.instance.currentPeriodIndex = period.index; }
+        if (!period.isFinished && GradesProvider.instance.currentPeriodIndex == -1) { GradesProvider.instance.currentPeriodIndex = period.index; }
       }
     });
 
@@ -72,7 +73,7 @@ class GradesHandler {
       "firstName": StudentInfos.firstName,
       "lastName": StudentInfos.lastName,
       "level": StudentInfos.level,
-      "actualPeriod": GlobalProvider.instance.currentPeriodIndex,
+      "actualPeriod": GradesProvider.instance.currentPeriodIndex,
       "periods": {}
     };
     for (Period period in GlobalInfos.periods.values) {
@@ -105,8 +106,8 @@ class GradesHandler {
         
         GlobalInfos.periods.addAll({period.code: period});
       }
-      GlobalProvider.instance.currentPeriodIndex = allCache["actualPeriod"] ?? 1;
-      GlobalProvider.instance.gotGrades = true;
+      GradesProvider.instance.currentPeriodIndex = allCache["actualPeriod"] ?? 1;
+      GradesProvider.instance.gotGrades = true;
     }
   }
 }

@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:moyennesed/core/infos.dart';
 import 'package:moyennesed/core/handlers/network_handler.dart';
-import 'package:moyennesed/ui/global_provider.dart';
+import 'package:moyennesed/ui/providers/login_provider.dart';
 
 // This class gives the app all the necessary paths to parse data from EcoleDirecte //
 class NetworkUtils {
@@ -23,16 +23,16 @@ class NetworkUtils {
       );
       Map response = jsonDecode(utf8.decode(encodedResponse.bodyBytes));
 
-      GlobalProvider.instance.gotNetworkConnection = true;
+      LoginProvider.instance.gotNetworkConnection = true;
       if (response["code"] == responseSuccess) { return response["data"]; }
       else if (response["code"] == responseOutdatedToken || response["code"] == responseInvalidToken) {
         await NetworkHandler.connect();
-        if (GlobalProvider.instance.isConnected) {
+        if (LoginProvider.instance.isConnected) {
           return await parse(url, payload);
         }
       } else { return null; }
     } catch (e) {
-      GlobalProvider.instance.gotNetworkConnection = false;
+      LoginProvider.instance.gotNetworkConnection = false;
       print("An error occured when connecting to : $url");
       return null;
     }

@@ -4,7 +4,9 @@ import 'package:moyennesed/core/infos.dart';
 import 'package:moyennesed/core/handlers/network_utils.dart';
 import 'package:moyennesed/core/handlers/file_handler.dart';
 import 'package:moyennesed/core/handlers/cache_handler.dart';
-import 'package:moyennesed/ui/global_provider.dart';
+import 'package:moyennesed/ui/providers/styles_provider.dart';
+import 'package:moyennesed/ui/providers/grades_provider.dart';
+import 'package:moyennesed/ui/providers/login_provider.dart';
 
 // This class is used to connect to EcoleDirecte and get the connection token //
 class NetworkHandler {
@@ -12,14 +14,14 @@ class NetworkHandler {
   static String loginPassword = "";
 
   static Future<void> connect() async {
-    if (GlobalProvider.instance.isConnecting) { return; }
+    if (LoginProvider.instance.isConnecting) { return; }
     if (loginUsername.isEmpty || loginPassword.isEmpty) { return; }
 
     // Demo account //
     if (loginUsername == DemoAccount.demoAccountInfos["username"] && loginPassword == DemoAccount.demoAccountInfos["password"]) {
-      GlobalProvider.instance.isConnected = true;
-      GlobalProvider.instance.isUserLoggedIn = true;
-      GlobalProvider.instance.gotNetworkConnection = true;
+      LoginProvider.instance.isConnected = true;
+      LoginProvider.instance.isUserLoggedIn = true;
+      LoginProvider.instance.gotNetworkConnection = true;
       StudentInfos.saveLoginData(DemoAccount.demoAccountInfos);
       await FileHandler.instance.changeInfos({
         "username": loginUsername,
@@ -29,8 +31,8 @@ class NetworkHandler {
       return;
     }
 
-    GlobalProvider.instance.isConnected = false;
-    GlobalProvider.instance.isConnecting = true;
+    LoginProvider.instance.isConnected = false;
+    LoginProvider.instance.isConnecting = true;
 
     print("Connection...");
 
@@ -58,31 +60,31 @@ class NetworkHandler {
           "isUserLoggedIn": true
         });
 
-        GlobalProvider.instance.isConnected = true;
-        GlobalProvider.instance.isUserLoggedIn = true;
+        LoginProvider.instance.isConnected = true;
+        LoginProvider.instance.isUserLoggedIn = true;
         print("Connected !");
       } else {
         loginPassword = "";
-        GlobalProvider.instance.isUserLoggedIn = false;
+        LoginProvider.instance.isUserLoggedIn = false;
       }
-      GlobalProvider.instance.gotNetworkConnection = true;
+      LoginProvider.instance.gotNetworkConnection = true;
     } catch (e) {
-      GlobalProvider.instance.gotNetworkConnection = false;
+      LoginProvider.instance.gotNetworkConnection = false;
       print("An error occured while connecting.");
       print("Error : $e");
     }
 
-    GlobalProvider.instance.isConnecting = false;
+    LoginProvider.instance.isConnecting = false;
   }
 
   static void disconnect() {
     NetworkHandler.loginUsername = "";
     NetworkHandler.loginPassword = "";
-    GlobalProvider.instance.isUserLoggedIn = false;
-    GlobalProvider.instance.isConnected = false;
+    LoginProvider.instance.isUserLoggedIn = false;
+    LoginProvider.instance.isConnected = false;
 
-    GlobalProvider.instance.gotGrades = false;
-    GlobalProvider.instance.isGettingGrades = false;
+    GradesProvider.instance.gotGrades = false;
+    GradesProvider.instance.isGettingGrades = false;
     GlobalInfos.periods.clear();
 
     FileHandler.instance.writeInfos({});
@@ -94,8 +96,8 @@ class NetworkHandler {
 
     loginUsername = savedData["username"] ?? "";
     loginPassword = savedData["password"] ?? "";
-    GlobalProvider.instance.isUserLoggedIn = savedData["isUserLoggedIn"] ?? false;
-    GlobalProvider.instance.isDarkMode = savedData["isDarkMode"] ?? false;
+    LoginProvider.instance.isUserLoggedIn = savedData["isUserLoggedIn"] ?? false;
+    StylesProvider.instance.isDarkMode = savedData["isDarkMode"] ?? false;
 
     ModifiableInfos.guessGradeCoefficient = savedData["guessgradecoef"] ?? true;
     ModifiableInfos.useSubjectCoefficients = savedData["usesubjectcoef"] ?? true;

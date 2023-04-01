@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-import 'package:moyennesed/ui/global_provider.dart';
+import 'package:moyennesed/ui/providers/styles_provider.dart';
+import 'package:moyennesed/ui/providers/grades_provider.dart';
 import 'package:moyennesed/ui/styles.dart';
 import 'package:moyennesed/core/infos.dart';
 import 'package:moyennesed/core/objects/period.dart';
@@ -37,7 +38,7 @@ class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
                   children: [
                     Gap(10.0 * Styles.scale_),
                     GestureDetector(
-                      onTap: () => setState(() => { GlobalProvider.instance.currentPeriodIndex = period.index }),
+                      onTap: () => setState(() => { GradesProvider.instance.currentPeriodIndex = period.index }),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         height: 50.0 * Styles.scale_,
@@ -50,7 +51,7 @@ class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(period.name, style: Styles.itemTitleTextStyle),
-                            Icon(GlobalProvider.instance.currentPeriodIndex == period.index ? FluentIcons.checkmark_circle_24_filled : FluentIcons.circle_24_regular, size: 30.0 * Styles.scale_, color: Styles.getColor("mainText"))
+                            Icon(GradesProvider.instance.currentPeriodIndex == period.index ? FluentIcons.checkmark_circle_24_filled : FluentIcons.circle_24_regular, size: 30.0 * Styles.scale_, color: Styles.getColor("mainText"))
                           ],
                         ),
                       ),

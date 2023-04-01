@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:moyennesed/core/infos.dart';
-import 'package:moyennesed/ui/global_provider.dart';
+import 'package:moyennesed/ui/providers/styles_provider.dart';
+import 'package:moyennesed/ui/providers/grades_provider.dart';
 import 'package:moyennesed/ui/styles.dart';
 import 'package:moyennesed/ui/utils.dart';
 
@@ -26,7 +27,7 @@ class GeneralAveragePopup extends StatelessWidget {
               color: Colors.orange,
               borderRadius: BorderRadius.all(Radius.circular(20.0 * Styles.scale_)),
             ),
-            child: Center(child: Text(formatDouble(GlobalInfos.periods[GlobalProvider.instance.currentPeriodCode]!.getAverage()), style: Styles.numberTextStyle.copyWith(color: Colors.black))),
+            child: Center(child: Text(formatDouble(GlobalInfos.periods[GradesProvider.instance.currentPeriodCode]!.getAverage()), style: Styles.numberTextStyle.copyWith(color: Colors.black))),
           ),
           Gap(20.0 * Styles.scale_),
           SizedBox(
@@ -41,9 +42,9 @@ class GeneralAveragePopup extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Classe : ${formatDouble(GlobalInfos.periods[GlobalProvider.instance.currentPeriodCode]!.getClassAverage())}", style: Styles.itemTextStyle),
+                      Text("Classe : ${formatDouble(GlobalInfos.periods[GradesProvider.instance.currentPeriodCode]!.getClassAverage())}", style: Styles.itemTextStyle),
                       Text("-", style: Styles.itemTextStyle),
-                      Text("Trimestre ${GlobalProvider.instance.currentPeriodIndex}", style: Styles.itemTextStyle),
+                      Text("Trimestre ${GradesProvider.instance.currentPeriodIndex}", style: Styles.itemTextStyle),
                     ],
                   ),
                 ),

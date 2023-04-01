@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:moyennesed/ui/global_provider.dart';
+import 'package:moyennesed/ui/providers/styles_provider.dart';
+import 'package:moyennesed/ui/providers/grades_provider.dart';
 import 'package:moyennesed/ui/styles.dart';
 import 'package:moyennesed/ui/widgets/grade_popup.dart';
 import 'package:moyennesed/core/infos.dart';
@@ -18,7 +19,7 @@ class GradeCard extends StatelessWidget {
     showModalBottomSheet(
       backgroundColor: Colors.transparent,
       context: context,
-      builder: (_) => GradePopup(grade: grade, subject: GlobalInfos.periods[GlobalProvider.instance.currentPeriodCode]!.subjects[grade.subjectCode]!),
+      builder: (_) => GradePopup(grade: grade, subject: GlobalInfos.periods[GradesProvider.instance.currentPeriodCode]!.subjects[grade.subjectCode]!),
     );
   }
 
