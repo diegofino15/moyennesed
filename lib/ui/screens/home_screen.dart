@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> autoLoad() async {
     GradesHandler.loadCache();
-    NetworkHandler.autoLogin().then((provider) => {
+    NetworkHandler.autoLogin().then((_) => {
       if (GlobalProvider.instance.isConnected) {
         GradesHandler.getGrades()
       }

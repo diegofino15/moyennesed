@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:moyennesed/ui/global_provider.dart';
 
@@ -53,7 +55,7 @@ class Styles {
 
   // Global scale used in the app //
   static double scale_ = 1.0;
-  static double setScale(context) => scale_ = MediaQuery.of(context).size.width / 430.0 * 1.05;
+  static double setScale(context) => scale_ = min(1.0, MediaQuery.of(context).size.width / 430.0 * 1.05);
 
   // All the TextStyles used in the app //
   static TextStyle get pageTitleTextStyle => TextStyle(
