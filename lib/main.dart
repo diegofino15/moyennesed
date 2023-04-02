@@ -17,7 +17,10 @@ class MoyennesED extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: ChangeNotifierProvider(
         create: (_) => StylesProvider.instance,
-        builder: (context, child) => const HomeScreen(),
+        builder: (context, child) => MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+          child: const HomeScreen(),
+        ),
       ),
     );
   }

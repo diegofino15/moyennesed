@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:moyennesed/ui/providers/styles_provider.dart';
 import 'package:moyennesed/ui/providers/grades_provider.dart';
 import 'package:moyennesed/ui/styles.dart';
 import 'package:moyennesed/ui/widgets/grade_popup.dart';

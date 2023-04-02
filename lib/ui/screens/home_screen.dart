@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: GestureDetector(
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (_) => ChangeNotifierProvider(
+                                    builder: (context) => ChangeNotifierProvider(
                                       create: (context) => StylesProvider.instance,
                                       builder: (context, child) => const ProfileScreen(),
                                     ),

@@ -14,48 +14,51 @@ class SubjectPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 150.0 * Styles.scale_,
-      padding: EdgeInsets.all(20.0 * Styles.scale_),
-      decoration: BoxDecoration(
-        color: Styles.backgroundColor,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0 * Styles.scale_)),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 100.0 * Styles.scale_,
-            height: 100.0 * Styles.scale_,
-            decoration: BoxDecoration(
-              color: Styles.getSubjectColor(subject.code, 0),
-              borderRadius: BorderRadius.all(Radius.circular(20.0 * Styles.scale_)),
+    return MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+      child: Container(
+        height: 150.0 * Styles.scale_,
+        padding: EdgeInsets.all(20.0 * Styles.scale_),
+        decoration: BoxDecoration(
+          color: Styles.backgroundColor,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20.0 * Styles.scale_)),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 100.0 * Styles.scale_,
+              height: 100.0 * Styles.scale_,
+              decoration: BoxDecoration(
+                color: Styles.getSubjectColor(subject.code, 0),
+                borderRadius: BorderRadius.all(Radius.circular(20.0 * Styles.scale_)),
+              ),
+              child: Center(child: Text(subject.grades.isNotEmpty ? formatDouble(subject.getAverage()) : "--", style: Styles.numberTextStyle.copyWith(fontSize: 35.0 * Styles.scale_, color: Colors.black))),
             ),
-            child: Center(child: Text(subject.grades.isNotEmpty ? formatDouble(subject.getAverage()) : "--", style: Styles.numberTextStyle.copyWith(fontSize: 35.0 * Styles.scale_, color: Colors.black))),
-          ),
-          Gap(20.0 * Styles.scale_),
-          SizedBox(
-            height: 100.0 * Styles.scale_,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(width: MediaQuery.of(context).size.width - 170 * Styles.scale_, child: Text(subject.name, style: Styles.itemTitleTextStyle.copyWith(fontWeight: FontWeight.bold), overflow: TextOverflow.fade, maxLines: 1, softWrap: false)),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width - 170 * Styles.scale_,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text("Classe : ${subject.grades.isNotEmpty ? formatDouble(subject.getClassAverage()) : "--"}", style: Styles.itemTextStyle),
-                      Text("-", style: Styles.itemTextStyle),
-                      Text("Coef : ${subject.coefficient}", style: Styles.itemTextStyle),
-                    ],
+            Gap(20.0 * Styles.scale_),
+            SizedBox(
+              height: 100.0 * Styles.scale_,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(width: MediaQuery.of(context).size.width - 170 * Styles.scale_, child: Text(subject.name, style: Styles.itemTitleTextStyle.copyWith(fontWeight: FontWeight.bold), overflow: TextOverflow.fade, maxLines: 1, softWrap: false)),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width - 170 * Styles.scale_,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Classe : ${subject.grades.isNotEmpty ? formatDouble(subject.getClassAverage()) : "--"}", style: Styles.itemTextStyle),
+                        Text("-", style: Styles.itemTextStyle),
+                        Text("Coef : ${subject.coefficient}", style: Styles.itemTextStyle),
+                      ],
+                    ),
                   ),
-                ),
-                Text(subject.professorName, style: Styles.itemTextStyle),
-              ],
+                  Text(subject.professorName, style: Styles.itemTextStyle),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
