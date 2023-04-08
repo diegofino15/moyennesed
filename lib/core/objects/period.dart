@@ -23,7 +23,7 @@ class Period {
 
     name = jsonInfos["periode"] ?? "1er trimestre";
 
-    for (Map subjectMap in jsonInfos["ensembleMatieres"]["disciplines"]) {
+    for (Map subjectMap in ((jsonInfos["ensembleMatieres"] ?? [])["disciplines"] ?? [])) {
       addSubject(subjectMap);
     }
   }
@@ -63,7 +63,7 @@ class Period {
     Subject? gradeSubject = subjects[grade.subjectCode];
     gradeSubject ??= addSubject({
       "codeMatiere": grade.subjectCode,
-      "discipline": jsonInfos["libelleMatiere"],
+      "discipline": jsonInfos["libelleMatiere"] ?? "Nom non trouvé",
       "professeurs": [],
       "coef": 0.0,
     });

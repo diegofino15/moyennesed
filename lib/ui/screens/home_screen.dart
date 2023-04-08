@@ -35,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
     autoLoad();
   }
 
+  // Function called at the loading of the app //
   Future<void> autoLoad() async {
     GradesHandler.loadCache();
     NetworkHandler.autoLogin().then((_) => {
@@ -44,25 +45,12 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  void handleGeneralAveragePopup(BuildContext context) {
-    showModalBottomSheet(
-      backgroundColor: Colors.transparent,
-      context: context,
-      builder: (_) => const GeneralAveragePopup()
-    );
-  }
-
-  void handleChangePeriodPopup(BuildContext context) {
-    showModalBottomSheet(
-      backgroundColor: Colors.transparent,
-      context: context,
-      builder: (_) => const ChangePeriodPopup()
-    );
-  }
-
   @override
   Widget build(BuildContext widgetBuildContext) {
+    // Set the global scale of the app //
     Styles.setScale(context);
+
+    // Choose a random welcome message //
     int currentWelcomeMessage = Random().nextInt(welcomeMessages.length);
 
     return Consumer<StylesProvider>(
@@ -138,14 +126,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("Trimestre ${gradesProvider.gotGrades ? gradesProvider.currentPeriodIndex : "--"}", style: Styles.itemTitleTextStyle),
+                                GestureDetector(
+                                  onTap: () => openBottomSheet(context, ChangePeriodPopup()),
+                                  child: Text("Trimestre ${gradesProvider.gotGrades ? gradesProvider.currentPeriodIndex : "--"}", style: Styles.itemTitleTextStyle),
+                                ),
                                 Consumer<LoginProvider>(
                                   builder: (context, loginProvider, child) => SizedBox(
                                     height: 25.0 * Styles.scale_,
                                     child: gradesProvider.isGettingGrades || loginProvider.isConnecting
                                       ? const LoadingAnim()
                                       : (gradesProvider.gotGrades && loginProvider.isConnected) || !loginProvider.gotNetworkConnection
-                                        ? GestureDetector(onTap: () => handleChangePeriodPopup(context), child: Icon(FluentIcons.settings_24_filled, size: 25.0 * Styles.scale_, color: Styles.getColor("mainText")))
+                                        ? GestureDetector(onTap: () => openBottomSheet(context, ChangePeriodPopup()), child: Icon(FluentIcons.settings_24_filled, size: 25.0 * Styles.scale_, color: Styles.getColor("mainText")))
                                         : Icon(FluentIcons.warning_24_filled, size: 25.0 * Styles.scale_, color: Colors.orange),
                                   ),
                                 ),
@@ -154,11 +145,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             Gap(20.0 * Styles.scale_),
                             Center(
                               child: GestureDetector(
-                                onTap: () => handleGeneralAveragePopup(context),
+                                onTap: () => openBottomSheet(context, GeneralAveragePopup()),
                                 child: Column(
                                   children: [
                                     gradesProvider.gotGrades
-                                      ? Text(GlobalInfos.periods[gradesProvider.currentPeriodCode]!.grades.isNotEmpty ? formatDouble(GlobalInfos.periods[gradesProvider.currentPeriodCode]!.getAverage()) : "--", style: Styles.numberTextStyle)
+                                      ? Text((GlobalInfos.periods[gradesProvider.currentPeriodCode]?.grades.isNotEmpty ?? false) ? formatDouble(GlobalInfos.periods[gradesProvider.currentPeriodCode]?.getAverage() ?? 0.0) : "--", style: Styles.numberTextStyle)
                                       : Text("--", style: Styles.numberTextStyle),
                                     Gap(5.0 * Styles.scale_),
                                     Text("MOYENNE GÉNÉRALE", style: Styles.itemTextStyle),
@@ -173,9 +164,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               width: MediaQuery.of(context).size.width - 80.0 * Styles.scale_,
                               height: 70.0 * Styles.scale_,
                               child: ListView.separated(
-                                key: const PageStorageKey<String>("grades"),
+                                key: PageStorageKey<String>("grades-${GradesProvider.instance.currentPeriodCode}"),
                                 scrollDirection: Axis.horizontal,
-                                itemCount: gradesProvider.gotGrades ? min(20, GlobalInfos.periods[gradesProvider.currentPeriodCode]!.grades.length) : 0,
+                                itemCount: gradesProvider.gotGrades ? min(20, GlobalInfos.periods[gradesProvider.currentPeriodCode]?.grades.length ?? 0) : 0,
                                 itemBuilder: (context, index) => GradeCard(grade: GlobalInfos.periods[gradesProvider.currentPeriodCode]!.grades[GlobalInfos.periods[gradesProvider.currentPeriodCode]!.grades.length - index - 1]),
                                 separatorBuilder: (context, index) {
                                   return Gap(index == min(20, GlobalInfos.periods[gradesProvider.currentPeriodCode]!.grades.length) - 1 ? 0.0 : 10.0 * Styles.scale_);
@@ -194,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Text("Moyennes par matière", style: Styles.itemTitleTextStyle),
                           Column(
                             children: List.generate(
-                              gradesProvider.gotGrades ? GlobalInfos.periods[gradesProvider.currentPeriodCode]!.subjects.length : 0,
+                              gradesProvider.gotGrades ? (GlobalInfos.periods[gradesProvider.currentPeriodCode]?.subjects.length ?? 0) : 0,
                               (index) {
                                 Subject subject = GlobalInfos.periods[gradesProvider.currentPeriodCode]!.subjects.values.elementAt(index);
                                 

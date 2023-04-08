@@ -56,16 +56,16 @@ class GradesHandler {
 
     // Detect current period of the year //
     const List<String> possiblePeriodCodes = ["A001", "A002", "A003"];
-    gradesResponse["periodes"].forEach((periodMap) {
-      if (possiblePeriodCodes.contains(periodMap["codePeriode"])) {
+    (gradesResponse["periodes"] ?? []).forEach((periodMap) {
+      if (possiblePeriodCodes.contains(periodMap["codePeriode"] ?? "")) {
         Period period = GlobalInfos.addPeriod(periodMap);
         if (!period.isFinished && GradesProvider.instance.currentPeriodIndex == -1) { GradesProvider.instance.currentPeriodIndex = period.index; }
       }
     });
 
-    for (Map gradeMap in gradesResponse["notes"]) {
-      String periodCode = gradeMap["codePeriode"];
-      GlobalInfos.periods[periodCode]!.addGrade(gradeMap);
+    for (Map gradeMap in (gradesResponse["notes"] ?? [])) {
+      String periodCode = gradeMap["codePeriode"] ?? "";
+      GlobalInfos.periods[periodCode]?.addGrade(gradeMap);
     }
 
     // Save all cache //
@@ -90,7 +90,7 @@ class GradesHandler {
     if (allCache.isNotEmpty) {
       StudentInfos.firstName = allCache["firstName"] ?? "...";
       StudentInfos.lastName = allCache["lastName"] ?? "";
-      StudentInfos.level = allCache["level"] ?? "Chargement...";
+      StudentInfos.level = allCache["level"] ?? "";
 
       Map allPeriods = allCache["periods"] ?? {};
 

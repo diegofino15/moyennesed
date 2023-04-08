@@ -64,24 +64,19 @@ class GradePopup extends StatelessWidget {
             Gap(10.0 * Styles.scale_),
             SizedBox(
               height: 100 * Styles.scale_,
+              width: MediaQuery.of(context).size.width - 170 * Styles.scale_,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width - 170 * Styles.scale_,
-                    child: Text(grade.title, style: Styles.itemTitleTextStyle.copyWith(fontWeight: FontWeight.bold), maxLines: 2),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width - 170 * Styles.scale_,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Classe : ${grade.showableClassValue}", style: Styles.itemTextStyle),
-                        Text("-", style: Styles.itemTextStyle),
-                        Text("Coef : ${grade.coefficient}", style: Styles.itemTextStyle),
-                      ],
-                    ),
+                  Text(grade.title, style: Styles.itemTitleTextStyle.copyWith(fontWeight: FontWeight.bold), maxLines: 2),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Classe : ${grade.showableClassValue}", style: Styles.itemTextStyle),
+                      Text("-", style: Styles.itemTextStyle),
+                      Text("Coef : ${grade.coefficient}", style: Styles.itemTextStyle),
+                    ],
                   ),
                   Text(formatDate(grade.dateEntered), style: Styles.itemTextStyle),
                 ],

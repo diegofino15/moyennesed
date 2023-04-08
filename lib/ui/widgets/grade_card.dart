@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:moyennesed/ui/providers/grades_provider.dart';
 import 'package:moyennesed/ui/styles.dart';
+import 'package:moyennesed/ui/utils.dart';
 import 'package:moyennesed/ui/widgets/grade_popup.dart';
 import 'package:moyennesed/core/infos.dart';
 import 'package:moyennesed/core/objects/grade.dart';
@@ -14,18 +15,10 @@ class GradeCard extends StatelessWidget {
     required this.grade,
   });
 
-  void handleGradePopup(BuildContext context) {
-    showModalBottomSheet(
-      backgroundColor: Colors.transparent,
-      context: context,
-      builder: (_) => GradePopup(grade: grade, subject: GlobalInfos.periods[GradesProvider.instance.currentPeriodCode]!.subjects[grade.subjectCode]!),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => handleGradePopup(context),
+      onTap: () => openBottomSheet(context, GradePopup(grade: grade, subject: GlobalInfos.periods[GradesProvider.instance.currentPeriodCode]!.subjects[grade.subjectCode]!)),
       child: Container(
         width: 250.0 * Styles.scale_,
         height: 70.0 * Styles.scale_,

@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 String formatDouble(double val) {
   return val.toStringAsFixed(2).replaceAll(".", ",");
 }
@@ -40,5 +42,14 @@ List<String> welcomeMessages = [
   "Bientôt les vacances !",
   "Plus que quelques contrôles !"
 ];
+
+void openBottomSheet(BuildContext context, Widget bottomSheet) {
+  showModalBottomSheet(
+    backgroundColor: Colors.transparent,
+    context: context,
+    builder: (_) => bottomSheet
+  );
+}
+
 
 

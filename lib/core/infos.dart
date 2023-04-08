@@ -13,21 +13,18 @@ class StudentInfos {
 
   static String level = "";
   static String gender = "";
-  
-  static String email = "";
-  static String phone = "";
 
   static void saveLoginData(Map loginData) {
     id = loginData["id"];
 
-    firstName = loginData["prenom"];
-    lastName = loginData["nom"];
+    firstName = loginData["prenom"] ?? "";
+    lastName = loginData["nom"] ?? "";
 
-    level = loginData["profile"]["classe"]["libelle"];
-    gender = loginData["profile"]["sexe"];
-    
-    email = loginData["modules"][5]["params"]["mailPerso"];
-    phone = loginData["profile"]["telPortable"].replaceAll("-", " ");
+    dynamic profile = loginData["profile"] ?? [];
+    dynamic classLevel = profile["classe"] ?? [];
+
+    level = classLevel["libelle"] ?? "";
+    gender = profile["sexe"] ?? "M";
   }
 }
 
@@ -69,8 +66,8 @@ class ModifiableInfos {
   // Function to locally save these informations //
   static Future<void> save() async {
     await FileHandler.instance.changeInfos({
-      "guess_grade_coef": guessGradeCoefficient,
-      "use_subject_coef": useSubjectCoefficients
+      "guessGradeCoef": guessGradeCoefficient,
+      "useSubjectCoef": useSubjectCoefficients
     });
   }
 }

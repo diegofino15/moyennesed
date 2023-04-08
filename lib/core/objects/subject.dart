@@ -20,7 +20,7 @@ class Subject {
     name = (jsonInfos["discipline"] ?? "Pas de matière").trim();
 
     if ((jsonInfos["professeurs"] ?? []).isNotEmpty) {
-      professorName = jsonInfos["professeurs"][0]["nom"].trim();
+      professorName = ((jsonInfos["professeurs"][0] ?? [])["nom"] ?? "Pas de professeur").trim();
     } else {
       professorName = "Pas de professeur";
     }
@@ -62,8 +62,8 @@ class Subject {
     double coef = 0.0;
     for (Grade grade in grades) {
       if (grade.isEffective) {
-        sum += grade.value! * grade.coefficient;
-        sumClass += grade.classValue! * grade.coefficient;
+        sum += (grade.value ?? 0.0) * grade.coefficient;
+        sumClass += (grade.classValue ?? 0.0) * grade.coefficient;
         coef += grade.coefficient;
       }
     }

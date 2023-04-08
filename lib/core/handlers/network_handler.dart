@@ -99,8 +99,8 @@ class NetworkHandler {
     LoginProvider.instance.isUserLoggedIn = savedData["isUserLoggedIn"] ?? false;
     StylesProvider.instance.isDarkMode = savedData["isDarkMode"] ?? false;
 
-    ModifiableInfos.guessGradeCoefficient = savedData["guessgradecoef"] ?? true;
-    ModifiableInfos.useSubjectCoefficients = savedData["usesubjectcoef"] ?? true;
+    ModifiableInfos.guessGradeCoefficient = savedData["guessGradeCoef"] ?? true;
+    ModifiableInfos.useSubjectCoefficients = savedData["useSubjectCoef"] ?? true;
     await connect();
   }
 }

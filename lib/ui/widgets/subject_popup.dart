@@ -37,23 +37,21 @@ class SubjectPopup extends StatelessWidget {
             Gap(20.0 * Styles.scale_),
             SizedBox(
               height: 100.0 * Styles.scale_,
+              width: MediaQuery.of(context).size.width - 170 * Styles.scale_,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(width: MediaQuery.of(context).size.width - 170 * Styles.scale_, child: Text(subject.name, style: Styles.itemTitleTextStyle.copyWith(fontWeight: FontWeight.bold), overflow: TextOverflow.fade, maxLines: 1, softWrap: false)),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width - 170 * Styles.scale_,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Classe : ${subject.grades.isNotEmpty ? formatDouble(subject.getClassAverage()) : "--"}", style: Styles.itemTextStyle),
-                        Text("-", style: Styles.itemTextStyle),
-                        Text("Coef : ${subject.coefficient}", style: Styles.itemTextStyle),
-                      ],
-                    ),
+                  Text(subject.name, style: Styles.itemTitleTextStyle.copyWith(fontWeight: FontWeight.bold), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Classe : ${subject.grades.isNotEmpty ? formatDouble(subject.getClassAverage()) : "--"}", style: Styles.itemTextStyle),
+                      Text("-", style: Styles.itemTextStyle),
+                      Text("Coef : ${subject.coefficient}", style: Styles.itemTextStyle),
+                    ],
                   ),
-                  Text(subject.professorName, style: Styles.itemTextStyle),
+                  Text(subject.professorName, style: Styles.itemTextStyle, maxLines: 1, overflow: TextOverflow.fade, softWrap: false),
                 ],
               ),
             ),
