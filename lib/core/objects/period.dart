@@ -18,7 +18,7 @@ class Period {
 
   void init(Map jsonInfos) {
     code = jsonInfos["codePeriode"] ?? "A001";
-    index = int.parse(code.substring(3, 4));
+    index = int.tryParse(code.substring(3, 4)) ?? 1;
     isFinished = jsonInfos["cloture"] ?? false;
 
     name = jsonInfos["periode"] ?? "1er trimestre";
@@ -51,13 +51,19 @@ class Period {
   Subject addSubject(Map jsonInfos) {
     Subject subject = Subject();
     subject.init(jsonInfos);
-    subjects.addAll({subject.code: subject});
+    if (subject.isSubSubject) {
+      subjects.addAll({"${subject.code}-${subject.subCode}": subject});
+    } else {
+      subjects.addAll({subject.code: subject});
+    }
     return subject;
   }
 
   Grade addGrade(Map jsonInfos) {
     Grade grade = Grade();
     grade.init(jsonInfos);
+    if (!grade.isGrade) { return grade; }
+    
     grades.add(grade);
 
     Subject? gradeSubject = subjects[grade.subjectCode];

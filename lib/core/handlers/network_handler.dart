@@ -48,7 +48,7 @@ class NetworkHandler {
         headers: {"user-agent": "Mozilla/5.0"}
       );
       Map loginResponse = jsonDecode(utf8.decode(encodedLoginResponse.bodyBytes));
-
+      
       if (loginResponse["code"] == NetworkUtils.responseSuccess) {
         NetworkUtils.connectionToken = loginResponse["token"];
 

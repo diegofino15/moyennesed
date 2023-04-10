@@ -29,37 +29,41 @@ class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Choisir une période", style: Styles.sectionTitleTextStyle),
-            Column(
-              children: List.generate(
-                GlobalInfos.periods.length,
-                (index) {
-                  Period period = GlobalInfos.periods.values.elementAt(index);
-      
-                  return Column(
-                    children: [
-                      Gap(10.0 * Styles.scale_),
-                      GestureDetector(
-                        onTap: () => setState(() => { GradesProvider.instance.currentPeriodIndex = period.index }),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 50.0 * Styles.scale_,
-                          padding: EdgeInsets.only(left: 15.0 * Styles.scale_, right: 10 * Styles.scale_, top: 3.0 * Styles.scale_),
-                          decoration: BoxDecoration(
-                            color: Styles.mainWidgetBackgroundColor,
-                            borderRadius: BorderRadius.all(Radius.circular(10.0 * Styles.scale_)),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(period.name, style: Styles.itemTitleTextStyle),
-                              Icon(GradesProvider.instance.currentPeriodIndex == period.index ? FluentIcons.checkmark_circle_24_filled : FluentIcons.circle_24_regular, size: 30.0 * Styles.scale_, color: Styles.getColor("mainText"))
-                            ],
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: 200.0 - 19.0,
+              child: ListView(
+                children: List.generate(
+                  GlobalInfos.periods.length,
+                  (index) {
+                    Period period = GlobalInfos.periods.values.elementAt(index);
+                  
+                    return Column(
+                      children: [
+                        Gap(10.0 * Styles.scale_),
+                        GestureDetector(
+                          onTap: () => setState(() => { GradesProvider.instance.currentPeriodIndex = period.index }),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 50.0 * Styles.scale_,
+                            padding: EdgeInsets.only(left: 15.0 * Styles.scale_, right: 10 * Styles.scale_, top: 3.0 * Styles.scale_),
+                            decoration: BoxDecoration(
+                              color: Styles.mainWidgetBackgroundColor,
+                              borderRadius: BorderRadius.all(Radius.circular(10.0 * Styles.scale_)),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(period.name, style: Styles.itemTitleTextStyle),
+                                Icon(GradesProvider.instance.currentPeriodIndex == period.index ? FluentIcons.checkmark_circle_24_filled : FluentIcons.circle_24_regular, size: 30.0 * Styles.scale_, color: Styles.getColor("mainText"))
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  );
-                },
+                      ],
+                    );
+                  },
+                ),
               ),
             ),
           ],

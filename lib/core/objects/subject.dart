@@ -4,6 +4,10 @@ import 'package:moyennesed/core/objects/grade.dart';
 // This class represents a subject that the student has //
 class Subject {
   late String code;
+
+  bool isSubSubject = false;
+  late String subCode;
+
   late String name;
   late String professorName;
 
@@ -16,8 +20,12 @@ class Subject {
   double coefficient = 1.0;
 
   void init(Map jsonInfos) {
-    code = jsonInfos["codeMatiere"] ?? "";
+    isSubSubject = jsonInfos["sousMatiere"] ?? false;
+    subCode = jsonInfos["codeSousMatiere"] ?? "";
+
     name = (jsonInfos["discipline"] ?? "Pas de matière").trim();
+    if (name.isEmpty) { name = "Pas de nom"; }
+    code = jsonInfos["codeMatiere"] ?? name;
 
     if ((jsonInfos["professeurs"] ?? []).isNotEmpty) {
       professorName = ((jsonInfos["professeurs"][0] ?? [])["nom"] ?? "Pas de professeur").trim();
@@ -27,10 +35,9 @@ class Subject {
 
     coefficient = (jsonInfos["coef"] ?? "0").toDouble();
     if (coefficient == 0.0) {
+      coefficient = 1.0;
       if (ModifiableInfos.useSubjectCoefficients) {
         coefficient = ModifiableInfos.subjectCoefficients[code] ?? 1.0;
-      } else {
-        coefficient = 1.0;
       }
     }
   }
@@ -62,8 +69,8 @@ class Subject {
     double coef = 0.0;
     for (Grade grade in grades) {
       if (grade.isEffective) {
-        sum += (grade.value ?? 0.0) * grade.coefficient;
-        sumClass += (grade.classValue ?? 0.0) * grade.coefficient;
+        sum += grade.value * grade.coefficient;
+        sumClass += grade.classValue * grade.coefficient;
         coef += grade.coefficient;
       }
     }
@@ -83,8 +90,8 @@ class Subject {
   }
 
   // Cache //
-  Map toJson() {
-    List jsonGrades = [];
+  Map<String, dynamic> toJson() {
+    List<Map<String, dynamic>> jsonGrades = [];
     for (Grade grade in grades) {
       jsonGrades.add(grade.toJson());
     }

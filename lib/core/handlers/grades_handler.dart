@@ -69,11 +69,11 @@ class GradesHandler {
     }
 
     // Save all cache //
-    Map allCache = {
+    Map<String, dynamic> allCache = {
       "firstName": StudentInfos.firstName,
       "lastName": StudentInfos.lastName,
       "level": StudentInfos.level,
-      "actualPeriod": GradesProvider.instance.currentPeriodIndex,
+      "actualPeriod": GradesProvider.instance.currentPeriodIndex_,
       "periods": {}
     };
     for (Period period in GlobalInfos.periods.values) {
@@ -81,10 +81,12 @@ class GradesHandler {
       allCache["periods"].addAll({period.code: period.toJson()});
     }
 
+    print("Saving all cache...");
     CacheHandler.saveAllCache(allCache);
   }
 
   static Future<void> loadCache() async {
+    print("Loading cache...");
     Map allCache = await CacheHandler.getAllCache();
 
     if (allCache.isNotEmpty) {
@@ -108,6 +110,8 @@ class GradesHandler {
       }
       GradesProvider.instance.currentPeriodIndex = allCache["actualPeriod"] ?? 1;
       GradesProvider.instance.gotGrades = true;
+    } else {
+      print("No cache found !");
     }
   }
 }

@@ -2,6 +2,8 @@ import 'package:moyennesed/core/infos.dart';
 
 // This class represents a grade //
 class Grade {
+  bool isGrade = true;
+
   late String title;
   late String subjectCode;
   late String subjectName;
@@ -14,15 +16,21 @@ class Grade {
   late String classValueStr;
   late bool isEffective;
 
-  double? value;
+  double value = 0.0;
   double valueOn = 20.0;
-  double? classValue;
+  double classValue = 0.0;
 
   late double coefficient;
 
   void init(Map jsonInfos) {
     title = jsonInfos["devoir"] ?? "";
-    subjectCode = jsonInfos["codeMatiere"] ?? "";
+    
+    if ((jsonInfos["codeSousMatiere"] ?? "") != "") {
+      subjectCode = "${jsonInfos["codeMatiere"] ?? ""}-${jsonInfos["codeSousMatiere"]}";
+    } else {
+      subjectCode = jsonInfos["codeMatiere"] ?? "";
+    }
+
     subjectName = jsonInfos["libelleMatiere"] ?? "Pas de matière";
 
     date = DateTime.tryParse(jsonInfos["date"]) ?? DateTime.now();
@@ -38,11 +46,19 @@ class Grade {
       double? classValueDouble = double.tryParse(classValueStr.replaceAll(",", "."));
       valueOn = double.tryParse(valueOnStr.replaceAll(",", ".")) ?? 20.0;
 
+      if (valueOn == 0.0) {
+        valueStr = "-";
+        valueOnStr = "-";
+        valueOn = 1.0;
+        isEffective = false;
+      }
+
       value = (valueDouble ?? 0.0) / valueOn * 20.0;
       classValue = (classValueDouble ?? 0.0) / valueOn * 20.0;
     }
 
-    coefficient = (jsonInfos["coef"] ?? "0").toDouble();
+    coefficient = double.tryParse("${jsonInfos["coef"]}") ?? 0.0;
+
     if (coefficient == 0.0) {
       coefficient = 1.0;
       if (ModifiableInfos.guessGradeCoefficient) {
@@ -74,7 +90,7 @@ class Grade {
   String get showableClassValue => isEffective ? valueOn == 20.0 ? classValueStr : "$classValueStr/$valueOnStr" : "--";
 
   // Cache //
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       "title": title,
       "subjectCode": subjectCode,
@@ -85,9 +101,9 @@ class Grade {
       "valueOnStr": valueOnStr,
       "classValueStr": classValueStr,
       "isEffective": isEffective,
-      "value": value ?? 0.0,
+      "value": value,
       "valueOn": valueOn,
-      "classValue": classValue ?? 0.0,
+      "classValue": classValue,
       "coefficient": coefficient
     };
   }
