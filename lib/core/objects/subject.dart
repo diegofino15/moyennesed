@@ -1,72 +1,101 @@
-import 'package:moyennesed/core/infos.dart';
+import 'package:moyennesed/core/app_data.dart';
 import 'package:moyennesed/core/objects/grade.dart';
 
-// This class represents a subject that the student has //
+
 class Subject {
-  late String code;
-
-  bool isSubSubject = false;
+  // Identifiers //
+  late int id;
+  late String title;
+  late String mainCode;
   late String subCode;
-
-  late String name;
-  late String professorName;
-
-  List<Grade> grades = <Grade>[];
-
+  late bool isSub;
+  
+  // Data //
+  List teachers = [];
+  List<Grade> grades = [];
   double average = 0.0;
   double classAverage = 0.0;
-  bool hasCalculatedAverage_ = false;
-  
   double coefficient = 1.0;
+  bool isEffective = true;
+  
+  // Special //
+  Map<String, Subject> subSubjects = {};
 
-  void init(Map jsonInfos) {
-    isSubSubject = jsonInfos["sousMatiere"] ?? false;
+  // Init from EcoleDirecte //
+  void fromED(Map<String, dynamic> jsonInfos) {
+    id = jsonInfos["id"] ?? 0;
+    title = jsonInfos["discipline"] ?? "Pas de nom";
+    mainCode = jsonInfos["codeMatiere"] ?? "";
     subCode = jsonInfos["codeSousMatiere"] ?? "";
+    isSub = jsonInfos["sousMatiere"] ?? false;
 
-    name = (jsonInfos["discipline"] ?? "Pas de matière").trim();
-    if (name.isEmpty) { name = "Pas de nom"; }
-    code = jsonInfos["codeMatiere"] ?? name;
-
-    if ((jsonInfos["professeurs"] ?? []).isNotEmpty) {
-      professorName = ((jsonInfos["professeurs"][0] ?? [])["nom"] ?? "Pas de professeur").trim();
-    } else {
-      professorName = "Pas de professeur";
-    }
-
-    coefficient = (jsonInfos["coef"] ?? "0").toDouble();
+    for (var value in (jsonInfos["professeurs"] ?? [])) { teachers.add(value["nom"] ?? "Pas de professeur"); }
+    coefficient = (jsonInfos["coef"] ?? 0).toDouble();
     if (coefficient == 0.0) {
       coefficient = 1.0;
-      if (ModifiableInfos.useSubjectCoefficients) {
-        coefficient = ModifiableInfos.subjectCoefficients[code] ?? 1.0;
+      if (AppData.instance.guessSubjectCoefficients) {
+        coefficient = AppData.instance.subjectCoefficients[mainCode] ?? 1.0;
       }
     }
   }
 
-  void fromCache(Map jsonInfos) {
-    code = jsonInfos["code"];
-    name = jsonInfos["name"];
-    professorName = jsonInfos["professorName"];
-    average = jsonInfos["average"];
-    classAverage = jsonInfos["classAverage"];
-    hasCalculatedAverage_ = jsonInfos["hasCalculatedAverage"];
-    for (Map gradeObj in jsonInfos["grades"]) {
+  // Init from cache //
+  void fromCache(Map<String, dynamic> cacheInfos) {
+    id = cacheInfos["id"] ?? 0;
+    title = cacheInfos["title"] ?? "Pas de nom";
+    mainCode = cacheInfos["mainCode"] ?? "";
+    subCode = cacheInfos["subCode"] ?? "";
+    isSub = cacheInfos["isSub"] ?? false;
+
+    teachers = cacheInfos["teachers"] ?? [];
+    for (var value in (cacheInfos["grades"] ?? [])) {
       Grade grade = Grade();
-      grade.fromCache(gradeObj);
+      grade.fromCache(value);
       grades.add(grade);
     }
-    coefficient = jsonInfos["coefficient"];
+    average = cacheInfos["average"] ?? 0.0;
+    classAverage = cacheInfos["classAverage"] ?? 0.0;
+    coefficient = cacheInfos["coefficient"] ?? 1.0;
+
+    (cacheInfos["subSubjects"] ?? []).forEach((key, value) {
+      Subject subject = Subject();
+      subject.fromCache(value);
+      subSubjects.addAll({key: subject});
+    });
   }
 
-  void addGrade(Grade grade) {
-    grades.add(grade);
+  // Save into cache format //
+  Map<String, dynamic> toCache() {
+    Map<String, dynamic> cacheSubSubjects = {};
+    subSubjects.forEach((key, value) => { cacheSubSubjects.addAll({key: value.toCache()}) });
+
+    List<Map<String, dynamic>> cacheGrades = [];
+    for (var value in grades) { cacheGrades.add(value.toCache()); }
+    
+    return {
+      "id": id,
+      "title": title,
+      "mainCode": mainCode,
+      "subCode": subCode,
+      "isSub": isSub,
+      "teachers": teachers,
+      "grades": cacheGrades,
+      "average": average,
+      "classAverage": classAverage,
+      "coefficient": coefficient,
+      "subSubjects": cacheSubSubjects,
+    };
   }
 
-  double getAverage() {
-    if (hasCalculatedAverage_) { return average; }
+  // Functions //
+  void addSubSubject(Subject subSubject) { subSubjects.addAll({subSubject.subCode: subSubject}); }
+  void addGrade(Grade grade) { grades.add(grade); }
 
+  void calculateAverage() {
     double sum = 0.0;
     double sumClass = 0.0;
     double coef = 0.0;
+
     for (Grade grade in grades) {
       if (grade.isEffective) {
         sum += grade.value * grade.coefficient;
@@ -75,36 +104,21 @@ class Subject {
       }
     }
 
-    average = coef != 0.0 ? sum / coef : 0.0;
-    classAverage = coef != 0.0 ? sumClass / coef : 0.0;
-
-    hasCalculatedAverage_ = true;
-    return average;
-  }
-
-  double getClassAverage() {
-    if (hasCalculatedAverage_) { return classAverage; }
-
-    getAverage();
-    return classAverage;
-  }
-
-  // Cache //
-  Map<String, dynamic> toJson() {
-    List<Map<String, dynamic>> jsonGrades = [];
-    for (Grade grade in grades) {
-      jsonGrades.add(grade.toJson());
+    for (Subject subject in subSubjects.values) {
+      subject.calculateAverage();
+      if (subject.isEffective) {
+        sum += subject.average * subject.coefficient;
+        sumClass += subject.classAverage * subject.coefficient;
+        coef += subject.coefficient;
+      }
     }
-    
-    return {
-      "code": code,
-      "name": name,
-      "professorName": professorName,
-      "average": average,
-      "classAverage": classAverage,
-      "hasCalculatedAverage": hasCalculatedAverage_,
-      "coefficient": coefficient,
-      "grades": jsonGrades
-    };
+    average = coef != 0 ? sum / coef : 0.0;
+    classAverage = coef != 0 ? sumClass / coef : 0.0;
+    if (coef == 0.0) { isEffective = false; }
   }
+
+  // Helpers //
+  String get showableAverage => isEffective ? ((average * 100).round() / 100.0).toString().replaceAll(".", ",") : "--";
+  String get showableClassAverage => isEffective ? ((classAverage * 100).round() / 100.0).toString().replaceAll(".", ",") : "--";
 }
+

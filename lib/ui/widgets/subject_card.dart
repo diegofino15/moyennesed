@@ -1,78 +1,163 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:moyennesed/ui/providers/grades_provider.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:moyennesed/ui/styles.dart';
-import 'package:moyennesed/ui/utils.dart';
 import 'package:moyennesed/ui/widgets/grade_popup.dart';
 import 'package:moyennesed/ui/widgets/subject_popup.dart';
+import 'package:moyennesed/core/app_data.dart';
 import 'package:moyennesed/core/objects/grade.dart';
 import 'package:moyennesed/core/objects/subject.dart';
 
+
 class SubjectCard extends StatelessWidget {
   final Subject subject;
+  final bool isRecusive;
 
   const SubjectCard({
     super.key,
     required this.subject,
+    required this.isRecusive,
   });
+
+  void openSubjectPopup(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => SubjectPopup(subject: subject),
+      backgroundColor: Colors.transparent,
+    );
+  }
+
+  void openGradePopup(BuildContext context, Grade grade) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => GradePopup(grade: grade),
+      backgroundColor: Colors.transparent,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 85.0 * Styles.scale_,
-      decoration: BoxDecoration(
-        color: Styles.getSubjectColor(subject.code, 1),
-        borderRadius: BorderRadius.all(Radius.circular(10.0 * Styles.scale_)),
-      ),
-      child: Stack(
-        children: [
-          Column(
-            children: [
-              GestureDetector(
-                onTap: () => openBottomSheet(context, SubjectPopup(subject: subject)),
-                child: Container(
-                  height: 40.0 * Styles.scale_,
-                  padding: EdgeInsets.all(8.0 * Styles.scale_),
-                  decoration: BoxDecoration(
-                    color: Styles.getSubjectColor(subject.code, 0),
-                    borderRadius: BorderRadius.all(Radius.circular(10.0 * Styles.scale_)),
-                  ),
+    if ((!subject.isSub || isRecusive) && subject.subSubjects.isEmpty) {
+      return Container(
+        height: 80.0 * Styles.scale,
+        decoration: BoxDecoration(
+          color: Styles.getSecondarySubjectColor(subject.mainCode),
+          borderRadius: BorderRadius.all(Radius.circular(10.0 * Styles.scale)),
+        ),
+        child: Column(
+          children: [
+            GestureDetector(
+              onTap: () => openSubjectPopup(context),
+              child: Container(
+                width: MediaQuery.of(context).size.width - (80.0 + (isRecusive ? 50.0 : 0.0)) * Styles.scale,
+                height: 40.0 * Styles.scale,
+                padding: EdgeInsets.symmetric(horizontal: 8.0 * Styles.scale),
+                decoration: BoxDecoration(
+                  color: Styles.getSubjectColor(subject.mainCode),
+                  borderRadius: BorderRadius.all(Radius.circular(10.0 * Styles.scale)),
+                ),
+                child: Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: MediaQuery.of(context).size.width - 164 * Styles.scale_,
-                        child: Text(subject.name, style: Styles.itemTitleTextStyle.copyWith(color: Colors.black), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                        width: MediaQuery.of(context).size.width - (110.0 + 50.0 + (isRecusive ? 50.0 : 0.0)) * Styles.scale,
+                        child: Text(subject.title, style: TextStyle(
+                          fontSize: 17.0 * Styles.scale,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "Montserrat",
+                        ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
                       ),
-                      Text(subject.grades.isNotEmpty ? formatDouble(subject.getAverage()) : "--", style: Styles.numberTextStyle.copyWith(fontSize: 22.0 * Styles.scale_, color: Colors.black))
+                      Text(subject.isEffective ? subject.showableAverage : "--", style: TextStyle(
+                        fontSize: 22.0 * Styles.scale,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Bitter",
+                      )),
                     ],
                   ),
                 ),
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width - 100 * Styles.scale_,
-                height: 45.0 * Styles.scale_,
-                child: Scrollbar(
-                  interactive: false,
-                  child: ListView.separated(
-                    key: PageStorageKey<String>("${subject.code}-${GradesProvider.instance.currentPeriodCode}"),
-                    scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.symmetric(vertical: 10.0 * Styles.scale_),
-                    itemCount: subject.grades.length,
-                    itemBuilder: (context, index) {
-                      Grade grade = subject.grades[index];
-                      return GestureDetector(onTap: () => openBottomSheet(context, GradePopup(grade: grade, subject: subject)), child: Text(grade.showableValue, style: Styles.numberTextStyle.copyWith(fontSize: 20.0 * Styles.scale_, color: Colors.black)));
-                    },
-                    separatorBuilder: (context, index) {
-                      return Gap(index == subject.grades.length - 1 ? 0.0 : 15.0 * Styles.scale_);
-                    },
-                  ),
+            ),
+            Gap(7.5 * Styles.scale),
+            Container(
+              width: MediaQuery.of(context).size.width - (80.0 + (isRecusive ? 50.0 : 0.0)) * Styles.scale,
+              height: 22.5 * Styles.scale,
+              padding: EdgeInsets.symmetric(horizontal: 8.0 * Styles.scale),
+              child: ListView.separated(
+                itemCount: subject.grades.length,
+                itemBuilder: (context, index) => GestureDetector(
+                  onTap: () => openGradePopup(context, subject.grades.elementAt(index)),
+                  child: Text(subject.grades.elementAt(index).showableValue, style: TextStyle(
+                    fontSize: 20.0 * Styles.scale,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "Bitter",
+                  )),
                 ),
+                separatorBuilder: (context, index) => Gap(10.0 * Styles.scale),
+                scrollDirection: Axis.horizontal,
+                key: PageStorageKey<String>("${AppData.instance.displayedAccount.selectedPeriod}-${subject.mainCode}-${subject.subCode}-grades"),
               ),
-            ],
+            ),
+          ],
+        ),
+      );
+    }
+
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: () => openSubjectPopup(context),
+          child: Container(
+            height: 40.0 * Styles.scale,
+            padding: EdgeInsets.symmetric(horizontal: 8.0 * Styles.scale),
+            decoration: BoxDecoration(
+              color: Styles.getSubjectColor(subject.mainCode),
+              borderRadius: BorderRadius.all(Radius.circular(10.0 * Styles.scale)),
+            ),
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width - (110.0 + 50.0) * Styles.scale,
+                    child: Text(subject.title, style: TextStyle(
+                      fontSize: 17.0 * Styles.scale,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Montserrat",
+                    ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                  ),
+                  Text(subject.isEffective ? subject.showableAverage : "--", style: TextStyle(
+                    fontSize: 22.0 * Styles.scale,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "Bitter",
+                  )),
+                ],
+              ),
+            ),
           ),
-        ],
-      ),
+        ),
+        Column(
+          children: List.generate(
+            subject.subSubjects.length,
+            (index) => Column(
+              children: [
+                Gap(10.0 * Styles.scale),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: 40.0 * Styles.scale,
+                      height: 40.0 * Styles.scale,
+                      child: Icon(FluentIcons.arrow_right_24_filled, size: 30.0 * Styles.scale),
+                    ),
+                    SubjectCard(subject: subject.subSubjects.values.elementAt(index), isRecusive: true),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

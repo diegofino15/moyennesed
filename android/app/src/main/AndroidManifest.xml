@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.diegof.moyennesed">
+    package="com.example.moyennesed">
    <application
         android:label="moyennesed"
         android:name="${applicationName}"

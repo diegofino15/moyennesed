@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-import 'package:moyennesed/ui/providers/grades_provider.dart';
 import 'package:moyennesed/ui/styles.dart';
-import 'package:moyennesed/core/infos.dart';
-import 'package:moyennesed/core/objects/period.dart';
+import 'package:moyennesed/core/app_data.dart';
+
 
 class ChangePeriodPopup extends StatefulWidget {
   const ChangePeriodPopup({super.key});
@@ -16,58 +15,59 @@ class ChangePeriodPopup extends StatefulWidget {
 class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
   @override
   Widget build(BuildContext context) {
-    return MediaQuery(
-      data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-      child: Container(
-        height: 260.0 * Styles.scale_,
-        padding: EdgeInsets.all(20.0 * Styles.scale_),
-        decoration: BoxDecoration(
-          color: Styles.backgroundColor,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20.0 * Styles.scale_)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Choisir une période", style: Styles.sectionTitleTextStyle),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: 200.0 - 19.0,
-              child: ListView(
-                children: List.generate(
-                  GlobalInfos.periods.length,
-                  (index) {
-                    Period period = GlobalInfos.periods.values.elementAt(index);
-                  
-                    return Column(
-                      children: [
-                        Gap(10.0 * Styles.scale_),
-                        GestureDetector(
-                          onTap: () => setState(() => { GradesProvider.instance.currentPeriodIndex = period.index }),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 50.0 * Styles.scale_,
-                            padding: EdgeInsets.only(left: 15.0 * Styles.scale_, right: 10 * Styles.scale_, top: 3.0 * Styles.scale_),
-                            decoration: BoxDecoration(
-                              color: Styles.mainWidgetBackgroundColor,
-                              borderRadius: BorderRadius.all(Radius.circular(10.0 * Styles.scale_)),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(period.name, style: Styles.itemTitleTextStyle),
-                                Icon(GradesProvider.instance.currentPeriodIndex == period.index ? FluentIcons.checkmark_circle_24_filled : FluentIcons.circle_24_regular, size: 30.0 * Styles.scale_, color: Styles.getColor("mainText"))
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                ),
+    return Container(
+      height: 360.0 * Styles.scale,
+      padding: EdgeInsets.all(20.0 * Styles.scale),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0 * Styles.scale)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Changer de période", style: TextStyle(
+            fontSize: 20.0 * Styles.scale,
+            fontWeight: FontWeight.bold,
+            fontFamily: "Montserrat",
+          )),
+          Column(
+            children: List.generate(
+              AppData.instance.displayedAccount.periods.length,
+              (index) => Column(
+                children: [
+                  Gap(20.0 * Styles.scale),
+                  GestureDetector(
+                    onTap: () => setState(() {
+                      AppData.instance.displayedAccount.selectedPeriod = AppData.instance.displayedAccount.periods.values.elementAt(index).code;
+                      AppData.instance.updateUI = true;
+                    }),
+                    child: Container(
+                      padding: EdgeInsets.all(20.0 * Styles.scale),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFECECEC),
+                        borderRadius: BorderRadius.all(Radius.circular(20.0 * Styles.scale)),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(AppData.instance.displayedAccount.periods.values.elementAt(index).title, style: TextStyle(
+                            fontSize: 17.0 * Styles.scale,
+                            fontFamily: "Montserrat",
+                          )),
+                          Icon(AppData.instance.displayedAccount.selectedPeriod == AppData.instance.displayedAccount.periods.keys.elementAt(index)
+                            ? FluentIcons.checkmark_circle_24_filled
+                            : FluentIcons.circle_24_regular,
+                            size: 30.0 * Styles.scale,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -1,113 +1,108 @@
-import 'package:moyennesed/core/infos.dart';
+import 'package:moyennesed/core/app_data.dart';
 
-// This class represents a grade //
+
 class Grade {
-  bool isGrade = true;
-
+  // Identifiers //
+  late int id;
   late String title;
+  late String periodCode;
+  late String subjectTitle;
   late String subjectCode;
-  late String subjectName;
-
+  late String subSubjectCode;
   late DateTime date;
   late DateTime dateEntered;
 
-  late String valueStr;
-  late String valueOnStr;
-  late String classValueStr;
+  // Data //
   late bool isEffective;
-
+  late String valueStr;
+  late String classValueStr;
+  late String valueOnStr;
   double value = 0.0;
-  double valueOn = 20.0;
   double classValue = 0.0;
-
+  double valueOn = 20.0;
   late double coefficient;
-
-  void init(Map jsonInfos) {
+  
+  // Init from EcoleDirecte //
+  void fromED(Map<String, dynamic> jsonInfos) {
+    id = jsonInfos["id"] ?? 0;
     title = jsonInfos["devoir"] ?? "";
-    
-    if ((jsonInfos["codeSousMatiere"] ?? "") != "") {
-      subjectCode = "${jsonInfos["codeMatiere"] ?? ""}-${jsonInfos["codeSousMatiere"]}";
-    } else {
-      subjectCode = jsonInfos["codeMatiere"] ?? "";
-    }
-
-    subjectName = jsonInfos["libelleMatiere"] ?? "Pas de matière";
-
+    periodCode = jsonInfos["codePeriode"] ?? "";
+    subjectTitle = jsonInfos["libelleMatiere"] ?? "";
+    subjectCode = jsonInfos["codeMatiere"] ?? "";
+    subSubjectCode = jsonInfos["codeSousMatiere"] ?? "";
     date = DateTime.tryParse(jsonInfos["date"]) ?? DateTime.now();
     dateEntered = DateTime.tryParse(jsonInfos["dateSaisie"]) ?? DateTime.now();
 
-    valueStr = (jsonInfos["valeur"] ?? "").trim();
-    valueOnStr = (jsonInfos["noteSur"] ?? "").trim();
-    classValueStr = jsonInfos["moyenneClasse"] ?? "";
-    isEffective = !(jsonInfos["enLettre"] ?? false) || (jsonInfos["nonSignificatif"] ?? false);
-
+    isEffective = !((jsonInfos["enLettre"] ?? false) || (jsonInfos["nonSignificatif"] ?? false));
+    valueStr = (jsonInfos["valeur"] ?? "-").trim();
+    classValueStr = jsonInfos["moyenneClasse"] ?? "-";
+    valueOnStr = jsonInfos["noteSur"] ?? "20";
     if (isEffective) {
-      double? valueDouble = double.tryParse(valueStr.replaceAll(",", "."));
-      double? classValueDouble = double.tryParse(classValueStr.replaceAll(",", "."));
-      valueOn = double.tryParse(valueOnStr.replaceAll(",", ".")) ?? 20.0;
-
-      if (valueOn == 0.0) {
-        valueStr = "-";
-        valueOnStr = "-";
-        valueOn = 1.0;
+      try {
+        valueOn = double.tryParse(valueOnStr.replaceAll(",", ".")) ?? 20.0;
+        value = double.tryParse(valueStr.replaceAll(",", "."))! / valueOn * 20.0;
+        classValue = (double.tryParse(classValueStr.replaceAll(",", ".")) ?? 0.0) / valueOn * 20.0;
+      } catch (e) {
         isEffective = false;
       }
-
-      value = (valueDouble ?? 0.0) / valueOn * 20.0;
-      classValue = (classValueDouble ?? 0.0) / valueOn * 20.0;
     }
 
-    coefficient = double.tryParse("${jsonInfos["coef"]}") ?? 0.0;
-
+    String coefficientStr = "${jsonInfos["coefficient"]}";
+    coefficient = double.tryParse(coefficientStr) ?? 0.0;
     if (coefficient == 0.0) {
       coefficient = 1.0;
-      if (ModifiableInfos.guessGradeCoefficient) {
-        ModifiableInfos.gradeCoefficients.forEach((key, value) {
-          if (title.toLowerCase().contains(key)) { coefficient = value; }
+      if (AppData.instance.guessGradeCoefficients) {
+        AppData.instance.gradeCoefficients.forEach((key, value) {
+          if (title.toLowerCase().split(" ").contains(key)) { coefficient = value; }
         });
       }
     }
   }
 
-  void fromCache(Map jsonInfos) {
-    title = jsonInfos["title"];
-    subjectCode = jsonInfos["subjectCode"];
-    subjectName = jsonInfos["subjectName"];
-    date = DateTime.parse(jsonInfos["date"]);
-    dateEntered = DateTime.parse(jsonInfos["dateEntered"]);
-    valueStr = jsonInfos["valueStr"];
-    valueOnStr = jsonInfos["valueOnStr"];
-    classValueStr = jsonInfos["classValueStr"];
-    isEffective = jsonInfos["isEffective"];
-    value = jsonInfos["value"];
-    valueOn = jsonInfos["valueOn"];
-    classValue = jsonInfos["classValue"];
-    coefficient = jsonInfos["coefficient"];
+  // Init from cache //
+  void fromCache(Map<String, dynamic> cacheInfos) {
+    id = cacheInfos["id"] ?? 0;
+    title = cacheInfos["title"] ?? "";
+    periodCode = cacheInfos["periodCode"] ?? "";
+    subjectTitle = cacheInfos["subjectTitle"] ?? "";
+    subjectCode = cacheInfos["subjectCode"] ?? "";
+    subSubjectCode = cacheInfos["subSubjectCode"] ?? "";
+    date = DateTime.tryParse(cacheInfos["date"]) ?? DateTime.now();
+    dateEntered = DateTime.tryParse(cacheInfos["dateEntered"]) ?? DateTime.now();
+    
+    isEffective = cacheInfos["isEffective"] ?? true;
+    valueStr = cacheInfos["valueStr"] ?? "-";
+    classValueStr = cacheInfos["classValueStr"] ?? "-";
+    valueOnStr = cacheInfos["valueOnStr"] ?? "-";
+    value = cacheInfos["value"] ?? 0.0;
+    classValue = cacheInfos["classValue"] ?? 0.0;
+    valueOn = cacheInfos["valueOn"] ?? 20.0;
+    coefficient = cacheInfos["coefficient"] ?? 1.0;
   }
 
-  // UI //
-  String get showableValue => isEffective ? valueOn == 20.0 ? valueStr : "$valueStr/$valueOnStr" : valueStr;
-  String get showableClassValue => isEffective ? valueOn == 20.0 ? classValueStr : "$classValueStr/$valueOnStr" : "--";
-
-  // Cache //
-  Map<String, dynamic> toJson() {
+  // Save into cache format //
+  Map<String, dynamic> toCache() {
     return {
+      "id": id,
       "title": title,
+      "periodCode": periodCode,
+      "subjectTitle": subjectTitle,
       "subjectCode": subjectCode,
-      "subjectName": subjectName,
+      "subSubjectCode": subSubjectCode,
       "date": date.toString(),
       "dateEntered": dateEntered.toString(),
-      "valueStr": valueStr,
-      "valueOnStr": valueOnStr,
-      "classValueStr": classValueStr,
       "isEffective": isEffective,
+      "valueStr": valueStr,
+      "classValueStr": classValueStr,
+      "valueOnStr": valueOnStr,
       "value": value,
-      "valueOn": valueOn,
       "classValue": classValue,
-      "coefficient": coefficient
+      "valueOn": valueOn,
+      "coefficient": coefficient,
     };
   }
+
+  // Helpers //
+  String get showableValue => isEffective ? valueOn == 20.0 ? valueStr : "$valueStr/$valueOnStr" : valueStr.isNotEmpty ? valueStr : "N/A";
+  String get showableClassValue => isEffective ? valueOn == 20.0 ? classValueStr : "$classValueStr/$valueOnStr" : classValueStr.isNotEmpty ? classValueStr : "N/A";
 }
-
-
-

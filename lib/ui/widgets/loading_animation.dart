@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:moyennesed/ui/styles.dart';
 
-class LoadingAnim extends StatefulWidget {
-  const LoadingAnim({super.key});
+
+class LoadingAnimation extends StatefulWidget {
+  const LoadingAnimation({super.key});
 
   @override
-  State<LoadingAnim> createState() => _LoadingAnimState();
+  State<LoadingAnimation> createState() => _LoadingAnimationState();
 }
 
-class _LoadingAnimState extends State<LoadingAnim> with SingleTickerProviderStateMixin {
+class _LoadingAnimationState extends State<LoadingAnimation> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
 
   @override
@@ -29,11 +30,11 @@ class _LoadingAnimState extends State<LoadingAnim> with SingleTickerProviderStat
     return Column(
       children: [
         SizedBox(
-          height: 20.0 * Styles.scale_,
-          width: 20.0 * Styles.scale_,
+          height: 25.0 * Styles.scale,
+          width: 25.0 * Styles.scale,
           child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-            strokeWidth: 4.0 * Styles.scale_,
+            valueColor: const AlwaysStoppedAnimation<Color>(Colors.blue),
+            strokeWidth: 4.0 * Styles.scale,
           ),
         ),
       ],
