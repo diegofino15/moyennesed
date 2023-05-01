@@ -20,14 +20,13 @@ class _BugReportPopupState extends State<BugReportPopup> {
   Future<void> sendBugReport() async {
     setState(() => { isSendingBugReport = true });
     try {
-      final http.Response encodedBugReportResponse = await http.post(
+      await http.post(
         Uri.parse("https://api.moyennesed.my.to:777/report_bug"),
         body: jsonEncode({
           "connectionLog": AppData.instance.connectionLog,
           "gradesLog": AppData.instance.gradesLog,
         })
       );
-      final Map decodedBugReportResponse = jsonDecode(utf8.decode(encodedBugReportResponse.bodyBytes));
       print("Successfully sent bug report !");
       setState(() => { sentBugReport = true });
     } catch (e) {
