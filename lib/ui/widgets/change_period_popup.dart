@@ -16,7 +16,7 @@ class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 360.0 * Styles.scale,
+      height: 270.0 * Styles.scale,
       padding: EdgeInsets.all(20.0 * Styles.scale),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -30,22 +30,23 @@ class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
             fontWeight: FontWeight.bold,
             fontFamily: "Montserrat",
           )),
+          Gap(10.0 * Styles.scale),
           Column(
             children: List.generate(
               AppData.instance.displayedAccount.periods.length,
               (index) => Column(
                 children: [
-                  Gap(20.0 * Styles.scale),
+                  Gap(10.0 * Styles.scale),
                   GestureDetector(
                     onTap: () => setState(() {
                       AppData.instance.displayedAccount.selectedPeriod = AppData.instance.displayedAccount.periods.values.elementAt(index).code;
                       AppData.instance.updateUI = true;
                     }),
                     child: Container(
-                      padding: EdgeInsets.all(20.0 * Styles.scale),
+                      padding: EdgeInsets.only(left: 20.0 * Styles.scale, right: 10.0 * Styles.scale, top: 10.0 * Styles.scale, bottom: 10.0 * Styles.scale),
                       decoration: BoxDecoration(
                         color: const Color(0xFFECECEC),
-                        borderRadius: BorderRadius.all(Radius.circular(20.0 * Styles.scale)),
+                        borderRadius: BorderRadius.all(Radius.circular(10.0 * Styles.scale)),
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
