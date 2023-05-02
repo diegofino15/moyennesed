@@ -266,6 +266,7 @@ class Account with ChangeNotifier {
 
     // Calculate all averages //
     for (Period period in periods.values) {
+      period.sortGrades();
       period.calculateAverage();
       selectedPeriod = period.code;
     }

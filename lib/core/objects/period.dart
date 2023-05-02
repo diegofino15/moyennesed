@@ -91,12 +91,17 @@ class Period {
     grades.add(grade);
   }
 
+  void sortGrades() {
+    grades.sort((a, b) => a.dateEntered.compareTo(b.dateEntered));
+  }
+
   void calculateAverage() {
     double sum = 0.0;
     double sumClass = 0.0;
     double coef = 0.0;
 
     for (Subject subject in subjects.values) {
+      subject.sortGrades();
       subject.calculateAverage();
       if (subject.isEffective) {
         sum += subject.average * subject.coefficient;

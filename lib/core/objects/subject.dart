@@ -91,6 +91,10 @@ class Subject {
   void addSubSubject(Subject subSubject) { subSubjects.addAll({subSubject.subCode: subSubject}); }
   void addGrade(Grade grade) { grades.add(grade); }
 
+  void sortGrades() {
+    grades.sort((a, b) => a.dateEntered.compareTo(b.dateEntered));
+  }
+
   void calculateAverage() {
     double sum = 0.0;
     double sumClass = 0.0;
