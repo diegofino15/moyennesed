@@ -35,7 +35,7 @@ class DisconnectPopup extends StatelessWidget {
             fontSize: 17.0 * Styles.scale,
             color: Colors.black54,
             fontFamily: "Montserrat",
-          )),
+          ), textAlign: TextAlign.justify),
           Gap(20.0 * Styles.scale),
           GestureDetector(
             onTap: () => disconnect(context),

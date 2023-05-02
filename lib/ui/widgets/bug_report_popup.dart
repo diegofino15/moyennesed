@@ -58,12 +58,12 @@ class _BugReportPopupState extends State<BugReportPopup> {
             fontSize: 17.0 * Styles.scale,
             color: Colors.black54,
             fontFamily: "Montserrat",
-          )),
+          ), textAlign: TextAlign.justify),
           Text("Si le bug présent vous empêche d'utiliser l'application, veuillez envoyer un mail à moyennesed@gmail.com", style: TextStyle(
             fontSize: 17.0 * Styles.scale,
             color: Colors.black54,
             fontFamily: "Montserrat",
-          )),
+          ), textAlign: TextAlign.justify),
           Gap(20.0 * Styles.scale),
           GestureDetector(
             onTap: sendBugReport,
