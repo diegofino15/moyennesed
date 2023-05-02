@@ -6,21 +6,9 @@ class Styles {
   static void setScale(BuildContext context) { scale = min(1.0, MediaQuery.of(context).size.width / 430.0 * 1.05); }
   static double scale = 1.0;
 
-  // Colors //
-  static const Color backgroundColor = Color(0xFFECECEC);
 
   // TextStyles //
-  static TextStyle welcomeMessageTextStyle = TextStyle(
-    fontSize: 20.0 * scale,
-    fontWeight: FontWeight.bold,
-    fontFamily: "Bitter"
-  );
-
-  static TextStyle subtitleTextStyle = TextStyle(
-    fontSize: 15.0 * scale,
-    color: Colors.black54,
-    fontFamily: "Montserrat"
-  );
+  
 
   // Subject colors //
   static const List<List<Color>> subjectColors = [

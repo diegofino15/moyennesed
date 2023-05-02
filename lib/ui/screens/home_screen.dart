@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Styles.setScale(context);
     
     return Scaffold(
-      backgroundColor: Styles.backgroundColor,
+      backgroundColor: const Color(0xFFECECEC),
       body: Consumer<AppData>(
         builder: (context, appData, child) => RefreshIndicator(
           onRefresh: () async {
@@ -93,8 +93,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 60.0 * Styles.scale,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
                           width: MediaQuery.of(context).size.width - (120 * Styles.scale),

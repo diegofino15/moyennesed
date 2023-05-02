@@ -18,7 +18,7 @@ class SubjectPopup extends StatelessWidget {
       height: 150.0 * Styles.scale,
       padding: EdgeInsets.all(20.0 * Styles.scale),
       decoration: BoxDecoration(
-        color: Styles.backgroundColor,
+        color: const Color(0xFFECECEC),
         borderRadius: BorderRadius.vertical(top: Radius.circular(20.0 * Styles.scale)),
       ),
       child: Row(
