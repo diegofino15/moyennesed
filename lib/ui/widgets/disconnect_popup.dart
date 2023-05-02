@@ -16,7 +16,7 @@ class DisconnectPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 230.0 * Styles.scale,
+      height: 250.0 * Styles.scale,
       padding: EdgeInsets.all(20.0 * Styles.scale),
       decoration: BoxDecoration(
         color: Colors.white,

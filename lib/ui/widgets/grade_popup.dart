@@ -36,7 +36,7 @@ class GradePopup extends StatelessWidget {
                     color: Styles.getSecondarySubjectColor(grade.subjectCode),
                     borderRadius: BorderRadius.all(Radius.circular(20.0 * Styles.scale)),
                   ),
-                  child: Center(child: Text(grade.valueStr, style: TextStyle(
+                  child: Center(child: Text(grade.valueStr.isNotEmpty ? grade.valueStr : "N/A", style: TextStyle(
                     fontSize: 40.0 * Styles.scale,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,

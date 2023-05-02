@@ -358,6 +358,7 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                           child: TextField(
                             autocorrect: false,
                             onChanged: (value) => { account.loginUsername = value },
+                            textInputAction: TextInputAction.next,
                             decoration: const InputDecoration(
                               border: InputBorder.none,
                               hintText: "Identifiant",
@@ -383,6 +384,7 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                                   if (account.wrongPassword) { account.wrongPassword = false; }
                                 },
                                 obscureText: !showPassword,
+                                onSubmitted: (value) => login(),
                                 decoration: const InputDecoration(
                                   border: InputBorder.none,
                                   hintText: "Mot de passe",
