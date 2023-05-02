@@ -61,3 +61,10 @@ class MainApp extends StatelessWidget {
     );
   }
 }
+
+/*
+TODO:
+  - Fix problems with big font size
+  - Centralize all TextStyles and colors into a ThemeData
+  - Create another ThemeData for dark mode
+*/
