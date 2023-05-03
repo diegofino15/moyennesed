@@ -16,7 +16,7 @@ class DisconnectPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 250.0 * Styles.scale,
+      height: MediaQuery.of(context).padding.bottom + 195.0 * Styles.scale,
       padding: EdgeInsets.all(20.0 * Styles.scale),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -25,21 +25,28 @@ class DisconnectPopup extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Se déconnecter", style: TextStyle(
-            fontSize: 20.0 * Styles.scale,
-            fontWeight: FontWeight.bold,
-            fontFamily: "Montserrat",
-          )),
-          Gap(20.0 * Styles.scale),
-          Text("Voulez-vous vraiment vous déconnecter ? Vos identifiant de connexion seront oubliés.", style: TextStyle(
-            fontSize: 17.0 * Styles.scale,
-            color: Colors.black54,
-            fontFamily: "Montserrat",
-          ), textAlign: TextAlign.justify),
+          SizedBox(
+            height: 25.0 * Styles.scale,
+            child: Text("Se déconnecter", style: TextStyle(
+              fontSize: 20.0 * Styles.scale,
+              fontWeight: FontWeight.bold,
+              fontFamily: "Montserrat",
+            )),
+          ),
+          Gap(10.0 * Styles.scale),
+          SizedBox(
+            height: 40.0 * Styles.scale,
+            child: Text("Voulez-vous vraiment vous déconnecter ? Vos identifiant de connexion seront oubliés.", style: TextStyle(
+              fontSize: 17.0 * Styles.scale,
+              color: Colors.black54,
+              fontFamily: "Montserrat",
+            ), textAlign: TextAlign.justify),
+          ),
           Gap(20.0 * Styles.scale),
           GestureDetector(
             onTap: () => disconnect(context),
             child: Container(
+              height: 60.0 * Styles.scale,
               padding: EdgeInsets.all(20.0 * Styles.scale),
               decoration: BoxDecoration(
                 color: Colors.red,

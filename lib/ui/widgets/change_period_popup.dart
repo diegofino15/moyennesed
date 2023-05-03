@@ -16,7 +16,7 @@ class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 270.0 * Styles.scale,
+      height: MediaQuery.of(context).padding.bottom + 255.0 * Styles.scale,
       padding: EdgeInsets.all(20.0 * Styles.scale),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -25,11 +25,14 @@ class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Changer de période", style: TextStyle(
-            fontSize: 20.0 * Styles.scale,
-            fontWeight: FontWeight.bold,
-            fontFamily: "Montserrat",
-          )),
+          SizedBox(
+            height: 25.0 * Styles.scale,
+            child: Text("Changer de période", style: TextStyle(
+              fontSize: 20.0 * Styles.scale,
+              fontWeight: FontWeight.bold,
+              fontFamily: "Montserrat",
+            )),
+          ),
           Gap(10.0 * Styles.scale),
           Column(
             children: List.generate(
@@ -43,6 +46,7 @@ class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
                       AppData.instance.updateUI = true;
                     }),
                     child: Container(
+                      height: 50.0 * Styles.scale,
                       padding: EdgeInsets.only(left: 20.0 * Styles.scale, right: 10.0 * Styles.scale, top: 10.0 * Styles.scale, bottom: 10.0 * Styles.scale),
                       decoration: BoxDecoration(
                         color: const Color(0xFFECECEC),

@@ -15,7 +15,7 @@ class GradePopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150.0 * Styles.scale,
+      height: MediaQuery.of(context).padding.bottom + 150.0 * Styles.scale,
       padding: EdgeInsets.all(20.0 * Styles.scale),
       decoration: BoxDecoration(
         color: const Color(0xFFECECEC),

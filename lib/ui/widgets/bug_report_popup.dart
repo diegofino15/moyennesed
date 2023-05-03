@@ -39,7 +39,7 @@ class _BugReportPopupState extends State<BugReportPopup> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 350.0 * Styles.scale,
+      height: MediaQuery.of(context).padding.bottom + 305.0 * Styles.scale,
       padding: EdgeInsets.all(20.0 * Styles.scale),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -48,26 +48,38 @@ class _BugReportPopupState extends State<BugReportPopup> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Reporter un bug", style: TextStyle(
-            fontSize: 20.0 * Styles.scale,
-            fontWeight: FontWeight.bold,
-            fontFamily: "Montserrat",
-          )),
-          Gap(20.0 * Styles.scale),
-          Text("En reportant un bug, les réponses faites par ÉcoleDirecte lors de votre connexion et de la récupération de vos notes sont enregistrées. Vos identifiants de connexion ne sont pas partagés. Une seule fois suffit !", style: TextStyle(
-            fontSize: 17.0 * Styles.scale,
-            color: Colors.black54,
-            fontFamily: "Montserrat",
-          ), textAlign: TextAlign.justify),
-          Text("Si le bug présent vous empêche d'utiliser l'application, veuillez envoyer un mail à moyennesed@gmail.com", style: TextStyle(
-            fontSize: 17.0 * Styles.scale,
-            color: Colors.black54,
-            fontFamily: "Montserrat",
-          ), textAlign: TextAlign.justify),
+          SizedBox(
+            height: 25.0 * Styles.scale,
+            child: Text("Reporter un bug", style: TextStyle(
+              fontSize: 20.0 * Styles.scale,
+              fontWeight: FontWeight.bold,
+              fontFamily: "Montserrat",
+            )),
+          ),
+          Gap(10.0 * Styles.scale),
+          SizedBox(
+            width: MediaQuery.of(context).size.width - 40.0 * Styles.scale,
+            height: 150.0 * Styles.scale,
+            child: ListView(
+              children: [
+                Text("En reportant un bug, les réponses faites par ÉcoleDirecte lors de votre connexion et de la récupération de vos notes sont enregistrées. Vos identifiants de connexion ne sont pas partagés. Une seule fois suffit !", style: TextStyle(
+                  fontSize: 17.0 * Styles.scale,
+                  color: Colors.black54,
+                  fontFamily: "Montserrat",
+                ), textAlign: TextAlign.justify),
+                Text("Si le bug présent vous empêche d'utiliser l'application, veuillez envoyer un mail à moyennesed@gmail.com", style: TextStyle(
+                  fontSize: 17.0 * Styles.scale,
+                  color: Colors.black54,
+                  fontFamily: "Montserrat",
+                ), textAlign: TextAlign.justify),
+              ],
+            ),
+          ),
           Gap(20.0 * Styles.scale),
           GestureDetector(
             onTap: sendBugReport,
             child: Container(
+              height: 60.0 * Styles.scale,
               padding: EdgeInsets.all(20.0 * Styles.scale),
               decoration: BoxDecoration(
                 color: const Color(0xFF798BFF),
