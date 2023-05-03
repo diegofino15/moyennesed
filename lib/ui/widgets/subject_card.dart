@@ -68,11 +68,14 @@ class SubjectCard extends StatelessWidget {
                           fontFamily: "Montserrat",
                         ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
                       ),
-                      Text(subject.isEffective ? subject.showableAverage : "--", style: TextStyle(
-                        fontSize: 22.0 * Styles.scale,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "Bitter",
-                      )),
+                      SizedBox(
+                        width: 50.0 * Styles.scale,
+                        child: Text(subject.isEffective ? subject.showableAverage : "--", style: TextStyle(
+                          fontSize: 22.0 * Styles.scale,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "Bitter",
+                        ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false, textAlign: TextAlign.end),
+                      ),
                     ],
                   ),
                 ),

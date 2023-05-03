@@ -90,28 +90,25 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    height: 60.0 * Styles.scale,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width - (120 * Styles.scale),
-                          child: Text(appData.connectedAccount.isConnected ? "Bonjour ${appData.connectedAccount.firstName} !" : appData.connectedAccount.isConnecting ? "Connexion..." : "Vous n'êtes pas connecté", style: TextStyle(
-                            fontSize: 20.0 * Styles.scale,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "Montserrat"
-                          ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
-                        ),
-                        Gap(5.0 * Styles.scale),
-                        Text(appData.connectedAccount.isConnected ? currentWelcomeMessage : "Connectez vous sur votre profil", style: TextStyle(
-                          fontSize: 17.0 * Styles.scale,
-                          color: Colors.black54,
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width - (120 * Styles.scale),
+                        child: Text(appData.connectedAccount.isConnected ? "Bonjour ${appData.connectedAccount.firstName} !" : appData.connectedAccount.isConnecting ? "Connexion..." : "Vous n'êtes pas connecté", style: TextStyle(
+                          fontSize: 20.0 * Styles.scale,
+                          fontWeight: FontWeight.bold,
                           fontFamily: "Montserrat"
-                        )),
-                      ],
-                    ),
+                        ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                      ),
+                      Gap(5.0 * Styles.scale),
+                      Text(appData.connectedAccount.isConnected ? currentWelcomeMessage : "Connectez vous sur votre profil", style: TextStyle(
+                        fontSize: 17.0 * Styles.scale,
+                        color: Colors.black54,
+                        fontFamily: "Montserrat"
+                      )),
+                    ],
                   ),
                   GestureDetector(
                     onTap: () => openProfileScreen(context),

@@ -456,11 +456,14 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Site officiel EcoleDirecte", style: TextStyle(
-                      fontSize: 20.0 * Styles.scale,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Montserrat",
-                    )),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width - 130.0 * Styles.scale,
+                      child: Text("Site officiel EcoleDirecte", style: TextStyle(
+                        fontSize: 20.0 * Styles.scale,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Montserrat",
+                      ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                    ),
                     SizedBox(
                       width: 30.0 * Styles.scale,
                       height: 30.0 * Styles.scale,

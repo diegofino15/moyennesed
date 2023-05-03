@@ -100,11 +100,14 @@ class GradePopup extends StatelessWidget {
                     )),
                   ],
                 ),
-                Text(Styles.formatDate(grade.dateEntered), style: TextStyle(
-                  fontSize: 15.0 * Styles.scale,
-                  color: Colors.black54,
-                  fontFamily: "Montserrat",
-                )),
+                SizedBox(
+                  height: 20.0 * Styles.scale,
+                  child: Text(Styles.formatDate(grade.dateEntered), style: TextStyle(
+                    fontSize: 15.0 * Styles.scale,
+                    color: Colors.black54,
+                    fontFamily: "Montserrat",
+                  ), overflow: TextOverflow.fade, maxLines: 1),
+                ),
               ],
             ),
           ),

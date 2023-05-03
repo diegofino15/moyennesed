@@ -49,7 +49,6 @@ class DisconnectPopup extends StatelessWidget {
             onTap: () => disconnect(context),
             child: Container(
               height: 60.0 * Styles.scale,
-              padding: EdgeInsets.all(20.0 * Styles.scale),
               decoration: BoxDecoration(
                 color: Colors.red,
                 borderRadius: BorderRadius.all(Radius.circular(10.0 * Styles.scale)),

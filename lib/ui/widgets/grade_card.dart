@@ -84,6 +84,7 @@ class GradeCard extends StatelessWidget {
             Gap(10.0 * Styles.scale),
             SizedBox(
               width: (250.0 - 30.0 - 60.0) * Styles.scale,
+              height: 60.0 * Styles.scale,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,10 +94,13 @@ class GradeCard extends StatelessWidget {
                     fontFamily: "Montserrat",
                     fontWeight: FontWeight.bold,
                   ), overflow: TextOverflow.ellipsis, maxLines: 2, softWrap: false),
-                  Text(grade.subjectTitle, style: TextStyle(
-                    fontSize: 14.0 * Styles.scale,
-                    fontFamily: "Montserrat",
-                  ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                  SizedBox(
+                    height: 20.0 * Styles.scale,
+                    child: Text(grade.subjectTitle, style: TextStyle(
+                      fontSize: 14.0 * Styles.scale,
+                      fontFamily: "Montserrat",
+                    ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                  ),
                 ],
               ),
             ),
