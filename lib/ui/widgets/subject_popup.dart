@@ -22,6 +22,7 @@ class SubjectPopup extends StatelessWidget {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20.0 * Styles.scale)),
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: 100.0 * Styles.scale,

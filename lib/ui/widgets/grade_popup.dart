@@ -22,6 +22,7 @@ class GradePopup extends StatelessWidget {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20.0 * Styles.scale)),
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             width: 110 * Styles.scale,
