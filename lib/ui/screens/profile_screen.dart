@@ -75,7 +75,14 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
 
   void openEcoleDirecte() async {
     if (await canLaunchUrl(Uri.parse("https://www.ecoledirecte.com/"))) {
-      await launchUrl(Uri.parse("https://www.ecoledirecte.com/"));
+      await launchUrl(
+        Uri.parse("https://www.ecoledirecte.com/"),
+        mode: LaunchMode.platformDefault,
+        webViewConfiguration: const WebViewConfiguration(
+          enableJavaScript: true,
+          enableDomStorage: true,
+        )
+      );
     } else {
       print("Unable to launch URL");
     }

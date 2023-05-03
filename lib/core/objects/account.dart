@@ -226,8 +226,8 @@ class Account with ChangeNotifier {
         
         case 520:
           print("Invalid token, reconnecting...");
-          AppData.instance.connectedAccount.login();
-          isGettingGrades = false;
+          await AppData.instance.connectedAccount.login();
+          AppData.instance.displayedAccountID = "$id";
           return;
         
         default:
