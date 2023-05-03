@@ -36,11 +36,13 @@ class DisconnectPopup extends StatelessWidget {
           Gap(10.0 * Styles.scale),
           SizedBox(
             height: 40.0 * Styles.scale,
-            child: Text("Voulez-vous vraiment vous déconnecter ? Vos identifiant de connexion seront oubliés.", style: TextStyle(
-              fontSize: 17.0 * Styles.scale,
-              color: Colors.black54,
-              fontFamily: "Montserrat",
-            ), textAlign: TextAlign.justify),
+            child: SingleChildScrollView(
+              child: Text("Voulez-vous vraiment vous déconnecter ? Vos identifiant de connexion seront oubliés.", style: TextStyle(
+                fontSize: 17.0 * Styles.scale,
+                color: Colors.black54,
+                fontFamily: "Montserrat",
+              ), textAlign: TextAlign.justify),
+            )
           ),
           Gap(20.0 * Styles.scale),
           GestureDetector(
