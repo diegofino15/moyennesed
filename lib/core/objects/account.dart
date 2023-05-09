@@ -101,12 +101,18 @@ class Account with ChangeNotifier {
     };
 
     try {
-      final http.Response encodedLoginResponse = await http.post(
-        Uri.parse("https://api.ecoledirecte.com/login.awp"),
-        body: "data=${jsonEncode(loginPayload)}",
-        headers: {"user-agent": "Mozilla/5.0"},
-      );
-      final Map loginResponse = jsonDecode(utf8.decode(encodedLoginResponse.bodyBytes));
+      final Map loginResponse;
+      if (AppData.instance.debugMode) {
+        loginResponse = AppData.instance.debugConnectionLog;
+      } else {
+        final http.Response encodedLoginResponse = await http.post(
+          Uri.parse("https://api.ecoledirecte.com/login.awp"),
+          body: "data=${jsonEncode(loginPayload)}",
+          headers: {"user-agent": "Mozilla/5.0"},
+        );
+        loginResponse = jsonDecode(utf8.decode(encodedLoginResponse.bodyBytes));
+      }
+      
       AppData.instance.connectionLog = loginResponse;
 
       switch (loginResponse["code"]) {
@@ -208,12 +214,18 @@ class Account with ChangeNotifier {
     final Map<String, String> gradesPayload = {"anneeScolaire": ""};
 
     try {
-      final http.Response encodedGradesResponse = await http.post(
-        Uri.parse("https://api.ecoledirecte.com/v3/eleves/$id/notes.awp?verbe=get"),
-        body: "data=${jsonEncode(gradesPayload)}",
-        headers: {"user-agent": "Mozilla/5.0", "x-token": token},
-      );
-      final Map gradesResponse = jsonDecode(utf8.decode(encodedGradesResponse.bodyBytes));
+      final Map gradesResponse;
+      if (AppData.instance.debugMode) {
+        gradesResponse = AppData.instance.debugGradesLog;
+      } else {
+        final http.Response encodedGradesResponse = await http.post(
+          Uri.parse("https://api.ecoledirecte.com/v3/eleves/$id/notes.awp?verbe=get"),
+          body: "data=${jsonEncode(gradesPayload)}",
+          headers: {"user-agent": "Mozilla/5.0", "x-token": token},
+        );
+        gradesResponse = jsonDecode(utf8.decode(encodedGradesResponse.bodyBytes));
+      }
+      
       AppData.instance.gradesLog = gradesResponse;
 
       switch (gradesResponse["code"]) {

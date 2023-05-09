@@ -49,7 +49,7 @@ class Grade {
 
     String coefficientStr = "${jsonInfos["coefficient"]}";
     coefficient = double.tryParse(coefficientStr) ?? 0.0;
-    if (coefficient == 0.0) {
+    if (coefficient == 0.0 || AppData.instance.guessGradeCoefficients) {
       coefficient = 1.0;
       if (AppData.instance.guessGradeCoefficients) {
         AppData.instance.gradeCoefficients.forEach((key, value) {

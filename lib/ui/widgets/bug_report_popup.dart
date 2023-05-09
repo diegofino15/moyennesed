@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:moyennesed/ui/styles.dart';
 import 'package:http/http.dart' as http;
 import 'package:moyennesed/core/app_data.dart';
@@ -18,14 +19,22 @@ class _BugReportPopupState extends State<BugReportPopup> {
   bool sentBugReport = false;
   
   Future<void> sendBugReport() async {
+    if (sentBugReport) { return; }
+    
     setState(() => { isSendingBugReport = true });
+
+    final Map debugData = {
+      "name": AppData.instance.connectedAccount.fullName,
+      "date": DateTime.now().toString(),
+      "reportedBug": possibleBugs[currentBug],
+      "connectionLog": AppData.instance.connectionLog,
+      "gradesLog": AppData.instance.gradesLog,
+    };
+
     try {
       await http.post(
         Uri.parse("https://api.moyennesed.my.to:777/report_bug"),
-        body: jsonEncode({
-          "connectionLog": AppData.instance.connectionLog,
-          "gradesLog": AppData.instance.gradesLog,
-        })
+        body: jsonEncode(debugData),
       );
       print("Successfully sent bug report !");
       setState(() => { sentBugReport = true });
@@ -36,10 +45,18 @@ class _BugReportPopupState extends State<BugReportPopup> {
     setState(() => { isSendingBugReport = false });
   }
   
+  int currentBug = 0;
+  final List<String> possibleBugs = [
+    "Problème de connexion",
+    "Problème de récupération des notes",
+    "Problème graphique",
+    "Autre",
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).padding.bottom + 305.0 * Styles.scale,
+      height: MediaQuery.of(context).padding.bottom + 400.0 * Styles.scale,
       padding: EdgeInsets.all(20.0 * Styles.scale),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -57,24 +74,36 @@ class _BugReportPopupState extends State<BugReportPopup> {
             )),
           ),
           Gap(10.0 * Styles.scale),
-          SizedBox(
-            width: MediaQuery.of(context).size.width - 40.0 * Styles.scale,
-            height: 150.0 * Styles.scale,
-            child: ListView(
-              children: [
-                Text("En reportant un bug, les réponses faites par ÉcoleDirecte lors de votre connexion et de la récupération de vos notes sont enregistrées. Vos identifiants de connexion ne sont pas partagés. Une seule fois suffit !", style: TextStyle(
-                  fontSize: 17.0 * Styles.scale,
-                  color: Colors.black54,
-                  fontFamily: "Montserrat",
-                ), textAlign: TextAlign.justify),
-                Text("Si le bug présent vous empêche d'utiliser l'application, veuillez envoyer un mail à moyennesed@gmail.com", style: TextStyle(
-                  fontSize: 17.0 * Styles.scale,
-                  color: Colors.black54,
-                  fontFamily: "Montserrat",
-                ), textAlign: TextAlign.justify),
-              ],
+          Column(
+            children: List.generate(
+              possibleBugs.length,
+              (index) => Column(
+                children: [
+                  GestureDetector(
+                    onTap: () => setState(() => { currentBug = index }),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(possibleBugs[index], style: TextStyle(
+                          fontSize: 17.0 * Styles.scale,
+                          color: Colors.black54,
+                          fontFamily: "Montserrat",
+                        )),
+                        Icon(currentBug == index ? FluentIcons.checkmark_circle_24_filled : FluentIcons.circle_24_regular, size: 25.0 * Styles.scale),
+                      ],
+                    ),
+                  ),
+                  Gap(10.0 * Styles.scale),
+                ],
+              ),
             ),
           ),
+          Gap(10.0 * Styles.scale),
+          Text("En reportant un bug vous acceptez que nous ayons accès aux réponses d'ÉcoleDirecte, cela contient votre nom et vos notes, mais les identifiants de connexion ne sont pas partagés, il ne quittent pas cet appareil.", style: TextStyle(
+            fontSize: 16.0 * Styles.scale,
+            color: Colors.black54,
+            fontFamily: "Montserrat",
+          ), textAlign: TextAlign.justify),
           Gap(20.0 * Styles.scale),
           GestureDetector(
             onTap: sendBugReport,

@@ -77,6 +77,11 @@ class AppData with ChangeNotifier {
   // Debug data //
   Map connectionLog = {};
   Map gradesLog = {};
+
+  // Debug mode //
+  bool debugMode = false;
+  Map debugConnectionLog = {};
+  Map debugGradesLog = {};
 }
 
 class DemoAccount {
