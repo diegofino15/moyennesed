@@ -96,8 +96,8 @@ class Account with ChangeNotifier {
     AppData.instance.updateUI = true; // Update the UI //
 
     final Map<String, String> loginPayload = {
-      "identifiant": loginUsername,
-      "motdepasse": loginPassword,
+      "identifiant": Uri.encodeComponent(loginUsername),
+      "motdepasse": Uri.encodeComponent(loginPassword),
     };
 
     try {
@@ -109,6 +109,7 @@ class Account with ChangeNotifier {
           Uri.parse("https://api.ecoledirecte.com/login.awp"),
           body: "data=${jsonEncode(loginPayload)}",
           headers: {"user-agent": "Mozilla/5.0"},
+          encoding: utf8,
         );
         loginResponse = jsonDecode(utf8.decode(encodedLoginResponse.bodyBytes));
       }
@@ -135,6 +136,8 @@ class Account with ChangeNotifier {
         
         default:
           print("Connection failed : unknown response code ${loginResponse["code"]}");
+          print(loginResponse);
+          print(jsonEncode(loginPayload));
           break;
       }
     } catch (e) {

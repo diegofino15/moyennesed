@@ -103,11 +103,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
                       ),
                       Gap(5.0 * Styles.scale),
-                      Text(appData.connectedAccount.isConnected ? currentWelcomeMessage : "Connectez vous sur votre profil", style: TextStyle(
-                        fontSize: 17.0 * Styles.scale,
-                        color: Colors.black54,
-                        fontFamily: "Montserrat"
-                      )),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width - (120 * Styles.scale),
+                        child: Text(appData.connectedAccount.isConnected ? currentWelcomeMessage : "Connectez vous sur votre profil", style: TextStyle(
+                          fontSize: 17.0 * Styles.scale,
+                          color: Colors.black54,
+                          fontFamily: "Montserrat"
+                        ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                      ),
                     ],
                   ),
                   GestureDetector(

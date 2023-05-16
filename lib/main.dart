@@ -15,7 +15,7 @@ void main() async {
 
   // Load the cache //
   Map<String, dynamic> cache = await CacheHandler.getAllCache();
-  if (cache.isNotEmpty) {
+  if (cache.isNotEmpty && !AppData.instance.debugMode) {
     print("Found cache !");
     AppData.instance.connectedAccount.fromCache(cache);
     AppData.instance.accounts.clear();
@@ -29,7 +29,7 @@ void main() async {
 
   // Auto-connect //
   Map cacheConnectionInfos = await FileHandler.instance.readInfos();
-  if (cacheConnectionInfos["isUserLoggedIn"] ?? false) {
+  if ((cacheConnectionInfos["isUserLoggedIn"] ?? false) || AppData.instance.debugMode) {
     AppData.instance.connectedAccount.loginUsername = cacheConnectionInfos["username"] ?? "";
     AppData.instance.connectedAccount.loginPassword = cacheConnectionInfos["password"] ?? "";
     AppData.instance.connectedAccount.login();

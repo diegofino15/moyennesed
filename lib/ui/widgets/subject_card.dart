@@ -61,7 +61,7 @@ class SubjectCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: MediaQuery.of(context).size.width - (110.0 + 50.0 + (isRecusive ? 50.0 : 0.0)) * Styles.scale,
+                        width: MediaQuery.of(context).size.width - (110.0 + 55.0 + (isRecusive ? 50.0 : 0.0)) * Styles.scale,
                         child: Text(subject.title, style: TextStyle(
                           fontSize: 17.0 * Styles.scale,
                           fontWeight: FontWeight.bold,
@@ -69,7 +69,7 @@ class SubjectCard extends StatelessWidget {
                         ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
                       ),
                       SizedBox(
-                        width: 50.0 * Styles.scale,
+                        width: 55.0 * Styles.scale,
                         child: Text(subject.isEffective ? subject.showableAverage : "--", style: TextStyle(
                           fontSize: 22.0 * Styles.scale,
                           fontWeight: FontWeight.bold,

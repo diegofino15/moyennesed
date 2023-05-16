@@ -56,7 +56,7 @@ class _BugReportPopupState extends State<BugReportPopup> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).padding.bottom + 400.0 * Styles.scale,
+      height: MediaQuery.of(context).padding.bottom + (310.0 + 30.0 * possibleBugs.length + 40.0) * Styles.scale,
       padding: EdgeInsets.all(20.0 * Styles.scale),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -79,18 +79,21 @@ class _BugReportPopupState extends State<BugReportPopup> {
               possibleBugs.length,
               (index) => Column(
                 children: [
-                  GestureDetector(
-                    onTap: () => setState(() => { currentBug = index }),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(possibleBugs[index], style: TextStyle(
-                          fontSize: 17.0 * Styles.scale,
-                          color: Colors.black54,
-                          fontFamily: "Montserrat",
-                        )),
-                        Icon(currentBug == index ? FluentIcons.checkmark_circle_24_filled : FluentIcons.circle_24_regular, size: 25.0 * Styles.scale),
-                      ],
+                  SizedBox(
+                    height: 20.0 * Styles.scale,
+                    child: GestureDetector(
+                      onTap: () => setState(() => { currentBug = index }),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(possibleBugs[index], style: TextStyle(
+                            fontSize: 17.0 * Styles.scale,
+                            color: Colors.black54,
+                            fontFamily: "Montserrat",
+                          )),
+                          Icon(currentBug == index ? FluentIcons.checkmark_circle_24_filled : FluentIcons.circle_24_regular, size: 25.0 * Styles.scale),
+                        ],
+                      ),
                     ),
                   ),
                   Gap(10.0 * Styles.scale),
@@ -99,11 +102,25 @@ class _BugReportPopupState extends State<BugReportPopup> {
             ),
           ),
           Gap(10.0 * Styles.scale),
-          Text("En reportant un bug vous acceptez que nous ayons accès aux réponses d'ÉcoleDirecte, cela contient votre nom et vos notes, mais les identifiants de connexion ne sont pas partagés, il ne quittent pas cet appareil.", style: TextStyle(
-            fontSize: 16.0 * Styles.scale,
-            color: Colors.black54,
-            fontFamily: "Montserrat",
-          ), textAlign: TextAlign.justify),
+          SizedBox(
+            height: 180.0 * Styles.scale,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Text("En reportant un bug vous acceptez que nous ayons accès aux réponses d'ÉcoleDirecte, cela contient votre nom et vos notes, mais les identifiants de connexion ne sont pas partagés, ils ne quittent pas cet appareil.", style: TextStyle(
+                    fontSize: 16.0 * Styles.scale,
+                    color: Colors.black54,
+                    fontFamily: "Montserrat",
+                  ), textAlign: TextAlign.justify),
+                  Text("Si votre problème persiste, veuillez s'il vous plaît envoyer un mail à moyennesed@gmail.com pour permettre de le résoudre, merci d'avance.", style: TextStyle(
+                    fontSize: 16.0 * Styles.scale,
+                    color: Colors.black54,
+                    fontFamily: "Montserrat",
+                  ), textAlign: TextAlign.justify),
+                ],
+              ),
+            ),
+          ),
           Gap(20.0 * Styles.scale),
           GestureDetector(
             onTap: sendBugReport,
