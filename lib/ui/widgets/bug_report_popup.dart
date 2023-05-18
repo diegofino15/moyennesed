@@ -50,6 +50,7 @@ class _BugReportPopupState extends State<BugReportPopup> {
     "Problème de connexion",
     "Problème de récupération des notes",
     "Problème graphique",
+    "Faux coefficients",
     "Autre",
   ];
 

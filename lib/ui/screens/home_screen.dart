@@ -54,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (context) => const ChangePeriodPopup(),
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
     );
   }
 
@@ -62,6 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       builder: (context) => const GeneralAveragePopup(),
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
     );
   }
 

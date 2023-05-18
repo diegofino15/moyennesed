@@ -24,6 +24,7 @@ class SubjectCard extends StatelessWidget {
       context: context,
       builder: (context) => SubjectPopup(subject: subject),
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
     );
   }
 
@@ -32,6 +33,7 @@ class SubjectCard extends StatelessWidget {
       context: context,
       builder: (context) => GradePopup(grade: grade),
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
     );
   }
 

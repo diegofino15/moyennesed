@@ -247,6 +247,8 @@ class Account with ChangeNotifier {
         
         default:
           print("Connection failed : unknown response code ${gradesResponse["code"]}");
+          print(gradesResponse);
+          print(jsonEncode(gradesPayload));
           break;
       }
     } catch (e) {

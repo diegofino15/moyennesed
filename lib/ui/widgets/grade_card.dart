@@ -18,6 +18,7 @@ class GradeCard extends StatelessWidget {
       context: context,
       builder: (context) => GradePopup(grade: grade),
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
     );
   }
 

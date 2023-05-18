@@ -62,6 +62,7 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
       context: context,
       builder: (context) => const BugReportPopup(),
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
     );
   }
 
@@ -70,6 +71,7 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
       context: context,
       builder: (context) => const DisconnectPopup(),
       backgroundColor: Colors.transparent,
+      isScrollControlled: true,
     );
   }
 
