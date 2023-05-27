@@ -85,6 +85,10 @@ class AppData with ChangeNotifier {
 }
 
 class DemoAccount {
+  static List<String> subjectCodes = [
+    "FRANC", "HI-GE", "MATHS", "AGL1", "ESP2", "SES", "PH-CH", "SVT", "EPS", "SNTEC", "LCALA"
+  ];
+
   static const Map<String, dynamic> demoAccountInfos = {
     "token": "",
     "data": {
@@ -107,13 +111,13 @@ class DemoAccount {
   };
   
   static List<dynamic> generateRandomGrades() {
-    int gradeNumber = 80;
+    int gradeNumber = 150;
 
     List<dynamic> demoAccountGrades = [];
     for (int i = 0; i < gradeNumber; i++) {
       String devoir = "Demo grade n°$i";
       String codePeriode = "A00${Random().nextInt(3) + 1}";
-      String codeMatiere = AppData.instance.subjectCoefficients.keys.elementAt(Random().nextInt(AppData.instance.subjectCoefficients.length));
+      String codeMatiere = subjectCodes.elementAt(Random().nextInt(subjectCodes.length));
       String noteSur = Random().nextInt(2) == 0 ? "20" : "10";
       String valeur = ((8.0 + Random().nextInt(13)) / 20.0 * double.parse(noteSur)).toString();
       DateTime date = DateTime.now();
