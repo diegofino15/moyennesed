@@ -59,6 +59,7 @@ class AppData with ChangeNotifier {
     "dst": 2.0,
     "oraux": 3.0,
   };
+  
   bool guessSubjectCoefficients = true;
   final Map<String, double> subjectCoefficients = <String, double>{
     "FRANCAIS": 3.0, "FRANC": 3.0,
