@@ -109,7 +109,7 @@ class Subject {
     double coef = 0.0;
 
     for (Grade grade in grades) {
-      if (grade.isEffective) {
+      if (grade.isEffective && !grade.isString) {
         sum += grade.value * grade.coefficient;
         sumClass += grade.classValue * grade.coefficient;
         coef += grade.coefficient;
