@@ -1,5 +1,6 @@
 import 'package:moyennesed/core/app_data.dart';
 import 'package:moyennesed/core/objects/grade.dart';
+import 'package:moyennesed/ui/styles.dart';
 
 
 class Subject {
@@ -30,11 +31,18 @@ class Subject {
     isSub = jsonInfos["sousMatiere"] ?? false;
 
     for (var value in (jsonInfos["professeurs"] ?? [])) { teachers.add(value["nom"] ?? "Pas de professeur"); }
+    
     coefficient = (jsonInfos["coef"] ?? 0).toDouble();
-    if (coefficient == 0.0) {
+    if (coefficient == 0.0 || AppData.instance.guessSubjectCoefficients) {
       coefficient = 1.0;
+
       if (AppData.instance.guessSubjectCoefficients) {
-        coefficient = AppData.instance.subjectCoefficients[mainCode] ?? 1.0;
+        String newTitle = title.toUpperCase();
+        newTitle = Styles.getStrippedString(newTitle);
+        List<String> splitNewTitle = newTitle.split(" ");
+        AppData.instance.subjectCoefficients.forEach((key, value) {
+          if (splitNewTitle.contains(key)) { coefficient = value; }
+        });
       }
     }
   }

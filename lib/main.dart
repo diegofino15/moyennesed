@@ -19,11 +19,11 @@ void main() async {
     print("Found cache !");
     AppData.instance.connectedAccount.fromCache(cache);
     AppData.instance.accounts.clear();
-    AppData.instance.accounts.addAll({"${AppData.instance.connectedAccount.id}": AppData.instance.connectedAccount});
     AppData.instance.displayedAccountID = "${AppData.instance.connectedAccount.id}";
+    AppData.instance.accounts.addAll({AppData.instance.displayedAccountID: AppData.instance.connectedAccount});
     for (Account childAccount in AppData.instance.connectedAccount.childrenAccounts) {
-      AppData.instance.accounts.addAll({"${childAccount.id}": childAccount});
       AppData.instance.displayedAccountID = "${childAccount.id}";
+      AppData.instance.accounts.addAll({AppData.instance.displayedAccountID: childAccount});
     }
   }
 
@@ -39,6 +39,8 @@ void main() async {
   } else {
     AppData.instance.disconnect();
   }
+
+  print("Finished initializing");
 
   // Run the app //
   runApp(const MainApp());

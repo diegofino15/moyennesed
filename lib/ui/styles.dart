@@ -74,4 +74,13 @@ class Styles {
   static String formatDate(DateTime date) {
     return "${daysNames[date.weekday]} ${date.day} ${monthsNames[date.month]}";
   }
+
+  static String getStrippedString(String string) {
+    var withDia = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž-&_.';
+    var withoutDia = 'AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz    '; 
+    for (int i = 0; i < withDia.length; i++) {      
+      string = string.replaceAll(withDia[i], withoutDia[i]);
+    }
+    return string;
+  }
 }
