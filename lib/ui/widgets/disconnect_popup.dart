@@ -16,7 +16,7 @@ class DisconnectPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).padding.bottom + 195.0 * Styles.scale,
+      height: MediaQuery.of(context).padding.bottom + 215.0 * Styles.scale,
       padding: EdgeInsets.all(20.0 * Styles.scale),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -35,7 +35,7 @@ class DisconnectPopup extends StatelessWidget {
           ),
           Gap(10.0 * Styles.scale),
           SizedBox(
-            height: 40.0 * Styles.scale,
+            height: 60.0 * Styles.scale,
             child: SingleChildScrollView(
               child: Text("Voulez-vous vraiment vous déconnecter ? Vos identifiant de connexion seront oubliés.", style: TextStyle(
                 fontSize: 17.0 * Styles.scale,
