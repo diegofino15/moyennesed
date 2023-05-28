@@ -94,6 +94,7 @@ class SubjectCard extends StatelessWidget {
                   onTap: () => openGradePopup(context, subject.grades.elementAt(index)),
                   child: Text(subject.grades.elementAt(index).showableValue, style: TextStyle(
                     fontSize: 20.0 * Styles.scale,
+                    color: subject.grades.elementAt(index).isEffective && !subject.grades.elementAt(index).isString ? Colors.black : Colors.black26,
                     fontWeight: FontWeight.bold,
                     fontFamily: "Bitter",
                   )),

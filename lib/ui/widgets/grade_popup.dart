@@ -40,7 +40,7 @@ class GradePopup extends StatelessWidget {
                   child: Center(child: Text(grade.valueStr.isNotEmpty ? grade.valueStr : "N/A", style: TextStyle(
                     fontSize: 40.0 * Styles.scale,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: grade.isEffective && !grade.isString ? Colors.black : Colors.black26,
                     fontFamily: "Bitter",
                   ))),
                 ),
@@ -79,6 +79,7 @@ class GradePopup extends StatelessWidget {
                   fontSize: 17.0 * Styles.scale,
                   fontWeight: FontWeight.bold,
                   fontFamily: "Montserrat",
+                  fontStyle: grade.isEffective && !grade.isString ? FontStyle.normal : FontStyle.italic,
                 ), maxLines: 2),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
