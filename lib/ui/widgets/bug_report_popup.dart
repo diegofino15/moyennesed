@@ -57,7 +57,7 @@ class _BugReportPopupState extends State<BugReportPopup> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).padding.bottom + (310.0 + 30.0 * possibleBugs.length + 40.0) * Styles.scale,
+      height: MediaQuery.of(context).padding.bottom + (310.0 + 55.0 * possibleBugs.length + 40.0) * Styles.scale,
       padding: EdgeInsets.all(20.0 * Styles.scale),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -80,18 +80,26 @@ class _BugReportPopupState extends State<BugReportPopup> {
               possibleBugs.length,
               (index) => Column(
                 children: [
-                  SizedBox(
-                    height: 20.0 * Styles.scale,
-                    child: GestureDetector(
-                      onTap: () => setState(() => { currentBug = index }),
+                  GestureDetector(
+                    onTap: () => setState(() => { currentBug = index }),
+                    child: Container(
+                      padding: EdgeInsets.only(left: 15.0 * Styles.scale, right: 10.0 * Styles.scale, top: 10.0 * Styles.scale, bottom: 10.0 * Styles.scale),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFECECEC),
+                        borderRadius: BorderRadius.all(Radius.circular(10.0 * Styles.scale)),
+                      ),
+                      height: 45.0 * Styles.scale,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(possibleBugs[index], style: TextStyle(
-                            fontSize: 17.0 * Styles.scale,
-                            color: Colors.black54,
-                            fontFamily: "Montserrat",
-                          )),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width - 100.0 * Styles.scale,
+                            child: Text(possibleBugs[index], style: TextStyle(
+                              fontSize: 17.0 * Styles.scale,
+                              color: Colors.black54,
+                              fontFamily: "Montserrat",
+                            ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                          ),
                           Icon(currentBug == index ? FluentIcons.checkmark_circle_24_filled : FluentIcons.circle_24_regular, size: 25.0 * Styles.scale),
                         ],
                       ),
@@ -113,11 +121,6 @@ class _BugReportPopupState extends State<BugReportPopup> {
                     color: Colors.black54,
                     fontFamily: "Montserrat",
                   ), textAlign: TextAlign.justify,),
-                  // Text("En reportant un bug vous acceptez que nous ayons accès aux réponses d'ÉcoleDirecte, cela contient votre nom et vos notes, mais les identifiants de connexion ne sont pas partagés, ils ne quittent pas cet appareil.", style: TextStyle(
-                  //   fontSize: 16.0 * Styles.scale,
-                  //   color: Colors.black54,
-                  //   fontFamily: "Montserrat",
-                  // ), textAlign: TextAlign.justify),
                   Text("Si votre problème persiste, veuillez s'il vous plaît envoyer un mail à moyennesed@gmail.com avec plus de détails concernant votre problème, pour permettre de le résoudre, merci d'avance.", style: TextStyle(
                     fontSize: 16.0 * Styles.scale,
                     color: Colors.black54,
