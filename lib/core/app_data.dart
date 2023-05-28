@@ -39,6 +39,37 @@ class AppData with ChangeNotifier {
   }
   Account get displayedAccount => accounts[displayedAccountID]!;
 
+  // Load cache //
+  Future<void> loadCache() async {
+    Map<String, dynamic> cache = await CacheHandler.getAllCache();
+    if (cache.isNotEmpty && !debugMode) {
+      print("Found cache !");
+      connectedAccount.fromCache(cache);
+      accounts.clear();
+      displayedAccountID = "${connectedAccount.id}";
+      accounts.addAll({displayedAccountID: connectedAccount});
+      for (Account childAccount in connectedAccount.childrenAccounts) {
+        displayedAccountID = "${childAccount.id}";
+        accounts.addAll({displayedAccountID: childAccount});
+      }
+    }
+  }
+
+  // Auto-connect //
+  Future<void> autoConnect() async {
+    Map cacheConnectionInfos = await FileHandler.instance.readInfos();
+    if ((cacheConnectionInfos["isUserLoggedIn"] ?? false) || debugMode) {
+      connectedAccount.loginUsername = cacheConnectionInfos["username"] ?? "";
+      connectedAccount.loginPassword = cacheConnectionInfos["password"] ?? "";
+      connectedAccount.login();
+
+      guessGradeCoefficients = cacheConnectionInfos["guessGradeCoefficients"] ?? true;
+      guessSubjectCoefficients = cacheConnectionInfos["guessSubjectCoefficients"] ?? true;
+    } else {
+      disconnect();
+    }
+  }
+
   // Disconnect //
   void disconnect() {
     accounts.clear();

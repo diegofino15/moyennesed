@@ -6,6 +6,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:moyennesed/ui/styles.dart';
 import 'package:moyennesed/ui/widgets/bug_report_popup.dart';
 import 'package:moyennesed/ui/widgets/disconnect_popup.dart';
+import 'package:moyennesed/ui/widgets/informations_popup.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:moyennesed/core/app_data.dart';
 import 'package:moyennesed/core/file_handler.dart';
@@ -70,6 +71,15 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
     showModalBottomSheet(
       context: context,
       builder: (context) => const DisconnectPopup(),
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+    );
+  }
+
+  void openInformationsPopup() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => const InformationsPopup(),
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
     );
@@ -288,11 +298,20 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Paramètres", style: TextStyle(
-                        fontSize: 20.0 * Styles.scale,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "Montserrat",
-                      )),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Paramètres", style: TextStyle(
+                            fontSize: 20.0 * Styles.scale,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: "Montserrat",
+                          )),
+                          GestureDetector(
+                            onTap: openInformationsPopup,
+                            child: Icon(FluentIcons.info_24_regular, color: Colors.grey, size: 27.5 * Styles.scale),
+                          ),
+                        ],
+                      ),
                       Gap(10.0 * Styles.scale),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

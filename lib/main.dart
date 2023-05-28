@@ -14,31 +14,10 @@ void main() async {
   AppData.instance.init();
 
   // Load the cache //
-  Map<String, dynamic> cache = await CacheHandler.getAllCache();
-  if (cache.isNotEmpty && !AppData.instance.debugMode) {
-    print("Found cache !");
-    AppData.instance.connectedAccount.fromCache(cache);
-    AppData.instance.accounts.clear();
-    AppData.instance.displayedAccountID = "${AppData.instance.connectedAccount.id}";
-    AppData.instance.accounts.addAll({AppData.instance.displayedAccountID: AppData.instance.connectedAccount});
-    for (Account childAccount in AppData.instance.connectedAccount.childrenAccounts) {
-      AppData.instance.displayedAccountID = "${childAccount.id}";
-      AppData.instance.accounts.addAll({AppData.instance.displayedAccountID: childAccount});
-    }
-  }
+  await AppData.instance.loadCache();
 
   // Auto-connect //
-  Map cacheConnectionInfos = await FileHandler.instance.readInfos();
-  if ((cacheConnectionInfos["isUserLoggedIn"] ?? false) || AppData.instance.debugMode) {
-    AppData.instance.connectedAccount.loginUsername = cacheConnectionInfos["username"] ?? "";
-    AppData.instance.connectedAccount.loginPassword = cacheConnectionInfos["password"] ?? "";
-    AppData.instance.connectedAccount.login();
-
-    AppData.instance.guessGradeCoefficients = cacheConnectionInfos["guessGradeCoefficients"] ?? true;
-    AppData.instance.guessSubjectCoefficients = cacheConnectionInfos["guessSubjectCoefficients"] ?? true;
-  } else {
-    AppData.instance.disconnect();
-  }
+  await AppData.instance.autoConnect();
 
   print("Finished initializing");
 
