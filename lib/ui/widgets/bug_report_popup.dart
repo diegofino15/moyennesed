@@ -108,12 +108,17 @@ class _BugReportPopupState extends State<BugReportPopup> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Text("En reportant un bug vous acceptez que nous ayons accès aux réponses d'ÉcoleDirecte, cela contient votre nom et vos notes, mais les identifiants de connexion ne sont pas partagés, ils ne quittent pas cet appareil.", style: TextStyle(
+                  Text("En reportant un bug, vous acceptez que les réponses d'ÉcoleDirecte soient envoyées et enregistrées pour pouvoir reproduire le bug et par la suite le régler. Ces informations incluent votre prénom, nom, et notes. Vos identifiants de connexion (identifiant et mot de passe) ne sont pas envoyés, ils ne quittent pas cet appareil.", style: TextStyle(
                     fontSize: 16.0 * Styles.scale,
                     color: Colors.black54,
                     fontFamily: "Montserrat",
-                  ), textAlign: TextAlign.justify),
-                  Text("Si votre problème persiste, veuillez s'il vous plaît envoyer un mail à moyennesed@gmail.com pour permettre de le résoudre, merci d'avance.", style: TextStyle(
+                  ), textAlign: TextAlign.justify,),
+                  // Text("En reportant un bug vous acceptez que nous ayons accès aux réponses d'ÉcoleDirecte, cela contient votre nom et vos notes, mais les identifiants de connexion ne sont pas partagés, ils ne quittent pas cet appareil.", style: TextStyle(
+                  //   fontSize: 16.0 * Styles.scale,
+                  //   color: Colors.black54,
+                  //   fontFamily: "Montserrat",
+                  // ), textAlign: TextAlign.justify),
+                  Text("Si votre problème persiste, veuillez s'il vous plaît envoyer un mail à moyennesed@gmail.com avec plus de détails concernant votre problème, pour permettre de le résoudre, merci d'avance.", style: TextStyle(
                     fontSize: 16.0 * Styles.scale,
                     color: Colors.black54,
                     fontFamily: "Montserrat",
