@@ -21,7 +21,7 @@ class _BugReportPopupState extends State<BugReportPopup> {
   Future<void> sendBugReport() async {
     if (sentBugReport) { return; }
     
-    setState(() => { isSendingBugReport = true });
+    setState(() => isSendingBugReport = true );
 
     final Map debugData = {
       "name": AppData.instance.connectedAccount.fullName,
@@ -37,12 +37,12 @@ class _BugReportPopupState extends State<BugReportPopup> {
         body: jsonEncode(debugData),
       );
       print("Successfully sent bug report !");
-      setState(() => { sentBugReport = true });
+      setState(() => sentBugReport = true );
     } catch (e) {
       print("An error occured while sending a bug report...");
       print("Error : $e");
     }
-    setState(() => { isSendingBugReport = false });
+    setState(() => isSendingBugReport = false );
   }
   
   int currentBug = 0;
@@ -81,7 +81,7 @@ class _BugReportPopupState extends State<BugReportPopup> {
               (index) => Column(
                 children: [
                   GestureDetector(
-                    onTap: () => setState(() => { currentBug = index }),
+                    onTap: () => setState(() => currentBug = index ),
                     child: Container(
                       padding: EdgeInsets.only(left: 15.0 * Styles.scale, right: 10.0 * Styles.scale, top: 10.0 * Styles.scale, bottom: 10.0 * Styles.scale),
                       decoration: BoxDecoration(

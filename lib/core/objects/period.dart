@@ -61,7 +61,7 @@ class Period {
     for (var value in grades) { cacheGrades.add(value.toCache()); }
 
     Map<String, dynamic> cacheSubjects = {};
-    subjects.forEach((key, value) => { cacheSubjects.addAll({key: value.toCache()}) });
+    subjects.forEach((key, value) => cacheSubjects.addAll({key: value.toCache()}) );
     
     return {
       "code": code,

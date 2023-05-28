@@ -75,7 +75,7 @@ class Subject {
   // Save into cache format //
   Map<String, dynamic> toCache() {
     Map<String, dynamic> cacheSubSubjects = {};
-    subSubjects.forEach((key, value) => { cacheSubSubjects.addAll({key: value.toCache()}) });
+    subSubjects.forEach((key, value) => cacheSubSubjects.addAll({key: value.toCache()}) );
 
     List<Map<String, dynamic>> cacheGrades = [];
     for (var value in grades) { cacheGrades.add(value.toCache()); }

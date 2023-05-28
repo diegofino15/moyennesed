@@ -3,9 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:moyennesed/ui/screens/home_screen.dart';
 import 'package:moyennesed/core/app_data.dart';
-import 'package:moyennesed/core/file_handler.dart';
-import 'package:moyennesed/core/cache_handler.dart';
-import 'package:moyennesed/core/objects/account.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
