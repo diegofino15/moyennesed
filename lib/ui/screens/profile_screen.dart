@@ -425,7 +425,10 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                                 right: 15 * Styles.scale,
                                 top: 10 * Styles.scale,
                                 child: GestureDetector(
-                                  onTap: () => setState(() => showPassword = !showPassword ),
+                                  onTap: () => setState(() {
+                                    showPassword = !showPassword;
+                                    if (account.wrongPassword) { account.wrongPassword = false; }
+                                  }),
                                   child: account.wrongPassword
                                     ? SizedBox(
                                         width: 30.0 * Styles.scale,
