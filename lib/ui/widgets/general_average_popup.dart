@@ -68,11 +68,13 @@ class GeneralAveragePopup extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width - 160 * Styles.scale, child: Text(AppData.instance.displayedAccount.fullName, style: TextStyle(
-                  fontSize: 15.0 * Styles.scale,
-                  color: Colors.black54,
-                  fontFamily: "Montserrat",
-                ), overflow: TextOverflow.ellipsis)),
+                SizedBox(width: MediaQuery.of(context).size.width - 160 * Styles.scale,
+                  child: Text(AppData.instance.displayedAccount.fullName, style: TextStyle(
+                    fontSize: 15.0 * Styles.scale,
+                    color: Colors.black54,
+                    fontFamily: "Montserrat",
+                  ), overflow: TextOverflow.ellipsis),
+                ),
               ],
             ),
           ),

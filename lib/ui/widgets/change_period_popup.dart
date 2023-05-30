@@ -55,10 +55,13 @@ class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(AppData.instance.displayedAccount.periods.values.elementAt(index).title, style: TextStyle(
-                            fontSize: 17.0 * Styles.scale,
-                            fontFamily: "Montserrat",
-                          )),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width - (110.0 * Styles.scale),
+                            child: Text(AppData.instance.displayedAccount.periods.values.elementAt(index).title, style: TextStyle(
+                              fontSize: 17.0 * Styles.scale,
+                              fontFamily: "Montserrat",
+                            ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                          ),
                           Icon(AppData.instance.displayedAccount.selectedPeriod == AppData.instance.displayedAccount.periods.keys.elementAt(index)
                             ? FluentIcons.checkmark_circle_24_filled
                             : FluentIcons.circle_24_regular,

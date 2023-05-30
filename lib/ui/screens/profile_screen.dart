@@ -201,11 +201,14 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                             ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
                           ),
                           Gap(5.0 * Styles.scale),
-                          Text(account.type == "E" ? account.levelName : "Compte parent", style: TextStyle(
-                            fontSize: 17.0 * Styles.scale,
-                            fontFamily: "Montserrat",
-                            color: Colors.black54,
-                          )),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width - 150.0 * Styles.scale,
+                            child: Text(account.type == "E" ? account.levelName : "Compte parent", style: TextStyle(
+                              fontSize: 17.0 * Styles.scale,
+                              fontFamily: "Montserrat",
+                              color: Colors.black54,
+                            )),
+                          ),
                         ],
                       ),
                       GestureDetector(

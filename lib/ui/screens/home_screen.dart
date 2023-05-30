@@ -165,11 +165,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(appData.displayedAccount.gotGrades ? appData.displayedAccount.periods[appData.displayedAccount.selectedPeriod]!.title : "--", style: TextStyle(
-                            fontSize: 18.0 * Styles.scale,
-                            fontFamily: "Montserrat",
-                            fontWeight: FontWeight.bold,
-                          )),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width - (125 * Styles.scale),
+                            child: Text(appData.displayedAccount.gotGrades ? appData.displayedAccount.periods[appData.displayedAccount.selectedPeriod]!.title : "--", style: TextStyle(
+                              fontSize: 18.0 * Styles.scale,
+                              fontFamily: "Montserrat",
+                              fontWeight: FontWeight.bold,
+                            ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                          ),
                           appData.displayedAccount.isGettingGrades ? const LoadingAnimation() : Icon(FluentIcons.settings_24_filled, size: 25.0 * Styles.scale),
                         ],
                       ),
