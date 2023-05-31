@@ -31,13 +31,13 @@ class InformationsPopup extends StatelessWidget {
               fontFamily: "Montserrat",
             ), textAlign: TextAlign.justify),
             Gap(10.0 * Styles.scale),
-            Text("Devine coefficient matière: détermine le coefficient d'une matière selon les coefficients les plus courants (ex: Français=coef 3, Physique-Chimie=coef 2...). Désactivez cette option si toutes vos matières sont coefficient 1.", style: TextStyle(
+            Text("Devine coefficient matière: détermine le coefficient d'une matière selon les coefficients les plus courants (ex: Français=coef 3, Physique-Chimie=coef 2...). Désactivez cette option si votre établissement fournit les coefficients de vos matières.", style: TextStyle(
               fontSize: 17.0 * Styles.scale,
               color: Colors.black54,
               fontFamily: "Montserrat",
             ), textAlign: TextAlign.justify),
             Gap(10.0 * Styles.scale),
-            Text("Aucune de ces options n'est parfaite, le but est d'approximer au maximum la moyenne de chaque matière ainsi que la moyenne générale. Si ces options ne sont pas efficaces pour vous, vous pouvez reporter un bug ou envoyer un mail à moyennesed@gmail.com pour suggerer des améliorations.", style: TextStyle(
+            Text("Aucune de ces options n'est parfaite, le but est d'approximer au maximum la moyenne de chaque matière ainsi que la moyenne générale. Si ces options ne sont pas efficaces pour vous, vous pouvez reporter un bug ou envoyer un mail à moyennesed@gmail.com pour suggerer des améliorations, toute aide est appréciée !", style: TextStyle(
               fontSize: 17.0 * Styles.scale,
               color: Colors.black54,
               fontFamily: "Montserrat",

@@ -9,7 +9,6 @@ import 'package:moyennesed/ui/widgets/disconnect_popup.dart';
 import 'package:moyennesed/ui/widgets/informations_popup.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:moyennesed/core/app_data.dart';
-import 'package:moyennesed/core/file_handler.dart';
 import 'package:moyennesed/core/cache_handler.dart';
 import 'package:moyennesed/core/objects/account.dart';
 
@@ -327,7 +326,8 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                           GestureDetector(
                             onTap: () => setState(() {
                               AppData.instance.guessGradeCoefficients = !AppData.instance.guessGradeCoefficients;
-                              FileHandler.instance.changeInfos({"guessGradeCoefficients": AppData.instance.guessGradeCoefficients});
+                              AppData.instance.connectedAccount.saveGradesData(AppData.instance.gradesLog); // Refresh all data
+                              AppData.instance.updateUI = true;
                             }),
                             child: Icon(
                               AppData.instance.guessGradeCoefficients ? FluentIcons.checkbox_checked_24_filled : FluentIcons.checkbox_unchecked_24_filled,
@@ -347,7 +347,8 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                           GestureDetector(
                             onTap: () => setState(() {
                               AppData.instance.guessSubjectCoefficients = !AppData.instance.guessSubjectCoefficients;
-                              FileHandler.instance.changeInfos({"guessSubjectCoefficients": AppData.instance.guessSubjectCoefficients});
+                              AppData.instance.connectedAccount.saveGradesData(AppData.instance.gradesLog); // Refresh all data
+                              AppData.instance.updateUI = true;
                             }),
                             child: Icon(
                               AppData.instance.guessSubjectCoefficients ? FluentIcons.checkbox_checked_24_filled : FluentIcons.checkbox_unchecked_24_filled,

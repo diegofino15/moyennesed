@@ -262,6 +262,9 @@ class Account with ChangeNotifier {
   }
 
   void saveGradesData(Map gradesResponse) {
+    // Reset all previously saved data //
+    periods.clear();
+    
     // Create all periods and subjects //
     final List<String> possiblePeriodCodes = ["A001", "A002", "A003"];
     for (Map<String, dynamic> periodData in gradesResponse["data"]["periodes"]) {
@@ -289,8 +292,7 @@ class Account with ChangeNotifier {
     }
 
     if (isConnectedAccount) {
-      Map<String, dynamic> cache = toCache(false);
-      CacheHandler.saveAllCache(cache);
+      CacheHandler.saveAllCache(toCache(false));
     }
   }
 

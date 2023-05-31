@@ -17,6 +17,8 @@ class Styles {
     [Color(0xFFFCCF55), Color(0xFFFDDF8E)], // Yellow
     [Color(0xFF658354), Color(0xFFA3C585)], // Green
     [Color(0xFFA17BB9), Color(0xFFC09ADB)], // Purple
+    [Color(0xFFC58940), Color(0xFFE5BA73)], // Brown
+    [Color.fromARGB(255, 170, 142, 133), Color(0xFFD7C0AE)], // Gray
   ];
   static Map<dynamic, dynamic> attribuatedSubjectColors = {};
   static int currentColorIndex = 0;

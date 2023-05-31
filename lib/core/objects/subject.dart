@@ -32,7 +32,8 @@ class Subject {
 
     for (var value in (jsonInfos["professeurs"] ?? [])) { teachers.add(value["nom"] ?? "Pas de professeur"); }
     
-    coefficient = (jsonInfos["coef"] ?? 0).toDouble();
+    String coefficientStr = "${jsonInfos["coef"]}";
+    coefficient = double.tryParse(coefficientStr) ?? 0.0;
     if (coefficient == 0.0 || AppData.instance.guessSubjectCoefficients) {
       coefficient = 1.0;
 

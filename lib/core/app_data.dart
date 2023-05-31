@@ -42,7 +42,7 @@ class AppData with ChangeNotifier {
   // Load cache //
   Future<void> loadCache() async {
     Map<String, dynamic> cache = await CacheHandler.getAllCache();
-    if (cache.isNotEmpty && !debugMode) {
+    if (cache.isNotEmpty) {
       print("Found cache !");
       connectedAccount.fromCache(cache);
       accounts.clear();
@@ -62,9 +62,6 @@ class AppData with ChangeNotifier {
       connectedAccount.loginUsername = cacheConnectionInfos["username"] ?? "";
       connectedAccount.loginPassword = cacheConnectionInfos["password"] ?? "";
       connectedAccount.login();
-
-      guessGradeCoefficients = cacheConnectionInfos["guessGradeCoefficients"] ?? true;
-      guessSubjectCoefficients = cacheConnectionInfos["guessSubjectCoefficients"] ?? true;
     } else {
       disconnect();
     }
@@ -83,15 +80,17 @@ class AppData with ChangeNotifier {
   }
 
   // Modifiable data //
-  bool guessGradeCoefficients = true;
+  bool guessGradeCoefficients = false;
   final Map<String, double> gradeCoefficients = {
     "dm": 0.5,
+    "ie": 1.0,
     "ds": 2.0,
     "dst": 2.0,
     "oraux": 3.0,
+    "brevet": 3.0,
   };
   
-  bool guessSubjectCoefficients = true;
+  bool guessSubjectCoefficients = false;
   final Map<String, double> subjectCoefficients = <String, double>{
     "FRANCAIS": 3.0, "FRANC": 3.0,
     "HISTOIRE": 3.0, "HIS": 3.0, "GEOGRAPHIE": 3.0, "GEO": 3.0,
