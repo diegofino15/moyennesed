@@ -19,7 +19,7 @@ class InformationsPopup extends StatelessWidget {
         child: ListView(
           scrollDirection: Axis.vertical,
           children: [
-            Text("Ces paramètres déterminent la façon dont les coefficients des notes et des matières sont déterminés.", style: TextStyle(
+            Text("Ces paramètres déterminent la façon dont les coefficients des notes et des matières sont choisis.", style: TextStyle(
               fontSize: 17.0 * Styles.scale,
               color: Colors.black54,
               fontFamily: "Montserrat",
