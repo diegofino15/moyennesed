@@ -236,6 +236,7 @@ class Account with ChangeNotifier {
           print("Successfully got grades !");
           gotGrades = true;
           saveGradesData(gradesResponse);
+          selectedPeriod = periods.values.last.code;
           AppData.instance.updateUI = true; // Update the UI //
           break;
         
@@ -288,7 +289,6 @@ class Account with ChangeNotifier {
     for (Period period in periods.values) {
       period.sortGrades();
       period.calculateAverage();
-      selectedPeriod = period.code;
     }
 
     if (isConnectedAccount) {
