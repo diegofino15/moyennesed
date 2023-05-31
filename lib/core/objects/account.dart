@@ -274,7 +274,7 @@ class Account with ChangeNotifier {
 
   void saveGradesData(Map gradesResponse) {
     // Reset all previously saved data //
-    periods.clear();
+    // periods.clear();
     
     // Create all periods and subjects //
     final List<String> possiblePeriodCodes = ["A001", "A002", "A003"];
@@ -345,7 +345,6 @@ class Account with ChangeNotifier {
     gender = cacheInfos["gender"] ?? "M";
     levelCode = cacheInfos["levelCode"] ?? "";
     levelName = cacheInfos["levelName"] ?? "";
-    selectedPeriod = cacheInfos["selectedPeriod"] ?? "";
     gotGrades = cacheInfos["gotGrades"] ?? false;
 
     for (Map<String, dynamic> childAccountCache in (cacheInfos["childrenAccounts"] ?? [])) {
@@ -358,6 +357,9 @@ class Account with ChangeNotifier {
       period.fromCache(periodCache);
       periods.addAll({period.code: period});
     }
+
+    selectedPeriod = periods.values.last.code;
+
     isFromCache = true;
 
     print("Created $fullName from cache !");
