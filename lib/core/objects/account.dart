@@ -75,10 +75,15 @@ class Account with ChangeNotifier {
 
     // DEMO ACCOUNT //
     if (loginUsername == "demo" && loginPassword == "1234") {
-      isConnecting = true;
       isConnected = false;
+      isConnecting = true;
       wrongPassword = false;
       await Future.delayed(const Duration(seconds: 2));
+      FileHandler.instance.writeInfos({
+        "isUserLoggedIn": true,
+        "username": loginUsername,
+        "password": loginPassword
+      });
       saveLoginData(DemoAccount.demoAccountInfos);
       isLoggedIn = true;
       isConnecting = false;
@@ -202,8 +207,13 @@ class Account with ChangeNotifier {
     if (!isConnected) { return; }
 
     if (loginUsername == "demo" && loginPassword == "1234") {
-      gotGrades = true;
+      isGettingGrades = true;
+      await Future.delayed(const Duration(seconds: 2));
       saveGradesData(DemoAccount.demoAccountGrades);
+      gotGrades = true;
+      selectedPeriod = periods.values.last.code;
+      AppData.instance.gradesLog = DemoAccount.demoAccountGrades;
+      isGettingGrades = false;
       isFromCache = true;
       AppData.instance.updateUI = true;
       return;
