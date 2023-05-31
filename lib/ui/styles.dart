@@ -6,10 +6,6 @@ class Styles {
   static void setScale(BuildContext context) { scale = min(1.0, MediaQuery.of(context).size.width / 430.0 * 1.05); }
   static double scale = 1.0;
 
-
-  // TextStyles //
-  
-
   // Subject colors //
   static const List<List<Color>> subjectColors = [
     [Color(0xFFff6242), Color(0xFFFFA590)], // Red
