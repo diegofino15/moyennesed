@@ -326,7 +326,7 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                           GestureDetector(
                             onTap: () => setState(() {
                               AppData.instance.guessGradeCoefficients = !AppData.instance.guessGradeCoefficients;
-                              AppData.instance.connectedAccount.saveGradesData(AppData.instance.gradesLog); // Refresh all data
+                              AppData.instance.displayedAccount.saveGradesData(AppData.instance.gradesLog); // Refresh all data
                               AppData.instance.updateUI = true;
                             }),
                             child: Icon(
@@ -347,7 +347,7 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                           GestureDetector(
                             onTap: () => setState(() {
                               AppData.instance.guessSubjectCoefficients = !AppData.instance.guessSubjectCoefficients;
-                              AppData.instance.connectedAccount.saveGradesData(AppData.instance.gradesLog); // Refresh all data
+                              AppData.instance.displayedAccount.saveGradesData(AppData.instance.gradesLog); // Refresh all data
                               AppData.instance.updateUI = true;
                             }),
                             child: Icon(
