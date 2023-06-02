@@ -26,7 +26,7 @@ class Account with ChangeNotifier {
   final List<Account> childrenAccounts = <Account>[];
   final Map<String, Period> periods = {};
   bool isFromCache = false;
-  late String selectedPeriod_;
+  String selectedPeriod_ = "A001";
   String get selectedPeriod => selectedPeriod_;
   set selectedPeriod(String value) {
     selectedPeriod_ = value;

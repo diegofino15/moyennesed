@@ -105,7 +105,7 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
       backgroundColor: const Color(0xFFECECEC),
       body: Consumer<Account>(
         builder: (context, account, child) => ListView(
-          padding: EdgeInsets.only(left: 20.0 * Styles.scale, right: 20.0 * Styles.scale, top: (MediaQuery.of(context).padding.top + 10.0) * Styles.scale, bottom: (MediaQuery.of(context).padding.bottom + 10.0) * Styles.scale),
+          padding: EdgeInsets.only(left: 20.0 * Styles.scale, right: 20.0 * Styles.scale, top: (MediaQuery.of(context).padding.top + 10.0) * Styles.scale, bottom: (MediaQuery.of(context).padding.bottom + 20.0) * Styles.scale),
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
