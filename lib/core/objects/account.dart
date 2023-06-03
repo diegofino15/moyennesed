@@ -247,7 +247,7 @@ class Account with ChangeNotifier {
           print("Successfully got grades !");
           gotGrades = true;
           saveGradesData(gradesResponse);
-          selectedPeriod = periods.values.last.code;
+          selectedPeriod = periods.values.isEmpty ? "A001" : periods.values.last.code;
           AppData.instance.updateUI = true; // Update the UI //
           break;
         
@@ -259,8 +259,8 @@ class Account with ChangeNotifier {
         
         default:
           print("Connection failed : unknown response code ${gradesResponse["code"]}");
-          print(gradesResponse);
-          print(jsonEncode(gradesPayload));
+          print("Received : $gradesResponse");
+          print("Sent : ${jsonEncode(gradesPayload)}");
           break;
       }
     } catch (e) {
