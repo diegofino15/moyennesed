@@ -19,6 +19,13 @@ class InformationsPopup extends StatelessWidget {
         child: ListView(
           scrollDirection: Axis.vertical,
           children: [
+            Text("Ces paramètres se mettent en place automatiquement lors de votre première connexion. Vous pouvez les changer à tout moment.", style: TextStyle(
+              fontSize: 17.0 * Styles.scale,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontFamily: "Montserrat",
+            ), textAlign: TextAlign.justify),
+            Gap(10.0 * Styles.scale),
             Text("Ces paramètres déterminent la façon dont les coefficients des notes et des matières sont choisis.", style: TextStyle(
               fontSize: 17.0 * Styles.scale,
               color: Colors.black54,

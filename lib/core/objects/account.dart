@@ -19,6 +19,7 @@ class Account with ChangeNotifier {
   String gender = "M";
 
   // Data only for connected account //
+  bool wasLoggedIn = false;
   bool isLoggedIn = false;
   String token = "";
   String loginUsername = "";
@@ -273,8 +274,14 @@ class Account with ChangeNotifier {
   }
 
   void saveGradesData(Map gradesResponse) {
-    // Reset all previously saved data //
-    // periods.clear();
+    // Save if the school gives coefficients //
+    AppData.instance.schoolGivesGradeCoefficients = gradesResponse["data"]["parametrage"]["coefficientNote"];
+    AppData.instance.schoolGivesSubjectCoefficients = gradesResponse["data"]["parametrage"]["moyenneCoefMatiere"];
+    if (!wasLoggedIn) {
+      AppData.instance.guessGradeCoefficients = !AppData.instance.schoolGivesGradeCoefficients;
+      AppData.instance.guessSubjectCoefficients = !AppData.instance.schoolGivesSubjectCoefficients;
+      print("Changed default coefficient parameters, now : ${AppData.instance.guessGradeCoefficients} | ${AppData.instance.guessSubjectCoefficients}");
+    }
     
     // Create all periods and subjects //
     final List<String> possiblePeriodCodes = ["A001", "A002", "A003"];
@@ -304,6 +311,8 @@ class Account with ChangeNotifier {
     if (isConnectedAccount) {
       CacheHandler.saveAllCache(toCache(false));
     }
+
+    wasLoggedIn = true;
   }
 
   // Cache //
@@ -358,7 +367,7 @@ class Account with ChangeNotifier {
       periods.addAll({period.code: period});
     }
 
-    selectedPeriod = periods.values.last.code;
+    selectedPeriod = periods.values.isEmpty ? "A001" : periods.values.last.code;
 
     isFromCache = true;
 
@@ -367,6 +376,7 @@ class Account with ChangeNotifier {
 
   // Disconnect and forget all saved data //
   void disconnect() {
+    wasLoggedIn = false;
     isLoggedIn = false;
     firstName = "";
     lastName = "";

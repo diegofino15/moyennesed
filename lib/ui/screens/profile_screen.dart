@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:moyennesed/ui/widgets/loading_animation.dart';
 import 'package:provider/provider.dart';
 import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
@@ -250,9 +251,11 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                               onTap: () => setState(() {
                                 AppData.instance.displayedAccountID = "${account.childrenAccounts.elementAt(index).id}";
                                 if (!AppData.instance.displayedAccount.gotGrades && !AppData.instance.displayedAccount.isGettingGrades) {
-                                  AppData.instance.displayedAccount.parseGrades().then((value) => {
-                                    CacheHandler.saveAllCache(account.toCache(false))
-                                  });
+                                  AppData.instance.displayedAccount.parseGrades().then(
+                                    (value) => setState(() {
+                                      CacheHandler.saveAllCache(account.toCache(false));
+                                    })
+                                  );
                                 }
                                 AppData.instance.updateUI = true; // Update the UI //
                               }),
@@ -303,12 +306,25 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Paramètres", style: TextStyle(
-                            fontSize: 20.0 * Styles.scale,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "Montserrat",
-                          )),
-                          GestureDetector(
+                          Row(
+                            children: [
+                              Text("Paramètres", style: TextStyle(
+                                fontSize: 20.0 * Styles.scale,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "Montserrat",
+                              )),
+                              Gap(10.0 * Styles.scale),
+                              Text("(auto)", style: TextStyle(
+                                fontSize: 20.0 * Styles.scale,
+                                color: Colors.black54,
+                                fontStyle: FontStyle.italic,
+                                fontFamily: "Montserrat",
+                              )),
+                            ],
+                          ),
+                          AppData.instance.displayedAccount.isGettingGrades && !account.wasLoggedIn
+                            ? const LoadingAnimation(size: 27.5)
+                            : GestureDetector(
                             onTap: openInformationsPopup,
                             child: Icon(FluentIcons.info_24_regular, color: Colors.grey, size: 27.5 * Styles.scale),
                           ),
