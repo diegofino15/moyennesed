@@ -245,8 +245,8 @@ class Account with ChangeNotifier {
       switch (gradesResponse["code"]) {
         case 200:
           print("Successfully got grades !");
-          gotGrades = true;
           saveGradesData(gradesResponse);
+          gotGrades = true;
           selectedPeriod = periods.values.isEmpty ? "A001" : periods.values.last.code;
           AppData.instance.updateUI = true; // Update the UI //
           break;
@@ -276,7 +276,7 @@ class Account with ChangeNotifier {
   void saveGradesData(Map gradesResponse) {
     // Save if the school gives coefficients //
     AppData.instance.schoolGivesGradeCoefficients = gradesResponse["data"]["parametrage"]["coefficientNote"];
-    AppData.instance.schoolGivesSubjectCoefficients = gradesResponse["data"]["parametrage"]["moyenneCoefMatiere"];
+    AppData.instance.schoolGivesSubjectCoefficients = gradesResponse["data"]["parametrage"]["moyenneCoefMatiere"] ?? false;
     if (!wasLoggedIn) {
       AppData.instance.guessGradeCoefficients = !AppData.instance.schoolGivesGradeCoefficients;
       AppData.instance.guessSubjectCoefficients = !AppData.instance.schoolGivesSubjectCoefficients;

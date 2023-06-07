@@ -571,7 +571,11 @@ class DemoAccount {
           }
         },
       ],
-      "notes": generateRandomGrades()
+      "notes": generateRandomGrades(),
+      "parametrage": {
+        "coefficientNote": false,
+        "moyenneCoefMatiere": false,
+      }
     }
   };
 }
