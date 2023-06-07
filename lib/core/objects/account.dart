@@ -247,7 +247,6 @@ class Account with ChangeNotifier {
         case 200:
           print("Successfully got grades !");
           saveGradesData(gradesResponse);
-          gotGrades = true;
           selectedPeriod = periods.values.isEmpty ? "A001" : periods.values.last.code;
           AppData.instance.updateUI = true; // Update the UI //
           break;
@@ -308,6 +307,8 @@ class Account with ChangeNotifier {
       period.sortGrades();
       period.calculateAverage();
     }
+
+    gotGrades = true;
 
     if (isConnectedAccount) {
       CacheHandler.saveAllCache(toCache(false));
