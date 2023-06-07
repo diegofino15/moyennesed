@@ -125,6 +125,7 @@ class Account with ChangeNotifier {
       switch (loginResponse["code"]) {
         case 200:
           print("Connection successful !");
+          isConnectedAccount = true;
           saveLoginData(loginResponse);
           AppData.instance.updateUI = true; // Update the UI //
           isLoggedIn = true;
