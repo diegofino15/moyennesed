@@ -1,7 +1,7 @@
 name: moyennesed
 description: Une application qui permet aux élèves de voir leurs moyennes ÉcoleDirecte.
 publish_to: "none"
-version: 2.0.7
+version: 2.0.8
 
 environment:
   sdk: ">=2.19.6 <3.0.0"
