@@ -1,6 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.diegof.moyennesed">
-   <application
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application
         android:label="MoyennesED"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
@@ -31,7 +30,9 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Queries -->
     <queries>
         <intent>
             <action android:name="android.intent.action.VIEW" />
