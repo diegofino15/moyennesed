@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:moyennesed/ui/styles.dart';
-import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:moyennesed/core/app_data.dart';
 
@@ -29,7 +27,6 @@ class _BugReportPopupState extends State<BugReportPopup> {
       "gradesLog": AppData.instance.gradesLog,
     };
 
-    // Get the right collection from Firebase //
     try {
       CollectionReference collectionRef = FirebaseFirestore.instance.collection(possibleBugs.values.elementAt(currentBug));
       await collectionRef.add(debugData);
