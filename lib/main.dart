@@ -2,11 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:moyennesed/ui/screens/home_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:moyennesed/firebase_options.dart';
 import 'package:moyennesed/core/app_data.dart';
 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Init firebase app //
+  await Firebase.initializeApp(
+    name: "MoyennesED",
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   // Init the AppData instance //
   AppData.instance.init();

@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:moyennesed/ui/styles.dart';
 import 'package:http/http.dart' as http;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:moyennesed/core/app_data.dart';
 
 
@@ -20,39 +21,37 @@ class _BugReportPopupState extends State<BugReportPopup> {
   
   Future<void> sendBugReport() async {
     if (sentBugReport) { return; }
-    
     setState(() => isSendingBugReport = true );
 
-    final Map debugData = {
-      "name": AppData.instance.connectedAccount.fullName,
-      "date": DateTime.now().toString(),
-      "reportedBug": possibleBugs[currentBug],
+    final Map<String, dynamic> debugData = {
+      "date": DateTime.timestamp().toString(),
       "connectionLog": AppData.instance.connectionLog,
       "gradesLog": AppData.instance.gradesLog,
     };
 
+    // Get the right collection from Firebase //
     try {
-      await http.post(
-        Uri.parse("https://api.moyennesed.my.to:777/report_bug"),
-        body: jsonEncode(debugData),
-      );
+      CollectionReference collectionRef = FirebaseFirestore.instance.collection(possibleBugs.values.elementAt(currentBug));
+      await collectionRef.add(debugData);
+      sentBugReport = true;
       print("Successfully sent bug report !");
-      setState(() => sentBugReport = true );
     } catch (e) {
-      print("An error occured while sending a bug report...");
-      print("Error : $e");
+      print("An error occured while sending bug report : $e");
     }
-    setState(() => isSendingBugReport = false );
+
+    setState(() {
+      isSendingBugReport = false;
+    });
   }
   
   int currentBug = 0;
-  final List<String> possibleBugs = [
-    "Problème de connexion",
-    "Problème de récupération des notes",
-    "Problème graphique",
-    "Faux coefficients",
-    "Autre",
-  ];
+  final Map<String, String> possibleBugs = {
+    "Problème de connexion": "Connection",
+    "Problème de récupération des notes": "Grades",
+    "Fausses moyennes / faux coefs" : "Averages",
+    "Problème graphique": "Graphical",
+    "Autre" : "Other",
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +93,7 @@ class _BugReportPopupState extends State<BugReportPopup> {
                         children: [
                           SizedBox(
                             width: MediaQuery.of(context).size.width - 100.0 * Styles.scale,
-                            child: Text(possibleBugs[index], style: TextStyle(
+                            child: Text(possibleBugs.keys.elementAt(index), style: TextStyle(
                               fontSize: 17.0 * Styles.scale,
                               color: Colors.black54,
                               fontFamily: "Montserrat",
@@ -116,11 +115,16 @@ class _BugReportPopupState extends State<BugReportPopup> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  Text("Ne reportez un bug que si un de ces problèmes vous est arrivé.", style: TextStyle(
+                    fontSize: 16.0 * Styles.scale,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "Montserrat",
+                  ), textAlign: TextAlign.justify),
                   Text("En reportant un bug, vous acceptez que les réponses d'ÉcoleDirecte soient envoyées et enregistrées pour pouvoir reproduire le bug et par la suite le régler. Ces informations incluent votre prénom, nom, et notes. Vos identifiants de connexion (identifiant et mot de passe) ne sont pas envoyés, ils ne quittent pas cet appareil.", style: TextStyle(
                     fontSize: 16.0 * Styles.scale,
                     color: Colors.black54,
                     fontFamily: "Montserrat",
-                  ), textAlign: TextAlign.justify,),
+                  ), textAlign: TextAlign.justify),
                   Text("Si votre problème persiste, veuillez s'il vous plaît envoyer un mail à moyennesed@gmail.com avec plus de détails concernant votre problème, pour permettre de le résoudre, merci d'avance.", style: TextStyle(
                     fontSize: 16.0 * Styles.scale,
                     color: Colors.black54,

@@ -119,8 +119,6 @@ class Account with ChangeNotifier {
         );
         loginResponse = jsonDecode(utf8.decode(encodedLoginResponse.bodyBytes));
       }
-      
-      AppData.instance.connectionLog = loginResponse;
 
       switch (loginResponse["code"]) {
         case 200:
@@ -202,6 +200,7 @@ class Account with ChangeNotifier {
       }
       isConnected = true;
     }
+    AppData.instance.connectionLog = loginResponse;
   }
 
   // Parse grades //
@@ -214,7 +213,6 @@ class Account with ChangeNotifier {
       saveGradesData(DemoAccount.demoAccountGrades);
       gotGrades = true;
       selectedPeriod = periods.values.last.code;
-      AppData.instance.gradesLog = DemoAccount.demoAccountGrades;
       isGettingGrades = false;
       isFromCache = true;
       AppData.instance.updateUI = true;
@@ -315,6 +313,7 @@ class Account with ChangeNotifier {
     }
 
     wasLoggedIn = true;
+    AppData.instance.gradesLog = DemoAccount.demoAccountGrades;
   }
 
   // Cache //
