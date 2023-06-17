@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:moyennesed/ui/components/sidebar.dart';
 import 'package:provider/provider.dart';
 import 'package:moyennesed/ui/screens/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -36,14 +37,14 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.dark,
-        child: ChangeNotifierProvider(
+        child: SideBar() /* ChangeNotifierProvider(
           create: (_) => AppData.instance,
           builder: (context, child) => const HomeScreen(),
-        ),
+        ),*/, 
       )
     );
   }
