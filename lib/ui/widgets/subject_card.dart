@@ -125,7 +125,7 @@ class SubjectCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width - (110.0 + 50.0) * Styles.scale,
+                    width: MediaQuery.of(context).size.width - 160.0 * Styles.scale,
                     child: Text(subject.title, style: TextStyle(
                       fontSize: 17.0 * Styles.scale,
                       fontWeight: FontWeight.bold,

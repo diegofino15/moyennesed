@@ -167,11 +167,20 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           SizedBox(
                             width: MediaQuery.of(context).size.width - (125 * Styles.scale),
-                            child: Text(appData.displayedAccount.gotGrades ? appData.displayedAccount.periods[appData.displayedAccount.selectedPeriod]!.title : "--", style: TextStyle(
-                              fontSize: 18.0 * Styles.scale,
-                              fontFamily: "Montserrat",
-                              fontWeight: FontWeight.bold,
-                            ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                            child: Row(
+                              children: [
+                                Text(appData.displayedAccount.gotGrades ? appData.displayedAccount.periods[appData.displayedAccount.selectedPeriod]!.title : "--", style: TextStyle(
+                                  fontSize: 18.0 * Styles.scale,
+                                  fontFamily: "Montserrat",
+                                  fontWeight: FontWeight.bold,
+                                ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                                Icon(
+                                  FluentIcons.ios_arrow_rtl_24_filled,
+                                  size: 20.0 * Styles.scale,
+                                  color: Colors.black54,
+                                ),
+                              ],
+                            ),
                           ),
                           appData.displayedAccount.isGettingGrades ? const LoadingAnimation() : Icon(FluentIcons.settings_24_filled, size: 25.0 * Styles.scale),
                         ],

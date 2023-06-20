@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:moyennesed/ui/screens/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:moyennesed/firebase_options.dart';
 import 'package:moyennesed/core/app_data.dart';
 
@@ -14,6 +15,12 @@ void main() async {
   await Firebase.initializeApp(
     name: "MoyennesED",
     options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  // Verify app ID //
+  await FirebaseAppCheck.instance.activate(
+    webRecaptchaSiteKey: 'recaptcha-v3-site-key',
+    appleProvider: AppleProvider.appAttest,
   );
 
   // Init the AppData instance //
