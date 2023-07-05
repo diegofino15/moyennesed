@@ -801,10 +801,10 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   abseil: 926fb7a82dc6d2b8e1f2ed7f3a718bce691d1e46
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
-  cloud_firestore: eb6bea100a5957ac15e911a317a52738813e72ef
+  cloud_firestore: 46617a47936a292babc0f0790f726d5795e89343
   Firebase: facd334e557a979bd03a0b58d90fd56b52b8aba0
-  firebase_app_check: b15592a792e36a5e777be6a35a32403ea5929b5b
-  firebase_core: 85b6664038311940ad60584eaabc73103c61f5de
+  firebase_app_check: 612e792abee72e98f7f924327a7b7530fcb773d9
+  firebase_core: d406405155d9b1925edad712d1d71d91851d3420
   FirebaseAppCheck: 2e00dc026f02fdba40c811e0d94fb19b6ddf5de5
   FirebaseCore: d027ff503d37edb78db98429b11f580a24a7df2a
   FirebaseCoreInternal: 9e46c82a14a3b3a25be4e1e151ce6d21536b89c0
@@ -816,7 +816,7 @@ SPEC CHECKSUMS:
   gRPC-Core: 17108291d84332196d3c8466b48f016fc17d816d
   leveldb-library: f03246171cce0484482ec291f88b6d563699ee06
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
-  path_provider_foundation: eaf5b3e458fc0e5fbb9940fb09980e853fe058b8
+  path_provider_foundation: 84f948f44f0c49386b215a03088360bc5d6bd0d4
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
   url_launcher_ios: 08a3dfac5fb39e8759aeb0abbd5d9480f30fc8b4
 
