@@ -52,9 +52,7 @@ class GradeCard extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(10.0 * Styles.scale)),
                       ),
                       child: Center(
-                        child: Text(grade.valueStr.isNotEmpty ? grade.valueStr : "N/A", style: TextStyle(
-                          fontSize: 20.0 * Styles.scale,
-                          fontWeight: FontWeight.bold,
+                        child: Text(grade.valueStr.isNotEmpty ? grade.valueStr : "N/A", style: Styles.title2TextStyle.copyWith(
                           fontFamily: "Bitter",
                         )),
                       ),
@@ -71,11 +69,7 @@ class GradeCard extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(5.0 * Styles.scale)),
                       ),
                       child: Center(
-                        child: Text("/${grade.valueOnStr}", style: TextStyle(
-                          fontSize: 12.0 * Styles.scale,
-                          fontFamily: "Bitter",
-                          fontWeight: FontWeight.bold,
-                        )),
+                        child: Text("/${grade.valueOnStr}", style: Styles.gradeOnCardTextStyle),
                       ),
                     ),
                   ) : Container(),
@@ -90,17 +84,13 @@ class GradeCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(grade.title, style: TextStyle(
-                    fontSize: 16.0 * Styles.scale,
-                    fontFamily: "Montserrat",
+                  Text(grade.title, style: Styles.subtitle3TextStyle.copyWith(
                     fontWeight: FontWeight.bold,
+                    color: Colors.black
                   ), overflow: TextOverflow.ellipsis, maxLines: 2, softWrap: false),
                   SizedBox(
                     height: 20.0 * Styles.scale,
-                    child: Text(grade.subjectTitle, style: TextStyle(
-                      fontSize: 14.0 * Styles.scale,
-                      fontFamily: "Montserrat",
-                    ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                    child: Text(grade.subjectTitle, style: Styles.subjectTitleTextStyle, overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
                   ),
                 ],
               ),

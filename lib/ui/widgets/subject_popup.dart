@@ -31,12 +31,7 @@ class SubjectPopup extends StatelessWidget {
               color: Styles.getSubjectColor(subject.mainCode),
               borderRadius: BorderRadius.all(Radius.circular(20.0 * Styles.scale)),
             ),
-            child: Center(child: Text(subject.showableAverage, style: TextStyle(
-              fontSize: 35.0 * Styles.scale,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-              fontFamily: "Bitter",
-            ))),
+            child: Center(child: Text(subject.showableAverage, style: Styles.displayNumberTextStyle)),
           ),
           Gap(20.0 * Styles.scale),
           SizedBox(
@@ -46,36 +41,18 @@ class SubjectPopup extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(subject.title, style: TextStyle(
-                  fontSize: 17.0 * Styles.scale,
+                Text(subject.title, style: Styles.subtitle2TextStyle.copyWith(
                   fontWeight: FontWeight.bold,
-                  fontFamily: "Montserrat"
                 ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Classe : ${subject.showableClassAverage}", style: TextStyle(
-                      fontSize: 15.0 * Styles.scale,
-                      color: Colors.black54,
-                      fontFamily: "Montserrat",
-                    )),
-                    Text("-", style: TextStyle(
-                      fontSize: 15.0 * Styles.scale,
-                      color: Colors.black54,
-                      fontFamily: "Montserrat",
-                    )),
-                    Text("Coef : ${subject.coefficient}", style: TextStyle(
-                      fontSize: 15.0 * Styles.scale,
-                      color: Colors.black54,
-                      fontFamily: "Montserrat",
-                    )),
+                    Text("Classe : ${subject.showableClassAverage}", style: Styles.popupTextStyle),
+                    Text("-", style: Styles.popupTextStyle),
+                    Text("Coef : ${subject.coefficient}", style: Styles.popupTextStyle),
                   ],
                 ),
-                Text(subject.teachers.isNotEmpty ? subject.teachers.first : "Pas de professeur", style: TextStyle(
-                  fontSize: 15.0 * Styles.scale,
-                  color: Colors.black54,
-                  fontFamily: "Montserrat",
-                ), maxLines: 1, overflow: TextOverflow.fade, softWrap: false),
+                Text(subject.teachers.isNotEmpty ? subject.teachers.first : "Pas de professeur", style: Styles.popupTextStyle, maxLines: 1, overflow: TextOverflow.fade, softWrap: false),
               ],
             ),
           ),

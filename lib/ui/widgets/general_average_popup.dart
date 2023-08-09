@@ -26,12 +26,7 @@ class GeneralAveragePopup extends StatelessWidget {
               color: Colors.orange,
               borderRadius: BorderRadius.all(Radius.circular(20.0 * Styles.scale)),
             ),
-            child: Center(child: Text(AppData.instance.displayedAccount.gotGrades ? AppData.instance.displayedAccount.periods[AppData.instance.displayedAccount.selectedPeriod]!.showableAverage : "--", style: TextStyle(
-              fontSize: 35.0 * Styles.scale,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-              fontFamily: "Bitter",
-            ))),
+            child: Center(child: Text(AppData.instance.displayedAccount.gotGrades ? AppData.instance.displayedAccount.periods[AppData.instance.displayedAccount.selectedPeriod]!.showableAverage : "--", style: Styles.displayNumberTextStyle)),
           ),
           Gap(20.0 * Styles.scale),
           SizedBox(
@@ -40,40 +35,22 @@ class GeneralAveragePopup extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Moyenne générale", style: TextStyle(
-                  fontSize: 17.0 * Styles.scale,
+                Text("Moyenne générale", style: Styles.subtitle2TextStyle.copyWith(
                   fontWeight: FontWeight.bold,
-                  fontFamily: "Montserrat"
                 )),
                 SizedBox(
                   width: MediaQuery.of(context).size.width - 160.0 * Styles.scale,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Classe : ${AppData.instance.displayedAccount.gotGrades ? AppData.instance.displayedAccount.periods[AppData.instance.displayedAccount.selectedPeriod]!.showableClassAverage : "--"}", style: TextStyle(
-                        fontSize: 15.0 * Styles.scale,
-                        color: Colors.black54,
-                        fontFamily: "Montserrat",
-                      ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
-                      Text("-", style: TextStyle(
-                        fontSize: 15.0 * Styles.scale,
-                        color: Colors.black54,
-                        fontFamily: "Montserrat",
-                      ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
-                      Text(AppData.instance.displayedAccount.gotGrades ? AppData.instance.displayedAccount.periods[AppData.instance.displayedAccount.selectedPeriod]!.code : "--", style: TextStyle(
-                        fontSize: 15.0 * Styles.scale,
-                        color: Colors.black54,
-                        fontFamily: "Montserrat",
-                      ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                      Text("Classe : ${AppData.instance.displayedAccount.gotGrades ? AppData.instance.displayedAccount.periods[AppData.instance.displayedAccount.selectedPeriod]!.showableClassAverage : "--"}", style: Styles.popupTextStyle, overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                      Text("-", style: Styles.popupTextStyle, overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                      Text(AppData.instance.displayedAccount.gotGrades ? AppData.instance.displayedAccount.periods[AppData.instance.displayedAccount.selectedPeriod]!.code : "--", style: Styles.popupTextStyle, overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
                     ],
                   ),
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width - 160 * Styles.scale,
-                  child: Text(AppData.instance.displayedAccount.fullName, style: TextStyle(
-                    fontSize: 15.0 * Styles.scale,
-                    color: Colors.black54,
-                    fontFamily: "Montserrat",
-                  ), overflow: TextOverflow.ellipsis),
+                  child: Text(AppData.instance.displayedAccount.fullName, style: Styles.popupTextStyle, overflow: TextOverflow.ellipsis),
                 ),
               ],
             ),

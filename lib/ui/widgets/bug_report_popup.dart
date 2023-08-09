@@ -64,11 +64,7 @@ class _BugReportPopupState extends State<BugReportPopup> {
         children: [
           SizedBox(
             height: 25.0 * Styles.scale,
-            child: Text("Reporter un bug", style: TextStyle(
-              fontSize: 20.0 * Styles.scale,
-              fontWeight: FontWeight.bold,
-              fontFamily: "Montserrat",
-            )),
+            child: Text("Reporter un bug", style: Styles.title2TextStyle),
           ),
           Gap(10.0 * Styles.scale),
           Column(
@@ -90,11 +86,7 @@ class _BugReportPopupState extends State<BugReportPopup> {
                         children: [
                           SizedBox(
                             width: MediaQuery.of(context).size.width - 100.0 * Styles.scale,
-                            child: Text(possibleBugs.keys.elementAt(index), style: TextStyle(
-                              fontSize: 17.0 * Styles.scale,
-                              color: Colors.black54,
-                              fontFamily: "Montserrat",
-                            ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                            child: Text(possibleBugs.keys.elementAt(index), style: Styles.subtitle2_54TextStyle, overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
                           ),
                           Icon(currentBug == index ? FluentIcons.checkmark_circle_24_filled : FluentIcons.circle_24_regular, size: 25.0 * Styles.scale),
                         ],
@@ -112,21 +104,14 @@ class _BugReportPopupState extends State<BugReportPopup> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Text("Ne reportez un bug que si un de ces problèmes vous est arrivé.", style: TextStyle(
-                    fontSize: 16.0 * Styles.scale,
+                  Text("Ne reportez un bug que si un de ces problèmes vous est arrivé.", style: Styles.subtitle3TextStyle.copyWith(
                     fontWeight: FontWeight.bold,
-                    fontFamily: "Montserrat",
+                    color: Colors.black,
                   ), textAlign: TextAlign.justify),
-                  Text("En reportant un bug, vous acceptez que les réponses d'ÉcoleDirecte soient envoyées et enregistrées pour pouvoir reproduire le bug et par la suite le régler. Ces informations incluent votre prénom, nom, et notes. Vos identifiants de connexion (identifiant et mot de passe) ne sont pas envoyés, ils ne quittent pas cet appareil.", style: TextStyle(
-                    fontSize: 16.0 * Styles.scale,
-                    color: Colors.black54,
-                    fontFamily: "Montserrat",
-                  ), textAlign: TextAlign.justify),
-                  Text("Si votre problème persiste, veuillez s'il vous plaît envoyer un mail à moyennesed@gmail.com avec plus de détails concernant votre problème, pour permettre de le résoudre, merci d'avance.", style: TextStyle(
-                    fontSize: 16.0 * Styles.scale,
-                    color: Colors.black54,
-                    fontFamily: "Montserrat",
-                  ), textAlign: TextAlign.justify),
+                  Gap(10.0 * Styles.scale),
+                  Text("En reportant un bug, vous acceptez que les réponses d'ÉcoleDirecte soient envoyées et enregistrées pour pouvoir reproduire le bug et par la suite le régler. Ces informations incluent votre prénom, nom, et notes. Vos identifiants de connexion (identifiant et mot de passe) ne sont pas envoyés, ils ne quittent pas cet appareil.", style: Styles.subtitle3TextStyle, textAlign: TextAlign.justify),
+                  Gap(10.0 * Styles.scale),
+                  Text("Si votre problème persiste, veuillez s'il vous plaît envoyer un mail à moyennesed@gmail.com avec plus de détails concernant votre problème, pour permettre de le résoudre, merci d'avance.", style: Styles.subtitle3TextStyle, textAlign: TextAlign.justify),
                 ],
               ),
             ),
@@ -143,9 +128,7 @@ class _BugReportPopupState extends State<BugReportPopup> {
               child: Center(
                 child: Text(
                   sentBugReport ? "Envoyé !" : isSendingBugReport ? "Envoi..." : "Envoyer",
-                  style: TextStyle(
-                    fontSize: 18.0 * Styles.scale,
-                    fontWeight: FontWeight.bold,
+                  style: Styles.subtitleTextStyle.copyWith(
                     color: Colors.white,
                   ),
                 ),
