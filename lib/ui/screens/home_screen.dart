@@ -98,20 +98,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       SizedBox(
                         width: MediaQuery.of(context).size.width - (120 * Styles.scale),
-                        child: Text(appData.connectedAccount.isConnected ? "Bonjour ${appData.connectedAccount.firstName} !" : appData.connectedAccount.isConnecting ? "Connexion..." : "Vous n'êtes pas connecté", style: TextStyle(
-                          fontSize: 20.0 * Styles.scale,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "Montserrat"
-                        ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                        child: Text(appData.connectedAccount.isConnected ? "Bonjour ${appData.connectedAccount.firstName} !" : appData.connectedAccount.isConnecting ? "Connexion..." : "Vous n'êtes pas connecté", style: Styles.title2TextStyle, overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
                       ),
                       Gap(5.0 * Styles.scale),
                       SizedBox(
                         width: MediaQuery.of(context).size.width - (120 * Styles.scale),
-                        child: Text(appData.connectedAccount.isConnected ? currentWelcomeMessage : "Connectez vous sur votre profil", style: TextStyle(
-                          fontSize: 17.0 * Styles.scale,
-                          color: Colors.black54,
-                          fontFamily: "Montserrat"
-                        ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                        child: Text(appData.connectedAccount.isConnected ? currentWelcomeMessage : "Connectez vous sur votre profil", style: Styles.subtitle2_54TextStyle, overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
                       ),
                     ],
                   ),
@@ -142,11 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       SizedBox(
                         width: MediaQuery.of(context).size.width - 40.0 * Styles.scale,
-                        child: Text(appData.displayedAccount.id == appData.connectedAccount.id ? "Choisissez un compte sur votre profil" : "Voici les notes de ${appData.displayedAccount.firstName} :", style: TextStyle(
-                          fontSize: 20.0 * Styles.scale,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "Montserrat",
-                        ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                        child: Text(appData.displayedAccount.id == appData.connectedAccount.id ? "Choisissez un compte sur votre profil" : "Voici les notes de ${appData.displayedAccount.firstName} :", style: Styles.title2TextStyle, overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
                       ),
                       Gap(20.0 * Styles.scale),
                   ],
@@ -167,22 +155,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           SizedBox(
                             width: MediaQuery.of(context).size.width - (125 * Styles.scale),
-                            child: Row(
-                              children: [
-                                Text(appData.displayedAccount.gotGrades ? appData.displayedAccount.periods[appData.displayedAccount.selectedPeriod]!.title : "--", style: TextStyle(
-                                  fontSize: 18.0 * Styles.scale,
-                                  fontFamily: "Montserrat",
-                                  fontWeight: FontWeight.bold,
-                                ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
-                                Icon(
-                                  FluentIcons.ios_arrow_rtl_24_filled,
-                                  size: 20.0 * Styles.scale,
-                                  color: Colors.black54,
-                                ),
-                              ],
-                            ),
+                            child: Text(appData.displayedAccount.gotGrades ? appData.displayedAccount.periods[appData.displayedAccount.selectedPeriod]!.title : "--", style: Styles.subtitleTextStyle, overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
                           ),
-                          appData.displayedAccount.isGettingGrades ? const LoadingAnimation() : Icon(FluentIcons.settings_24_filled, size: 25.0 * Styles.scale),
+                          appData.displayedAccount.isGettingGrades
+                            ? const LoadingAnimation()
+                            : Icon(FluentIcons.settings_24_filled, size: 25.0 * Styles.scale),
                         ],
                       ),
                     ),
@@ -192,26 +169,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Center(
                         child: Column(
                           children: [
-                            Text(appData.displayedAccount.gotGrades ? appData.displayedAccount.periods[appData.displayedAccount.selectedPeriod]!.showableAverage : "--", style: TextStyle(
-                              fontSize: 34.0 * Styles.scale,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: "Bitter",
-                            )),
-                            Text("MOYENNE GÉNÉRALE", style: TextStyle(
-                              fontSize: 15.0 * Styles.scale,
-                              color: Colors.black54,
-                              fontFamily: "Montserrat",
-                            )),
+                            Text(appData.displayedAccount.gotGrades ? appData.displayedAccount.periods[appData.displayedAccount.selectedPeriod]!.showableAverage : "--", style: Styles.displayNumberTextStyle),
+                            Text("MOYENNE GÉNÉRALE", style: Styles.popupTextStyle),
                           ],
                         ),
                       ),
                     ),
                     Gap(30.0 * Styles.scale),
-                    Text("Dernières notes", style: TextStyle(
-                      fontSize: 18.0 * Styles.scale,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Montserrat",
-                    )),
+                    Text("Dernières notes", style: Styles.subtitleTextStyle),
                     Gap(10.0 * Styles.scale),
                     SizedBox(
                       width: double.infinity,
@@ -223,11 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         scrollDirection: Axis.horizontal,
                         key: PageStorageKey<String>("${appData.displayedAccount.selectedPeriod}-last_grades"),
                       ) : Center(
-                        child: Text("--", style: TextStyle(
-                          fontSize: 18.0 * Styles.scale,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: "Montserrat",
-                        )),
+                        child: Text("--", style: Styles.subtitleTextStyle),
                       ),
                     ),
                   ],
@@ -243,11 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Moyennes par matière", style: TextStyle(
-                      fontSize: 18.0 * Styles.scale,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Montserrat",
-                    )),
+                    Text("Moyennes par matière", style: Styles.subtitleTextStyle),
                     Gap(20.0 * Styles.scale),
                     appData.displayedAccount.gotGrades ? Column(
                       children: List.generate(
@@ -260,11 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ) : Center(
-                      child: Text("--", style: TextStyle(
-                        fontSize: 18.0 * Styles.scale,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "Montserrat",
-                      )),
+                      child: Text("--", style: Styles.subtitleTextStyle),
                     ),
                   ],
                 ),

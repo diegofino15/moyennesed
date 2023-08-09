@@ -37,11 +37,8 @@ class GradePopup extends StatelessWidget {
                     color: Styles.getSecondarySubjectColor(grade.subjectCode),
                     borderRadius: BorderRadius.all(Radius.circular(20.0 * Styles.scale)),
                   ),
-                  child: Center(child: Text(grade.valueStr.isNotEmpty ? grade.valueStr : "N/A", style: TextStyle(
-                    fontSize: 40.0 * Styles.scale,
-                    fontWeight: FontWeight.bold,
+                  child: Center(child: Text(grade.valueStr.isNotEmpty ? grade.valueStr : "N/A", style: Styles.displayNumberTextStyle.copyWith(
                     color: grade.isEffective && !grade.isString ? Colors.black : Colors.black26,
-                    fontFamily: "Bitter",
                   ))),
                 ),
                 (grade.isEffective && grade.valueOn != 20.0)
@@ -55,10 +52,8 @@ class GradePopup extends StatelessWidget {
                           color: Styles.getSubjectColor(grade.subjectCode),
                           borderRadius: BorderRadius.all(Radius.circular(10.0 * Styles.scale)),
                         ),
-                        child: Center(child: Text("/${grade.valueOnStr}", style: TextStyle(
-                          fontSize: 17.0 * Styles.scale,
+                        child: Center(child: Text("/${grade.valueOnStr}", style: Styles.subtitle2TextStyle.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
                           fontFamily: "Bitter",
                         ))),
                       ),
@@ -75,39 +70,21 @@ class GradePopup extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(grade.title, style: TextStyle(
-                  fontSize: 17.0 * Styles.scale,
+                Text(grade.title, style: Styles.subtitle2TextStyle.copyWith(
                   fontWeight: FontWeight.bold,
-                  fontFamily: "Montserrat",
                   fontStyle: grade.isEffective && !grade.isString ? FontStyle.normal : FontStyle.italic,
                 ), maxLines: 2),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Classe : ${grade.showableClassValue}", style: TextStyle(
-                      fontSize: 15.0 * Styles.scale,
-                      color: Colors.black54,
-                      fontFamily: "Montserrat",
-                    )),
-                    Text("-", style: TextStyle(
-                      fontSize: 15.0 * Styles.scale,
-                      color: Colors.black54,
-                      fontFamily: "Montserrat",
-                    )),
-                    Text("Coef : ${grade.coefficient}", style: TextStyle(
-                      fontSize: 15.0 * Styles.scale,
-                      color: Colors.black54,
-                      fontFamily: "Montserrat",
-                    )),
+                    Text("Classe : ${grade.showableClassValue}", style: Styles.popupTextStyle),
+                    Text("-", style: Styles.popupTextStyle),
+                    Text("Coef : ${grade.coefficient}", style: Styles.popupTextStyle),
                   ],
                 ),
                 SizedBox(
                   height: 20.0 * Styles.scale,
-                  child: Text(Styles.formatDate(grade.dateEntered), style: TextStyle(
-                    fontSize: 15.0 * Styles.scale,
-                    color: Colors.black54,
-                    fontFamily: "Montserrat",
-                  ), overflow: TextOverflow.fade, maxLines: 1),
+                  child: Text(Styles.formatDate(grade.dateEntered), style: Styles.popupTextStyle, overflow: TextOverflow.fade, maxLines: 1),
                 ),
               ],
             ),

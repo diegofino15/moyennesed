@@ -27,11 +27,7 @@ class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
         children: [
           SizedBox(
             height: 25.0 * Styles.scale,
-            child: Text("Changer de période", style: TextStyle(
-              fontSize: 20.0 * Styles.scale,
-              fontWeight: FontWeight.bold,
-              fontFamily: "Montserrat",
-            )),
+            child: Text("Changer de période", style: Styles.title2TextStyle),
           ),
           Gap(10.0 * Styles.scale),
           Column(
@@ -57,10 +53,7 @@ class _ChangePeriodPopupState extends State<ChangePeriodPopup> {
                         children: [
                           SizedBox(
                             width: MediaQuery.of(context).size.width - (110.0 * Styles.scale),
-                            child: Text(AppData.instance.displayedAccount.periods.values.elementAt(index).title, style: TextStyle(
-                              fontSize: 17.0 * Styles.scale,
-                              fontFamily: "Montserrat",
-                            ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                            child: Text(AppData.instance.displayedAccount.periods.values.elementAt(index).title, style: Styles.subtitle2TextStyle, overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
                           ),
                           Icon(AppData.instance.displayedAccount.selectedPeriod == AppData.instance.displayedAccount.periods.keys.elementAt(index)
                             ? FluentIcons.checkmark_circle_24_filled

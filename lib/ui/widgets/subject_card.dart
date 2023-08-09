@@ -64,17 +64,13 @@ class SubjectCard extends StatelessWidget {
                     children: [
                       SizedBox(
                         width: MediaQuery.of(context).size.width - (110.0 + 55.0 + (isRecusive ? 50.0 : 0.0)) * Styles.scale,
-                        child: Text(subject.title, style: TextStyle(
-                          fontSize: 17.0 * Styles.scale,
+                        child: Text(subject.title, style: Styles.subtitle2TextStyle.copyWith(
                           fontWeight: FontWeight.bold,
-                          fontFamily: "Montserrat",
                         ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
                       ),
                       SizedBox(
                         width: 55.0 * Styles.scale,
-                        child: Text(subject.isEffective ? subject.showableAverage : "--", style: TextStyle(
-                          fontSize: 22.0 * Styles.scale,
-                          fontWeight: FontWeight.bold,
+                        child: Text(subject.isEffective ? subject.showableAverage : "--", style: Styles.titleTextStyle.copyWith(
                           fontFamily: "Bitter",
                         ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false, textAlign: TextAlign.end),
                       ),
@@ -92,10 +88,8 @@ class SubjectCard extends StatelessWidget {
                 itemCount: subject.grades.length,
                 itemBuilder: (context, index) => GestureDetector(
                   onTap: () => openGradePopup(context, subject.grades.elementAt(index)),
-                  child: Text(subject.grades.elementAt(index).showableValue, style: TextStyle(
-                    fontSize: 20.0 * Styles.scale,
+                  child: Text(subject.grades.elementAt(index).showableValue, style: Styles.title2TextStyle.copyWith(
                     color: subject.grades.elementAt(index).isEffective && !subject.grades.elementAt(index).isString ? Colors.black : Colors.black26,
-                    fontWeight: FontWeight.bold,
                     fontFamily: "Bitter",
                   )),
                 ),
@@ -126,15 +120,11 @@ class SubjectCard extends StatelessWidget {
                 children: [
                   SizedBox(
                     width: MediaQuery.of(context).size.width - 160.0 * Styles.scale,
-                    child: Text(subject.title, style: TextStyle(
-                      fontSize: 17.0 * Styles.scale,
+                    child: Text(subject.title, style: Styles.subtitle2TextStyle.copyWith(
                       fontWeight: FontWeight.bold,
-                      fontFamily: "Montserrat",
                     ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
                   ),
-                  Text(subject.isEffective ? subject.showableAverage : "--", style: TextStyle(
-                    fontSize: 22.0 * Styles.scale,
-                    fontWeight: FontWeight.bold,
+                  Text(subject.isEffective ? subject.showableAverage : "--", style: Styles.titleTextStyle.copyWith(
                     fontFamily: "Bitter",
                   )),
                 ],

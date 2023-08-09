@@ -136,11 +136,7 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                     borderRadius: BorderRadius.all(Radius.circular(20.0 * Styles.scale)),
                   ),
                   child: Center(
-                    child: Text("Profil", style: TextStyle(
-                      fontSize: 22.0 * Styles.scale,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Montserrat",
-                    )),
+                    child: Text("Profil", style: Styles.titleTextStyle),
                   ),
                 ),
                 GestureDetector(
@@ -169,10 +165,7 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                 color: account.isConnected ? Colors.green : account.isConnecting ? Colors.blue : Colors.red,
                 borderRadius: BorderRadius.all(Radius.circular(20.0 * Styles.scale)),
               ),
-              child: Text(account.isConnected ? "Vous êtes connecté${account.gender == "M" ? "" : "e"} !" : account.isConnecting ? "Connexion..." : "Vous n'êtes pas connecté !", style: TextStyle(
-                fontSize: 20.0 * Styles.scale,
-                fontWeight: FontWeight.bold,
-                fontFamily: "Montserrat",
+              child: Text(account.isConnected ? "Vous êtes connecté${account.gender == "M" ? "" : "e"} !" : account.isConnecting ? "Connexion..." : "Vous n'êtes pas connecté !", style: Styles.title2TextStyle.copyWith(
                 color: Colors.white,
               )),
             ),
@@ -194,20 +187,12 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                         children: [
                           SizedBox(
                             width: MediaQuery.of(context).size.width - 150.0 * Styles.scale,
-                            child: Text(account.fullName, style: TextStyle(
-                              fontSize: 20.0 * Styles.scale,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: "Montserrat",
-                            ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                            child: Text(account.fullName, style: Styles.title2TextStyle, overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
                           ),
                           Gap(5.0 * Styles.scale),
                           SizedBox(
                             width: MediaQuery.of(context).size.width - 150.0 * Styles.scale,
-                            child: Text(account.type == "E" ? account.levelName : "Compte parent", style: TextStyle(
-                              fontSize: 17.0 * Styles.scale,
-                              fontFamily: "Montserrat",
-                              color: Colors.black54,
-                            )),
+                            child: Text(account.type == "E" ? account.levelName : "Compte parent", style: Styles.subtitle2_54TextStyle),
                           ),
                         ],
                       ),
@@ -271,11 +256,7 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                                   children: [
                                     SizedBox(
                                       width: MediaQuery.of(context).size.width - 180.0 * Styles.scale,
-                                      child: Text(account.childrenAccounts.elementAt(index).firstName, style: TextStyle(
-                                        fontSize: 20.0 * Styles.scale,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: "Montserrat",
-                                      ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                                      child: Text(account.childrenAccounts.elementAt(index).firstName, style: Styles.title2TextStyle, overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
                                     ),
                                     Icon(
                                       AppData.instance.displayedAccount.id == account.childrenAccounts.elementAt(index).id ? FluentIcons.checkmark_circle_24_filled : FluentIcons.circle_24_regular,
@@ -308,17 +289,11 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                         children: [
                           Row(
                             children: [
-                              Text("Paramètres", style: TextStyle(
-                                fontSize: 20.0 * Styles.scale,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: "Montserrat",
-                              )),
+                              Text("Paramètres", style: Styles.title2TextStyle),
                               Gap(10.0 * Styles.scale),
-                              Text("(auto)", style: TextStyle(
-                                fontSize: 20.0 * Styles.scale,
+                              Text("(auto)", style: Styles.title2TextStyle.copyWith(
                                 color: Colors.black54,
                                 fontStyle: FontStyle.italic,
-                                fontFamily: "Montserrat",
                               )),
                             ],
                           ),
@@ -334,11 +309,7 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Devine coefficient notes", style: TextStyle(
-                            fontSize: 16.0 * Styles.scale,
-                            color: Colors.black54,
-                            fontFamily: "Montserrat",
-                          )),
+                          Text("Devine coefficient notes", style: Styles.subtitle3TextStyle),
                           GestureDetector(
                             onTap: () => setState(() {
                               AppData.instance.guessGradeCoefficients = !AppData.instance.guessGradeCoefficients;
@@ -355,11 +326,7 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text("Devine coefficient matières", style: TextStyle(
-                            fontSize: 16.0 * Styles.scale,
-                            color: Colors.black54,
-                            fontFamily: "Montserrat",
-                          )),
+                          Text("Devine coefficient matières", style: Styles.subtitle3TextStyle),
                           GestureDetector(
                             onTap: () => setState(() {
                               AppData.instance.guessSubjectCoefficients = !AppData.instance.guessSubjectCoefficients;
@@ -474,9 +441,7 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                           child: Center(
                             child: Text(
                               account.isConnecting ? "Connexion..." : "Se connecter",
-                              style: TextStyle(
-                                fontSize: 18.0 * Styles.scale,
-                                fontWeight: FontWeight.bold,
+                              style: Styles.subtitleTextStyle.copyWith(
                                 color: Colors.white,
                               ),
                             ),
@@ -502,11 +467,7 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                   children: [
                     SizedBox(
                       width: MediaQuery.of(context).size.width - 130.0 * Styles.scale,
-                      child: Text("Site officiel EcoleDirecte", style: TextStyle(
-                        fontSize: 20.0 * Styles.scale,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "Montserrat",
-                      ), overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                      child: Text("Site officiel EcoleDirecte", style: Styles.title2TextStyle, overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
                     ),
                     SizedBox(
                       width: 30.0 * Styles.scale,

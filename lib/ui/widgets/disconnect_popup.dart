@@ -27,21 +27,13 @@ class DisconnectPopup extends StatelessWidget {
         children: [
           SizedBox(
             height: 25.0 * Styles.scale,
-            child: Text("Se déconnecter", style: TextStyle(
-              fontSize: 20.0 * Styles.scale,
-              fontWeight: FontWeight.bold,
-              fontFamily: "Montserrat",
-            )),
+            child: Text("Se déconnecter", style: Styles.title2TextStyle),
           ),
           Gap(10.0 * Styles.scale),
           SizedBox(
             height: 60.0 * Styles.scale,
             child: SingleChildScrollView(
-              child: Text("Voulez-vous vraiment vous déconnecter ? Vos identifiants de connexion seront oubliés.", style: TextStyle(
-                fontSize: 17.0 * Styles.scale,
-                color: Colors.black54,
-                fontFamily: "Montserrat",
-              ), textAlign: TextAlign.justify),
+              child: Text("Voulez-vous vraiment vous déconnecter ? Vos identifiants de connexion seront oubliés.", style: Styles.subtitle2_54TextStyle, textAlign: TextAlign.justify),
             )
           ),
           Gap(20.0 * Styles.scale),
@@ -56,9 +48,7 @@ class DisconnectPopup extends StatelessWidget {
               child: Center(
                 child: Text(
                   "Se déconnecter",
-                  style: TextStyle(
-                    fontSize: 18.0 * Styles.scale,
-                    fontWeight: FontWeight.bold,
+                  style: Styles.subtitleTextStyle.copyWith(
                     color: Colors.white,
                   ),
                 ),
