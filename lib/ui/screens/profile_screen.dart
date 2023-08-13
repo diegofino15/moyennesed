@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:moyennesed/core/bug_handler.dart';
+import 'package:moyennesed/ui/popups/bug_detected_popup.dart';
 import 'package:moyennesed/ui/widgets/loading_animation.dart';
 import 'package:provider/provider.dart';
 import 'package:gap/gap.dart';
@@ -58,10 +60,13 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
     });
   }
   
-  void openBugReportingPopup() {
+  void openBugReportPopup() {
     showModalBottomSheet(
       context: context,
-      builder: (context) => const BugReportPopup(),
+      builder: (context) => ChangeNotifierProvider(
+        create: (_) => BugHandler.instance,
+        builder: (context, child) => const BugReportPopup(),
+      ),
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
     );
@@ -140,7 +145,7 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                   ),
                 ),
                 GestureDetector(
-                  onTap: openBugReportingPopup,
+                  onTap: openBugReportPopup,
                   child: Container(
                     width: 60.0 * Styles.scale,
                     height: 60.0 * Styles.scale,

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:moyennesed/core/bug_handler.dart';
 import 'package:moyennesed/ui/styles.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:moyennesed/core/app_data.dart';
+import 'package:provider/provider.dart';
 
 
 class BugReportPopup extends StatefulWidget {
@@ -14,46 +14,27 @@ class BugReportPopup extends StatefulWidget {
 }
 
 class _BugReportPopupState extends State<BugReportPopup> {
-  bool isSendingBugReport = false;
   bool sentBugReport = false;
+  bool errorOccured = false;
   
   Future<void> sendBugReport() async {
     if (sentBugReport) { return; }
-    setState(() => isSendingBugReport = true );
 
-    final Map<String, dynamic> debugData = {
-      "date": DateTime.timestamp().toString(),
-      "connectionLog": AppData.instance.connectionLog,
-      "gradesLog": AppData.instance.gradesLog,
-    };
-
-    try {
-      CollectionReference collectionRef = FirebaseFirestore.instance.collection(possibleBugs.values.elementAt(currentBug));
-      await collectionRef.add(debugData);
+    bool successful = await BugHandler.instance.sendBugReport(currentBug);
+    if (successful) {
       sentBugReport = true;
-      print("Successfully sent bug report !");
-    } catch (e) {
-      print("An error occured while sending bug report : $e");
+    } else {
+      sentBugReport = false;
+      errorOccured = true;
     }
-
-    setState(() {
-      isSendingBugReport = false;
-    });
   }
   
   int currentBug = 0;
-  final Map<String, String> possibleBugs = {
-    "Problème de connexion": "Connection",
-    "Problème de récupération des notes": "Grades",
-    "Fausses moyennes / faux coefs" : "Averages",
-    "Problème graphique": "Graphical",
-    "Autre" : "Other",
-  };
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).padding.bottom + (310.0 + 55.0 * possibleBugs.length + 40.0) * Styles.scale,
+      height: MediaQuery.of(context).padding.bottom + (310.0 + 55.0 * BugHandler.instance.possibleBugs.length + 40.0) * Styles.scale,
       padding: EdgeInsets.all(20.0 * Styles.scale),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -69,7 +50,7 @@ class _BugReportPopupState extends State<BugReportPopup> {
           Gap(10.0 * Styles.scale),
           Column(
             children: List.generate(
-              possibleBugs.length,
+              BugHandler.instance.possibleBugs.length,
               (index) => Column(
                 children: [
                   GestureDetector(
@@ -86,7 +67,7 @@ class _BugReportPopupState extends State<BugReportPopup> {
                         children: [
                           SizedBox(
                             width: MediaQuery.of(context).size.width - 100.0 * Styles.scale,
-                            child: Text(possibleBugs.keys.elementAt(index), style: Styles.subtitle2_54TextStyle, overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
+                            child: Text(BugHandler.instance.possibleBugs.keys.elementAt(index), style: Styles.subtitle2_54TextStyle, overflow: TextOverflow.fade, maxLines: 1, softWrap: false),
                           ),
                           Icon(currentBug == index ? FluentIcons.checkmark_circle_24_filled : FluentIcons.circle_24_regular, size: 25.0 * Styles.scale),
                         ],
@@ -117,19 +98,21 @@ class _BugReportPopupState extends State<BugReportPopup> {
             ),
           ),
           Gap(20.0 * Styles.scale),
-          GestureDetector(
-            onTap: sendBugReport,
-            child: Container(
-              height: 60.0 * Styles.scale,
-              decoration: BoxDecoration(
-                color: const Color(0xFF798BFF),
-                borderRadius: BorderRadius.all(Radius.circular(10.0 * Styles.scale)),
-              ),
-              child: Center(
-                child: Text(
-                  sentBugReport ? "Envoyé !" : isSendingBugReport ? "Envoi..." : "Envoyer",
-                  style: Styles.subtitleTextStyle.copyWith(
-                    color: Colors.white,
+          Consumer<BugHandler>(
+            builder: (context, value, child) => GestureDetector(
+              onTap: sendBugReport,
+              child: Container(
+                height: 60.0 * Styles.scale,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF798BFF),
+                  borderRadius: BorderRadius.all(Radius.circular(10.0 * Styles.scale)),
+                ),
+                child: Center(
+                  child: Text(
+                    errorOccured ? "Envoi impossible" : sentBugReport ? "Envoyé !" : value.isSendingBugReport ? "Envoi..." : "Envoyer",
+                    style: Styles.subtitleTextStyle.copyWith(
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
