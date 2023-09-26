@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:moyennesed/core/bug_handler.dart';
-import 'package:moyennesed/ui/popups/bug_detected_popup.dart';
 import 'package:moyennesed/ui/widgets/loading_animation.dart';
 import 'package:provider/provider.dart';
 import 'package:gap/gap.dart';
