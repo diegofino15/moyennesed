@@ -242,9 +242,10 @@ class _ProfileScreenState extends State<ProfileScreen> with TickerProviderStateM
                                 AppData.instance.displayedAccountID = "${account.childrenAccounts.elementAt(index).id}";
                                 if (!AppData.instance.displayedAccount.gotGrades && !AppData.instance.displayedAccount.isGettingGrades) {
                                   AppData.instance.displayedAccount.parseGrades().then(
-                                    (value) => setState(() {
+                                    (value){
                                       CacheHandler.saveAllCache(account.toCache(false));
-                                    })
+                                      if (mounted) { setState(() => {}); }
+                                    }
                                   );
                                 }
                                 AppData.instance.updateUI = true; // Update the UI //

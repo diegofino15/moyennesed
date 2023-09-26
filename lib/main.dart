@@ -19,8 +19,7 @@ void main() async {
 
   // Verify app ID //
   await FirebaseAppCheck.instance.activate(
-    webRecaptchaSiteKey: 'recaptcha-v3-site-key',
-    appleProvider: AppleProvider.appAttest,
+    appleProvider: AppleProvider.deviceCheck,
   );
 
   // Init the AppData instance //

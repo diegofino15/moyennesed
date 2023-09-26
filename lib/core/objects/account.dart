@@ -245,7 +245,6 @@ class Account with ChangeNotifier {
         case 200:
           print("Successfully got grades !");
           saveGradesData(gradesResponse);
-          selectedPeriod = periods.values.isEmpty ? "A001" : periods.values.last.code;
           AppData.instance.updateUI = true; // Update the UI //
           break;
         
@@ -282,14 +281,17 @@ class Account with ChangeNotifier {
     }
     
     // Create all periods and subjects //
+    selectedPeriod = "";
     final List<String> possiblePeriodCodes = ["A001", "A002", "A003"];
     for (Map<String, dynamic> periodData in gradesResponse["data"]["periodes"]) {
       if (possiblePeriodCodes.contains(periodData["codePeriode"])) {
         Period period = Period();
         period.fromED(periodData);
         periods.addAll({period.code: period});
+        if (!period.isFinished && selectedPeriod.isEmpty) { selectedPeriod = period.code; }
       }
     }
+    if (selectedPeriod.isEmpty) { selectedPeriod = periods.values.last.code; }
 
     // Add all the grades to corresponding period //
     for (Map<String, dynamic> gradeData in gradesResponse["data"]["notes"]) {
@@ -313,7 +315,6 @@ class Account with ChangeNotifier {
     }
 
     wasLoggedIn = true;
-    AppData.instance.gradesLog = DemoAccount.demoAccountGrades;
   }
 
   // Cache //
@@ -366,9 +367,9 @@ class Account with ChangeNotifier {
       Period period = Period();
       period.fromCache(periodCache);
       periods.addAll({period.code: period});
+      if (!period.isFinished && selectedPeriod.isEmpty) { selectedPeriod = period.code; }
     }
-
-    selectedPeriod = periods.values.isEmpty ? "A001" : periods.values.last.code;
+    if (selectedPeriod.isEmpty) { selectedPeriod = periods.values.last.code; }
 
     isFromCache = true;
 

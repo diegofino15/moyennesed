@@ -60,12 +60,6 @@ class Grade {
         });
       }
     }
-
-    // DEBUG //
-    if (!["A001", "A002", "A003"].contains(periodCode)) {
-      print(periodCode);
-    }
-
   }
 
   // Init from cache //
