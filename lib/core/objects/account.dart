@@ -112,7 +112,7 @@ class Account with ChangeNotifier {
         loginResponse = AppData.instance.debugConnectionLog;
       } else {
         final http.Response encodedLoginResponse = await http.post(
-          Uri.parse("https://api.ecoledirecte.com/login.awp"),
+          Uri.parse("https://api.ecoledirecte.com/v3/login.awp"),
           body: "data=${jsonEncode(loginPayload)}",
           headers: {"user-agent": "Mozilla/5.0"},
           encoding: utf8,
