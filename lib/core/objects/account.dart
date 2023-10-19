@@ -112,7 +112,7 @@ class Account with ChangeNotifier {
         loginResponse = AppData.instance.debugConnectionLog;
       } else {
         final http.Response encodedLoginResponse = await http.post(
-          Uri.parse("https://api.ecoledirecte.com/v3/login.awp"),
+          Uri.parse("https://api.ecoledirecte.com/v3/login.awp?v=4"),
           body: "data=${jsonEncode(loginPayload)}",
           headers: {"user-agent": "Mozilla/5.0"},
           encoding: utf8,
@@ -232,7 +232,7 @@ class Account with ChangeNotifier {
         gradesResponse = AppData.instance.debugGradesLog;
       } else {
         final http.Response encodedGradesResponse = await http.post(
-          Uri.parse("https://api.ecoledirecte.com/v3/eleves/$id/notes.awp?verbe=get"),
+          Uri.parse("https://api.ecoledirecte.com/v3/eleves/$id/notes.awp?verbe=get&v=4"),
           body: "data=${jsonEncode(gradesPayload)}",
           headers: {"user-agent": "Mozilla/5.0", "x-token": token},
         );
